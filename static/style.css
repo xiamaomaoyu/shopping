@@ -14,12 +14,12 @@
   }
 
   .localBottom{
-      font-size: 65px;
+      font-size: 70px;
   }
 
   .localBottom > li{
-      margin-left: 8%;
-      margin-right: 8%;
+      margin: 2% 7%;
+
   }
 
   input{
@@ -38,14 +38,12 @@
 
   .card {
     position: relative;
-    margin: 3% 2%;
     min-width: 0;
     word-wrap: break-word;
     background-color: #fff;
     background-clip: border-box;
     border: none;
     border-radius: 10px;
-    width: 46%;
     padding-bottom: 3px;
       float: left;
     font: 30px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
@@ -55,6 +53,35 @@
       padding: 0 15px;
   }
 
+  .itemCard{
+     width: 46%;
+     margin: 3% 2%;
+
+  }
+
+  .cartImage{
+      margin: 2% 5%;
+
+  }
+
+  .cartCard{
+      margin: 5% 0 0 0;
+      width: 100%;
+      border-radius: 20px;
+  }
+
+  .card-title{
+      font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+  }
+
+  .card-text{
+      font: 30px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      color: #555555;
+  }
+
+  .card-body{
+      margin: 2% 0;
+  }
 
     body {
       background-color: #EEEEEE;
@@ -73,4 +100,42 @@
   .divButton > img{
       clip-path: circle(45% at 50% 50%);
       margin-bottom: 5%;
+  }
+
+  .cartTitle{
+      color: white;
+      font: 60px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      float: left;
+      margin: 5%;
+  }
+
+  .cartManage{
+
+      color:white; font-size: 50px; float: right; margin:5%;
+  }
+
+  .card-horizontal {
+    display: flex;
+    flex: 1 1 auto;
+  }
+
+  .checkoutBotton{
+
+      background-color: coral;
+      border-radius: 50px;
+      border: none;
+      color: white;
+      margin: 2% 5%;
+      padding: 3% 5%;
+      font: 50px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+
+  }
+
+  .cartTotal{
+      font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      color: coral;
+  }
+    .cartTotal2{
+      font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      color: black;
   }
