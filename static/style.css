@@ -102,6 +102,16 @@
       margin-bottom: 5%;
   }
 
+  .fiveButton{
+      width: 15%;
+      height: 25%;
+      text-align: center;
+      color: #555555;
+      font: 25px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      float: left;
+      margin: 0 2.5%;
+  }
+
   .cartTitle{
       color: white;
       font: 60px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
@@ -135,7 +145,63 @@
       font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
       color: coral;
   }
-    .cartTotal2{
+
+  .cartTotal2{
       font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
       color: black;
   }
+
+  .itemTitle{
+      font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      font-weight: bold;
+      color: black;
+  }
+
+  .itemPrice{
+      font: 60px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      color: coral;
+  }
+  .itemSaleAmount{
+      font: 30px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      color: #989898;
+      float: right;
+  }
+
+  .itemSelection{
+      font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      color: black;
+      padding: 2% 5%;
+  }
+
+  .userLevel{
+      font: 30px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      color: white;
+      float: right;
+  }
+
+  .userGreeting{
+      color: white;
+      font: 60px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      float: left;
+      margin: 5% 0;
+
+  }
+
+  .fiveTabs{
+      width: 20%;
+      height: 25%;
+      text-align: center;
+      color: #555555;
+      font: 35px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      float: left;
+      padding: 2% 1%;
+
+  }
+
+  /* active tab color */
+.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+       background-color: #EEEEEE;
+        border: none;
+       border-bottom: solid;
+
+}
