@@ -19,7 +19,12 @@
 
   .localBottom > li{
       margin: 2% 7%;
+  }
 
+  .itemBottomIcon{
+      font-size: 70px;
+      padding: 8% 5%;
+      color: #747474;
   }
 
   input{
@@ -199,9 +204,31 @@
   }
 
   /* active tab color */
-.nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
-       background-color: #EEEEEE;
-        border: none;
-       border-bottom: solid;
+  .nav-tabs>li.active>a, .nav-tabs>li.active>a:hover, .nav-tabs>li.active>a:focus {
+      background-color: #EEEEEE;
+      border: none;
+      border-bottom: solid;
 
-}
+  }
+
+  .addToCart{
+      background-color: orange;
+      border-radius: 60px  0  0 60px;
+      border: none;
+      color: white;
+      margin: 2% -10px 2% 0;
+      padding: 5% 10%;
+      font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+
+  }
+
+  .purchaseNow{
+      background-color: coral;
+      border-radius:  0 60px 60px 0;
+      border: none;
+      color: white;
+      margin: 2% 0  2% -10px;
+      padding: 5% 10%;
+      font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+
+  }
