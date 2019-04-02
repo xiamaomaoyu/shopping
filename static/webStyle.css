@@ -1,6 +1,7 @@
-.body{
-    background-color: black;
+body{
+    background-color: #fafafa !important;
 }
+
 .firstBlock {
   width: 100%;
   min-width: 1100px;
@@ -11,18 +12,20 @@
 }
 
 .logo{
-    padding: 10px 0;
+    padding: 10px 1%;
     width: 300px;
     float: left;
 }
 
 .searchBundle{
     background-color: white;
+    height: auto;
     width: 40%;
     padding: 10px 2%;
     float: left;
     margin-top: 40px;
     text-align: left;
+    margin-left: 3%;
 
 }
 
@@ -37,12 +40,14 @@
 
 
 .loginBundle{
-   width: 20%;
+   width: 22%;
+   min-width: 200px;
    text-align: center;
    float: right;
-   margin: 30px 30px 0 30px;
    color: white;
    overflow: hidden;
+    margin: 30px 0 0 0;
+
 }
 
 .loginIcon{
@@ -66,9 +71,10 @@
 .cartBundle{
     float: right;
     width: 5%;
-    padding: 30px 0 0 0;
     color: white;
     text-align: center;
+    margin: 30px 2% 0 1%;
+
 }
 
 .homeCartIcon{
@@ -148,7 +154,6 @@
 .thirdBlock{
     width: 100%;
     min-width: 1100px;
-    
 
     height: 400px;
     overflow: hidden;
@@ -170,7 +175,7 @@
   border: none;
   background-color: white;
   width: 20%;
-  height: 550px;
+  height: 536px;
 }
 
 /* Style the buttons inside the tab */
@@ -180,7 +185,7 @@
   color: black;
   padding: 20px 16px;
   width: 100%;
-  border: none;
+  border-color: lightgray;
   outline: none;
   text-align: left;
   cursor: pointer;
@@ -211,7 +216,7 @@
   border: 1px solid #ccc;
   width: 70%;
   border-left: none;
-  height: 550px;
+  height: 536px;
   display: none;
   background-color: white;
   text-align: center;
@@ -256,14 +261,16 @@
 .hotBrandsWrap{
     width: 100%;
     min-width: 1100px;
-    
     height: 150px;
 }
 .hotBrandsBundle{
-    width: 80%;
+    width: 75%;
     float: right;
     right: 0;
-    margin-top: 2%;
+    margin: 2% 2% 0 2%;
+    background-color: white;
+
+
 }
 
 .hotBrand{
@@ -271,7 +278,6 @@
     float: left;
     text-align: center;
     padding: 0 2%;
-
 }
 
 .hotBrandsImgWrap{
@@ -288,22 +294,22 @@
 .specialsWrap{
     width: 100%;
     min-width: 1100px;
-
-
-    background-color: white;
+    text-align: center;
 }
 
 .special{
     margin-top: 5%;
+    min-width: 1100px;
     width: 100%;
     text-align: center;
 }
 
 .specialBanner{
-    min-width: 1200px;
-    max-width: 1500px;
-    padding-bottom: 1%;
+    width: 80% !important;
+    padding: 1% 0;
     display: inline-block;
+    background-color: white;
+
 }
 .specialBannerLogo{
     width: 5%;
@@ -333,34 +339,35 @@
 
 
 .specialContent{
-    min-width: 1200px;
-    max-width: 1500px;
+    width: 80%;
     height: 400px;
     display: inline-block;
     text-align: left;
+    background-color: white;
+    margin-top: 0;
+
 }
 
 .specialContent1{
-    width: 20%;
+    width: 16%;
     height: 400px;
     margin: 0 0 0 0;
     position: absolute;
-
 }
 
 .specialContent2{
-    width: 20%;
+    width: 16%;
     height: 200px;
-    margin: 0 0 0 20%;
+    margin: 0 0 0 16%;
     position: absolute;
 
 
 }
 
 .specialContent3{
-    width: 20%;
+    width: 16%;
     height: 200px;
-    margin: 200px 0 0 20%;
+    margin: 200px 0 0 16%;
     position: absolute;
 
 
@@ -368,27 +375,27 @@
 }
 
 .specialContent4{
-    width: 40%;
+    width: 32%;
     height: 400px;
-    margin: 0 0 0 40%;
+    margin: 0 0 0 32%;
     position: absolute;
 
 
 }
 
 .specialContent5{
-    width: 20%;
+    width: 16%;
     height: 200px;
-    margin: 0 0 0 880px;
+    margin: 0 0 0 64%;
     position: absolute;
 
 
 }
 
 .specialContent6{
-    width: 20%;
+    width: 16%;
     height: 200px;
-    margin: 200px 0 0 880px;
+    margin: 200px 0 0 64%;
     position: absolute;
 
 }
