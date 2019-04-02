@@ -28,6 +28,10 @@ def user():
 def orders():
     return render_template("orders.html")
 
+@app.route('/webHomepage')
+def webHomepage():
+    return render_template("webHomepage.html")
+
 
 if __name__ == '__main__':
     app.run(port=80, host='0.0.0.0')
