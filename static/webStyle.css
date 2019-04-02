@@ -398,5 +398,49 @@ body{
     height: 200px;
     margin: 200px 0 0 64%;
     position: absolute;
+}
 
+.footerWrap{
+    border: none;
+    margin-top: 3%;
+    background-color: white;
+    color: #555555;
+        width: 100%;
+    min-width: 1100px;
+    text-align: center;
+}
+
+.footerWrap a:hover {
+  color: coral;
+  text-decoration: none;
+}
+
+.footerLinks{
+    padding: 0 10%;
+}
+
+.footerTitle {
+    font: 20px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+    font-weight: bold;
+    color: #555555;
+    margin: 5% 0;
+}
+
+.footerText {
+    font: 15px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+    font-weight: normal;
+    text-decoration: none;
+    color: #555555;
+}
+
+.footerLogo{
+    width: 200px;
+}
+
+.contact-item{
+        margin: 5% 0;
+}
+
+.vl{
+      border-right: 1px solid #dddddd;
 }
