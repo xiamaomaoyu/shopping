@@ -1,24 +1,25 @@
-body{
+body {
     background-color: #fafafa !important;
-    min-width: 1100px;!important;
+    min-width: 1100px;
+!important;
 }
 
 .firstBlock {
-  width: 100%;
-  min-width: 1100px;
-  overflow: hidden;
-  background-color: coral;
-  text-align: center;
-  height: 125px;
+    width: 100%;
+    min-width: 1100px;
+    overflow: hidden;
+    background-color: coral;
+    text-align: center;
+    height: 125px;
 }
 
-.logo{
+.logo {
     padding: 10px 1%;
     width: 300px;
     float: left;
 }
 
-.searchBundle{
+.searchBundle {
     background-color: white;
     height: auto;
     width: 40%;
@@ -30,46 +31,45 @@ body{
 
 }
 
-.searchInput{
-  font: 15px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
-  border: none;
+.searchInput {
+    font: 15px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+    border: none;
 }
 
-.searchIcon{
-  float: right;
+.searchIcon {
+    float: right;
 }
 
-
-.loginBundle{
-   width: 22%;
-   min-width: 200px;
-   text-align: center;
-   float: right;
-   color: white;
-   overflow: hidden;
+.loginBundle {
+    width: 22%;
+    min-width: 200px;
+    text-align: center;
+    float: right;
+    color: white;
+    overflow: hidden;
     margin: 30px 0 0 0;
 
 }
 
-.loginIcon{
+.loginIcon {
     width: 70px;
     float: left;
 }
 
-.loginTextBundle{
+.loginTextBundle {
     float: left;
     width: 60%;
     padding: 5%;
 }
 
-.loginText{
-    font: 15px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+.loginText {
+    font: 15px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
     font-weight: bold;
     color: white;
     margin: 1% 0;
 }
 
-.cartBundle{
+.cartBundle {
     float: right;
     width: 5%;
     color: white;
@@ -78,14 +78,12 @@ body{
 
 }
 
-.homeCartIcon{
+.homeCartIcon {
     font-size: 50px;
     width: 100%;
 }
 
-
-
-.secondBlock{
+.secondBlock {
     min-width: 1100px;
     width: 100%;
     overflow: hidden;
@@ -93,25 +91,25 @@ body{
 }
 
 .secondRight {
-  width: 80%;
-  float: right;
-  overflow: hidden;
-  background-color: #f2f2f2;
+    width: 80%;
+    float: right;
+    overflow: hidden;
+    background-color: #f2f2f2;
 }
 
-.secondRight a{
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 14px 25px;
-  text-decoration: none;
-  font: 18px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+.secondRight a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 14px 25px;
+    text-decoration: none;
+    font: 18px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
 
 }
 
 .secondRight a:hover {
-  background-color: #ddd;
-  color: black;
+    background-color: #ddd;
+    color: black;
 }
 
 .secondRight a.active {
@@ -119,31 +117,26 @@ body{
     color: white;
 }
 
-
-
-
-
-
 .secondLeft {
-  width: 20%;
-  float: left;
-  overflow: hidden;
-  background-color: #f2f2f2;
+    width: 20%;
+    float: left;
+    overflow: hidden;
+    background-color: #f2f2f2;
 }
 
-.secondLeft a{
-  float: left;
-  color: black;
-  text-align: center;
-  padding: 14px 25px;
-  text-decoration: none;
-  font: 18px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+.secondLeft a {
+    float: left;
+    color: black;
+    text-align: center;
+    padding: 14px 25px;
+    text-decoration: none;
+    font: 18px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
 
 }
 
 .secondLeft a:hover {
-  background-color: #ddd;
-  color: black;
+    background-color: #ddd;
+    color: black;
 }
 
 .secondLeft a.active {
@@ -151,8 +144,7 @@ body{
     color: white;
 }
 
-
-.thirdBlock{
+.thirdBlock {
     width: 100%;
     min-width: 1100px;
 
@@ -160,90 +152,87 @@ body{
     overflow: hidden;
 }
 
-
-.leftBar{
+.leftBar {
     z-index: 1;
     position: absolute;
     width: 100%;
-    
+
     float: left;
 }
 
-
-
 .tab {
-  float: left;
-  border: none;
-  background-color: white;
-  width: 20%;
-  min-width: 220px;
-  height: 536px;
+    float: left;
+    border: none;
+    background-color: white;
+    width: 20%;
+    min-width: 220px;
+    height: 536px;
 }
 
 /* Style the buttons inside the tab */
 .tab button {
-  display: block;
-  background-color: inherit;
-  color: black;
-  padding: 20px 16px;
-  width: 100%;
-  min-width: 220px;
-  border: #dddddd solid 1px;
-  border-top: none;
-  outline: none;
-  text-align: left;
-  cursor: pointer;
-  font-size: 18px;
-  height: 67px;
+    display: block;
+    background-color: inherit;
+    color: black;
+    padding: 20px 16px;
+    width: 100%;
+    min-width: 220px;
+    border: #dddddd solid 1px;
+    border-top: none;
+    outline: none;
+    text-align: left;
+    cursor: pointer;
+    font-size: 18px;
+    height: 67px;
 }
 
 /* Change background color of buttons on hover */
 .tab button:hover {
-  background-color: #ddd;
+    background-color: #ddd;
 }
 
 /* Create an active/current "tab button" class */
 .tab button.active {
-  background-color: #ccc;
+    background-color: #ccc;
 }
 
-.tab a{
-  color: #555555;
-  text-align: center;
-  text-decoration: none;
-  font: 15px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+.tab a {
+    color: #555555;
+    text-align: center;
+    text-decoration: none;
+    font: 15px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
 }
 
 /* Style the tab content */
 .tabcontent {
-  padding: 0px 12px;
-  border: 1px solid #ccc;
-  width: 70%;
-  border-left: none;
-  height: 536px;
-  display: none;
-  background-color: white;
-  text-align: center;
+    padding: 0px 12px;
+    border: 1px solid #ccc;
+    width: 70%;
+    border-left: none;
+    height: 536px;
+    display: none;
+    background-color: white;
+    text-align: center;
 }
 
 /* Clear floats after the tab */
 .clearfix::after {
-  content: "";
-  clear: both;
-  display: table;
+    content: "";
+    clear: both;
+    display: table;
 }
 
-.slidingAdsWrap{
-  width: 100%;
-  min-width: 1100px;
-  
-  z-index: 0;
-  float: left;
-  position: absolute;
+.slidingAdsWrap {
+    width: 100%;
+    min-width: 1100px;
+
+    z-index: 0;
+    float: left;
+    position: absolute;
 
 }
 
-.slidingAds{
+.slidingAds {
     padding: 0;
     margin: 0;
     margin-left: 20%;
@@ -251,7 +240,7 @@ body{
 }
 
 .slidingAds .carousel .item {
-  height: 400px;
+    height: 400px;
 }
 
 .slidingAds .item img {
@@ -261,13 +250,13 @@ body{
     min-height: 400px;
 }
 
-
-.hotBrandsWrap{
+.hotBrandsWrap {
     width: 100%;
     min-width: 1100px;
     height: 150px;
 }
-.hotBrandsBundle{
+
+.hotBrandsBundle {
     width: 75%;
     float: right;
     right: 0;
@@ -275,41 +264,39 @@ body{
     background-color: white;
     border: #dddddd solid 1px;
 
-
 }
 
-.hotBrand{
+.hotBrand {
     width: 20%;
     float: left;
     text-align: center;
     padding: 0 2%;
 }
 
-.hotBrandsImgWrap{
+.hotBrandsImgWrap {
     width: 80px;
     height: 80px;
 }
 
-.hotBrandImg{
+.hotBrandImg {
     width: 80px;
     height: auto;
 }
 
-
-.specialsWrap{
+.specialsWrap {
     width: 100%;
     min-width: 1100px;
     text-align: center;
 }
 
-.special{
+.special {
     margin-top: 5%;
     min-width: 1100px;
     width: 100%;
 
 }
 
-.specialBanner{
+.specialBanner {
     margin: 0 10%;
     width: 80%;
     padding: 1% 0;
@@ -318,38 +305,37 @@ body{
     border: #dddddd solid 1px;
     border-bottom: none;
 
-
-
 }
-.specialBannerLogo{
+
+.specialBannerLogo {
     width: 5%;
     float: left;
     margin-left: 2%;
 }
 
-.specialBannerTextWrap{
+.specialBannerTextWrap {
     margin: 2% 0 0 2%;
     float: left;
     text-align: left;
     width: 40%;
 }
 
-.specialBannerTitle{
-    font: 20px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+.specialBannerTitle {
+    font: 20px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
     color: black;
     font-weight: bold;
 
 }
-.specialBannerText{
-    font: 15px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+
+.specialBannerText {
+    font: 15px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
     color: #555555;
-    margin-left:2%;
+    margin-left: 2%;
     display: inline;
 
 }
 
-
-.specialContent{
+.specialContent {
     width: 80%;
     height: 400px;
     display: inline-block;
@@ -361,87 +347,99 @@ body{
 
 }
 
-.specialContent1{
+.specialContent1 {
     width: 16%;
-    min-width: 176px;!important;
+    min-width: 176px;
+!important;
     height: 400px;
     margin: 0 0 0 0;
     position: absolute;
+    border: white solid 1px;
+
 }
 
-.specialContent2{
+.specialContent2 {
     width: 16%;
-    min-width: 176px;!important;
+    min-width: 176px;
+!important;
     height: 200px;
     margin: 0 0 0 16%;
     position: absolute;
-
+    border: white solid 1px;
 
 }
 
-.specialContent3{
+.specialContent3 {
     width: 16%;
-    min-width: 176px;!important;
+    min-width: 176px;
+!important;
     height: 200px;
     margin: 200px 0 0 16%;
     position: absolute;
-
-
+    border: white solid 1px;
 
 }
 
-.specialContent4{
+.specialContent4 {
     width: 32%;
-    min-width: 352px;!important;
+    min-width: 352px;
+!important;
     height: 400px;
     margin: 0 0 0 32%;
     position: absolute;
-
+    border: white solid 1px;
 
 }
 
-.specialContent5{
+.specialContent5 {
     width: 16%;
-    min-width: 176px;!important;
+    min-width: 176px;
+!important;
     height: 200px;
     margin: 0 0 0 64%;
     position: absolute;
-
+    border: white solid 1px;
 
 }
 
-.specialContent6{
+.specialContent6 {
     width: 16%;
-    min-width: 176px;!important;
+    min-width: 176px;
+!important;
     height: 200px;
     margin: 200px 0 0 64%;
     position: absolute;
+    border: white solid 1px;
+
 }
 
-.specialTimeLimitLeft{
+.specialTimeLimitLeft {
     width: 32%;
     min-width: 352px;
     height: 200px;
-    border: #dddddd solid 1px;
+    border: white solid 1px;
     position: absolute;
 }
-.specialTimeLimitLeftPosition1{
+
+.specialTimeLimitLeftPosition1 {
     margin: 0 0 0 0;
 }
-.specialTimeLimitLeftPosition2{
+
+.specialTimeLimitLeftPosition2 {
     margin: 0 0 0 32%;
 
 }
-.specialTimeLimitLeftPosition3{
+
+.specialTimeLimitLeftPosition3 {
     margin: 200px 0 0 0;
 
 }
-.specialTimeLimitLeftPosition4{
+
+.specialTimeLimitLeftPosition4 {
     margin: 200px 0 0 32%;
 }
 
-
-.specialTimeLimitRight{
+.specialTimeLimitRight {
     margin-left: 64%;
     width: 16%;
     min-width: 176px;
@@ -450,12 +448,13 @@ body{
     position: absolute;
 }
 
-.specialTimeLimitItemImg{
+.specialTimeLimitItemImg {
     width: 45%;
     height: 90%;
     margin: 10px;
     float: left;
 }
+
 .specialTimeLimitItemTextBundle {
     width: 48%;
     height: 100px;
@@ -474,6 +473,7 @@ body{
     position: absolute;
 
 }
+
 .specialTimeLimitItemLeftWrap {
     width: 50%;
     height: 100px;
@@ -482,33 +482,31 @@ body{
     z-index: 2;
     position: absolute;
 
-
 }
 
-
-.specialTimeLimitItemTitle{
-    font: 20px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+.specialTimeLimitItemTitle {
+    font: 20px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
     color: black;
     font-weight: bold;
 }
 
-.specialTimeLimitItemText{
-    font: 15px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+.specialTimeLimitItemText {
+    font: 15px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
     color: #555555;
     display: inline;
-        margin: 0;
+    margin: 0;
 
 }
 
-.specialTimeLimitItemPrice{
-    font: 25px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+.specialTimeLimitItemPrice {
+    font: 25px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
     color: coral;
     display: inline;
     margin: 0;
 }
 
-.specialTimeLimitItemBuyButton{
-    font: 17px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+.specialTimeLimitItemBuyButton {
+    font: 17px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
     color: coral;
     padding: 3%;
     margin: 0 20px 0 0;
@@ -518,51 +516,47 @@ body{
 
 }
 
-
-
-
-
-.footerWrap{
+.footerWrap {
     border: none;
     margin-top: 3%;
     background-color: white;
     color: #555555;
-        width: 100%;
+    width: 100%;
     min-width: 1100px;
     text-align: center;
 }
 
 .footerWrap a:hover {
-  color: coral;
-  text-decoration: none;
+    color: coral;
+    text-decoration: none;
 }
 
-.footerLinks{
+.footerLinks {
     padding: 0 10%;
 }
 
 .footerTitle {
-    font: 20px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+    font: 20px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
     font-weight: bold;
     color: #555555;
     margin: 5% 0;
 }
 
 .footerText {
-    font: 15px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+    font: 15px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
     font-weight: normal;
     text-decoration: none;
     color: #555555;
 }
 
-.footerLogo{
+.footerLogo {
     width: 200px;
 }
 
-.contact-item{
-        margin: 5% 0;
+.contact-item {
+    margin: 5% 0;
 }
 
-.vl{
-      border-right: 1px solid #dddddd;
+.vl {
+    border-right: 1px solid #dddddd;
 }
