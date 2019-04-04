@@ -355,6 +355,7 @@ body {
     margin: 0 0 0 0;
     position: absolute;
     border: white solid 1px;
+    border-left: none;
 
 }
 
@@ -366,6 +367,7 @@ body {
     margin: 0 0 0 16%;
     position: absolute;
     border: white solid 1px;
+    border-left: none;
 
 }
 
@@ -377,6 +379,7 @@ body {
     margin: 200px 0 0 16%;
     position: absolute;
     border: white solid 1px;
+    border-left: none;
 
 }
 
@@ -388,6 +391,7 @@ body {
     margin: 0 0 0 32%;
     position: absolute;
     border: white solid 1px;
+    border-left: none;
 
 }
 
@@ -399,6 +403,7 @@ body {
     margin: 0 0 0 64%;
     position: absolute;
     border: white solid 1px;
+    border-left: none;
 
 }
 
@@ -410,6 +415,7 @@ body {
     margin: 200px 0 0 64%;
     position: absolute;
     border: white solid 1px;
+    border-left: none;
 
 }
 
