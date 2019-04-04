@@ -2,10 +2,13 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+
     <title>购物商城</title>
 
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
-    <link rel="stylesheet" href="/static/webStyle.css">
+    <link rel="stylesheet" href="/static/webStyle.css?v=1asdf22aiasdfjpjoiasdfowqsf790">
 
     <link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.1/css/all.css"
           integrity="sha384-Bx4pytHkyTDy3aJKjGkGoHPt3tvv6zlwwjc3iqN7ktaiEMLDPqLSZYts2OjKcBx1" crossorigin="anonymous">
@@ -14,6 +17,8 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="/static/js/main.js?v=q9euaffddaxcfasdfh"></script>
+        <script src="/static/js/specialTimer.js?v=q9euasdgaooiakkkjdnflakjsaasdfasdfh"></script>
 
 
 </head>
@@ -213,36 +218,6 @@
                 <a class="specialBannerTitle" style="font-size: 25px;"> 今日限时购 </a>
                 <a class="specialBannerText" style="font-size: 20px;"> 本场还剩 </a>
                 <a id="timeLimitSpecialTimer" class="specialBannerTitle" style="color: coral; font-weight: bolder"> </a>
-                <script>
-                    // Set the date we're counting down to
-                    var countDownDate = new Date("Apr 5, 2019 15:37:25").getTime();
-
-                    // Update the count down every 1 second
-                    var x = setInterval(function () {
-
-                        // Get todays date and time
-                        var now = new Date().getTime();
-
-                        // Find the distance between now and the count down date
-                        var distance = countDownDate - now;
-
-                        // Time calculations for days, hours, minutes and seconds
-                        var days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                        var hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                        var minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                        var seconds = Math.floor((distance % (1000 * 60)) / 1000);
-
-                        // Output the result in an element with id="demo"
-                        document.getElementById("timeLimitSpecialTimer").innerHTML =  hours + ": "
-                            + minutes + ": " + seconds;
-
-                        // If the count down is over, write some text
-                        if (distance < 0) {
-                            clearInterval(x);
-                            document.getElementById("timeLimitSpecialTimer").innerHTML = "EXPIRED";
-                        }
-                    }, 1000);
-                </script>
             </div>
         </div>
 

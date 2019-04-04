@@ -1,5 +1,6 @@
 body{
     background-color: #fafafa !important;
+    min-width: 1100px;!important;
 }
 
 .firstBlock {
@@ -175,6 +176,7 @@ body{
   border: none;
   background-color: white;
   width: 20%;
+  min-width: 220px;
   height: 536px;
 }
 
@@ -185,7 +187,8 @@ body{
   color: black;
   padding: 20px 16px;
   width: 100%;
-  border-color: #eeeeee;
+  min-width: 220px;
+  border: #dddddd solid 1px;
   border-top: none;
   outline: none;
   text-align: left;
@@ -270,6 +273,7 @@ body{
     right: 0;
     margin: 2% 2% 0 2%;
     background-color: white;
+    border: #dddddd solid 1px;
 
 
 }
@@ -359,6 +363,7 @@ body{
 
 .specialContent1{
     width: 16%;
+    min-width: 176px;!important;
     height: 400px;
     margin: 0 0 0 0;
     position: absolute;
@@ -366,6 +371,7 @@ body{
 
 .specialContent2{
     width: 16%;
+    min-width: 176px;!important;
     height: 200px;
     margin: 0 0 0 16%;
     position: absolute;
@@ -375,6 +381,7 @@ body{
 
 .specialContent3{
     width: 16%;
+    min-width: 176px;!important;
     height: 200px;
     margin: 200px 0 0 16%;
     position: absolute;
@@ -385,6 +392,7 @@ body{
 
 .specialContent4{
     width: 32%;
+    min-width: 352px;!important;
     height: 400px;
     margin: 0 0 0 32%;
     position: absolute;
@@ -394,6 +402,7 @@ body{
 
 .specialContent5{
     width: 16%;
+    min-width: 176px;!important;
     height: 200px;
     margin: 0 0 0 64%;
     position: absolute;
@@ -403,6 +412,7 @@ body{
 
 .specialContent6{
     width: 16%;
+    min-width: 176px;!important;
     height: 200px;
     margin: 200px 0 0 64%;
     position: absolute;
@@ -410,6 +420,7 @@ body{
 
 .specialTimeLimitLeft{
     width: 32%;
+    min-width: 352px;
     height: 200px;
     border: #dddddd solid 1px;
     position: absolute;
@@ -433,6 +444,7 @@ body{
 .specialTimeLimitRight{
     margin-left: 64%;
     width: 16%;
+    min-width: 176px;
     height: 400px;
     border: #dddddd solid 1px;
     position: absolute;
@@ -445,9 +457,9 @@ body{
     float: left;
 }
 .specialTimeLimitItemTextBundle {
-    width: 50%;
+    width: 48%;
     height: 100px;
-    margin: 10px 0 0 50%;
+    margin: 10px 20px 0 50%;
     text-align: left;
     position: absolute;
 
@@ -499,7 +511,7 @@ body{
     font: 17px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
     color: coral;
     padding: 3%;
-    margin: 0 2% 0 0;
+    margin: 0 20px 0 0;
     background-color: white;
     border: coral solid 1px;
     border-radius: 30px;
