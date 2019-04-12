@@ -1,4 +1,5 @@
-from flask import Flask, render_template
+from flask import Flask, render_template,jsonify
+from datetime import  datetime
 
 app = Flask(__name__)
 
@@ -31,6 +32,11 @@ def orders():
 @app.route('/webHomepage')
 def webHomepage():
     return render_template("webHomepage.html")
+
+@app.route('/getTime')
+def getTime():
+    ret = jsonify(datetime.now())
+    return ret
 
 
 if __name__ == '__main__':
