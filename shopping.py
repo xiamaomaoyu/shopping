@@ -33,11 +33,17 @@ def orders():
 def webHomepage():
     return render_template("webHomepage.html")
 
-@app.route('/getTime')
+@app.route('/getTime', methods=["POST","GET"])
 def getTime():
     ret = jsonify(datetime.now())
     return ret
 
+@app.after_request
+def after_request(response):
+    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,session_id')
+    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS,HEAD')
+    response.headers['Access-Control-Allow-Origin'] = '*'
+    return response
 
 if __name__ == '__main__':
     app.run(port=80, host='0.0.0.0')
