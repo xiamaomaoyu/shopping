@@ -2,7 +2,6 @@ from flask import Flask, render_template,jsonify
 from datetime import  datetime
 
 app = Flask(__name__)
-app.debug = 1
 app.secret_key = 'development key'
 
 
