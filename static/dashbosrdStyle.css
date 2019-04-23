@@ -1,0 +1,234 @@
+body {
+    font-family: "Lato", sans-serif;
+    transition: background-color .5s;
+    background-color: #EEEEEE;
+}
+
+.sidenav {
+    height: 100%;
+    width: 0;
+    position: fixed;
+    z-index: 1;
+    top: 0;
+    left: 0;
+    background-color: #272d38;
+    overflow-x: hidden;
+    transition: 0.5s;
+    padding-top: 50px;
+}
+
+
+.sidenav .closebtn {
+    position: absolute;
+    top: 0;
+    right: 25px;
+    font-size: 36px;
+    margin-left: 50px;
+}
+
+#main {
+    transition: margin-left .5s;
+    padding: 16px;
+}
+
+
+.switch {
+    position: relative;
+    display: inline-block;
+    width: 30px;
+    height: 17px;
+}
+
+.switch input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+.slider:before {
+    position: absolute;
+    content: "";
+    height: 13px;
+    width: 13px;
+    left: 2px;
+    bottom: 2px;
+    background-color: white;
+    -webkit-transition: .4s;
+    transition: .4s;
+}
+
+input:checked + .slider {
+    background-color: #777;
+}
+
+input:focus + .slider {
+    box-shadow: 0 0 1px #777;
+}
+
+input:checked + .slider:before {
+    -webkit-transform: translateX(13px);
+    -ms-transform: translateX(13px);
+    transform: translateX(13px);
+}
+
+/* Rounded sliders */
+.slider.round {
+    border-radius: 34px;
+}
+
+.slider.round:before {
+    border-radius: 50%;
+}
+
+.header {
+    width: 100%;
+    height: 50px;
+    background-color: #272d38;
+}
+
+.tab-pane {
+    position: absolute;
+    width: 82%;
+    min-width: 995px;
+}
+
+a.button {
+    -moz-appearance: button;
+    appearance: button;
+
+    text-decoration: none;
+    color: initial;
+}
+
+a.tabButton {
+    width: 100%;
+    min-width: 200px;
+    border: none;
+    background-color: #272d38;
+    padding: 15px 0px 15px 32px;
+    text-decoration: none;
+    font: 17px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+    color: #fff;
+    display: block;
+    transition: 0.3s;
+}
+
+
+a.tabButton:hover {
+    background-color: #EEEEEE;
+}
+
+a.tabButton:hover {
+    color: #272d38;
+}
+
+a.tabButton:focus {
+    background-color: #EEEEEE;
+}
+
+a.tabButton:focus {
+    color: #272d38;
+}
+
+
+a.subTabButton {
+    width: 100%;
+    min-width: 200px;
+    border: none;
+    background-color: #3c434f;
+    padding: 15px 0px 15px 60px;
+    text-decoration: none;
+    font: 15px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+    color: #fff;
+    display: block;
+    -webkit-transition: all 0.3s;
+    -o-transition: all 0.3s;
+    transition: all 0.3s;
+}
+
+.tabBody{
+    padding: 10px 20px;
+    width: 100%;
+}
+
+
+.order-search-wrap{
+    text-align: right;
+}
+
+.order-filter-shortCuts{
+    width: 100%;
+}
+
+.order-filter-shortCuts a{
+    font-weight: normal;
+}
+
+
+.order-filter-shortCuts a.active{
+    font-weight: bold;
+    color: black;
+}
+
+select.order-filter-selector {
+   -webkit-appearance: button;
+   -webkit-border-radius: 2px;
+   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+   -webkit-padding-end: 2px;
+   -webkit-padding-start: 2px;
+   -webkit-user-select: none;
+   background-image: url(http://i62.tinypic.com/15xvbd5.png), -webkit-linear-gradient(#FAFAFA, #F4F4F4 40%, #E5E5E5);
+   background-position: 97% center;
+   background-repeat: no-repeat;
+   border: 1px solid #AAA;
+   color: #555;
+   font-size: inherit;
+   margin: 2px;
+   overflow: hidden;
+   padding: 5px 5px;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+   width: 100px;
+}
+
+.order-filter{
+   -webkit-appearance: button;
+   -webkit-border-radius: 2px;
+   -webkit-box-shadow: 0px 1px 3px rgba(0, 0, 0, 0.1);
+   -webkit-padding-end: 2px;
+   -webkit-padding-start: 2px;
+   -webkit-user-select: none;
+   border: 1px solid #AAA;
+   color: #555;
+   font-size: inherit;
+   margin: 2px;
+   overflow: hidden;
+   padding: 5px 5px;
+   text-overflow: ellipsis;
+   white-space: nowrap;
+
+}
+
+.order-body-content{
+    width: 100%;
+    min-width: 995px;
+    background-color: white;
+    padding: 10px 0;
+    margin-left: 2px;
+}
+
+.order-body-content p{
+    margin-bottom: 3px;
+}

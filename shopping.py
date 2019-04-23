@@ -2,6 +2,9 @@ from flask import Flask, render_template,jsonify
 from datetime import  datetime
 
 app = Flask(__name__)
+app.debug = 1
+app.secret_key = 'development key'
+
 
 
 @app.route('/')
@@ -33,17 +36,15 @@ def orders():
 def webHomepage():
     return render_template("webHomepage.html")
 
-@app.route('/getTime', methods=["POST","GET"])
+@app.route('/getTime')
 def getTime():
     ret = jsonify(datetime.now())
     return ret
 
-@app.after_request
-def after_request(response):
-    response.headers.add('Access-Control-Allow-Headers', 'Content-Type,Authorization,session_id')
-    response.headers.add('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE,OPTIONS,HEAD')
-    response.headers['Access-Control-Allow-Origin'] = '*'
-    return response
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
 
 if __name__ == '__main__':
-    app.run(port=80, host='0.0.0.0')
+    app.run(host='0.0.0.0',port=80)

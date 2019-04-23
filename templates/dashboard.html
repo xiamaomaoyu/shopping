@@ -1,0 +1,313 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="Cache-control" content="no-cache">
+    <meta http-equiv="Expires" content="-1">
+
+    <title>购物商城</title>
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/dashbosrdStyle.css?v=1asdf22oikajnklanvijpjoiasdfowqsf790">
+
+    <link href="/static/fontawesome-pro-5.8.1-web/css/all.css" rel="stylesheet"> <!--load all styles -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+
+</head>
+<body>
+<div class="header">
+    <label class="switch" style="z-index: 5; float: left; margin: 15px; margin-left: 32px;">
+        <input type="checkbox" onclick="toggleSideBar()" checked>
+        <span class="slider round"></span>
+    </label>
+</div>
+
+
+<div id="mySidenav" class="sidenav" style="width: 200px;">
+    <a data-toggle="tab" class="button tabButton" href="#tab1"><i class="far fa-abacus"></i>    店铺概况</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab2"><i class="far fa-store"></i>    店铺管理</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab3"><i class="far fa-tags"></i>    商品管理</a>
+    <a data-toggle="tab" class="button tabButton" onclick="toggleOrderSubTabs()" href="#tab4"><i class="far fa-shopping-cart"></i>   订单管理</a>
+    <a id="subOrder1" data-toggle="tab" class="button subTabButton" style="display: none" href="#">拼团订单</a>
+    <a id="subOrder2" data-toggle="tab" class="button subTabButton" style="display: none" href="#">批量发货</a>
+    <a id="subOrder3" data-toggle="tab" class="button subTabButton" style="display: none" href="#">订单包裹</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab5"><i class="far fa-lightbulb-on"></i>   营销中心</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab6"><i class="far fa-users-crown"></i>   用户画像</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-chart-bar"></i>   数据中心</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-swords"></i>   其他功能</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-alipay"></i>   更多选项</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-balance-scale"></i>   收支状况</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-ballot-check"></i>   待办事项</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-clipboard-user"></i>   用户反馈</a>
+
+</div>
+
+<div id="main" style="margin-left: 200px;">
+    <div id="tab1" class="tab-pane fade in active">
+        <h1>tab1</h1>
+    </div>
+
+    <div id="tab2" class="tab-pane fade ">
+        <h1>tab2</h1>
+    </div>
+
+    <div id="tab3" class="tab-pane fade ">
+        <h1>tab3</h1>
+    </div>
+
+    <div id="tab4" class="tab-pane fade ">
+        <div class="tabBody order-Header">
+            <h1 style="font-size: 30px;">订单</h1>
+            <a  href="#">详细使用说明</a>
+        </div>
+        <div class="tabBody order-search-wrap">
+            <input >
+            <button>搜索</button>
+        </div>
+        <div class="tabBody">
+            <div class="order-filter-shortCuts">
+                <a class="active">全部类型</a> |
+                <a >普通订单</a> |
+                <a >拼团订单</a> |
+                <a >虚拟商品</a> |
+                <a >直接支付</a> |
+                <a >代付订单</a> |
+                <a >扫码点餐</a>
+            </div>
+            <div class="order-filter-shortCuts">
+                <a class="active">全部状态</a> |
+                <a >待付款</a> |
+                <a >支付中</a> |
+                <a >待付尾款</a> |
+                <a >待发货</a> |
+                <a >已发货</a> |
+                <a >部分发货</a> |
+                <a >交易成功</a> |
+                <a >线下支付</a> |
+                <a >申请退款</a> |
+                <a >退款成功</a> |
+                <a >主动关闭</a> |
+                <a >自动关闭</a> |
+                <a >商家关闭</a> |
+                <a >待成团</a>
+            </div>
+        </div>
+        <div class="tabBody ">
+            <select class="order-filter-selector">
+              <option value="" disabled selected>所有店铺</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+
+            <select class="order-filter-selector">
+              <option value="" disabled selected>全部类型</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+
+            <select class="order-filter-selector">
+              <option value="" disabled selected>全部状态</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+
+            <select class="order-filter-selector">
+              <option value="" disabled selected>下单时间</option>
+              <option value="1">Option 1</option>
+              <option value="2">Option 2</option>
+              <option value="3">Option 3</option>
+            </select>
+
+            <input class="order-filter" type="date"> -
+            <input class="order-filter" type="date">
+
+            <button class="order-filter" style="width: 50px;"> 筛选 </button>
+            <button class="order-filter" style="width: 50px; background-color: #05728f; color: white"> 导出 </button>
+        </div>
+        <div class="tabBody">
+            <div class="order-body-content row">
+              <div class="col-sm-3">产品</div>
+              <div class="col-sm-2">售价/成本</div>
+              <div class="col-sm-2">合计</div>
+              <div class="col-sm-1">状态</div>
+              <div class="col-sm-3">收件人</div>
+              <div class="col-sm-1">渠道</div>
+            </div>
+
+            <div class="order-item">
+                <div class="order-body-content row" style="background-color: #f8f8f8">
+                  <div class="col-sm-3">
+                      <p>订单号：qj2niou23r8uijkqefwjknqo3iu1 </p>
+                      <p>交易号：qj2niou23r8uijkqefwj </p>
+                      <p>交易类型： 普通交易 </p>
+                  </div>
+                  <div class="col-sm-2">
+
+                  </div>
+                  <div class="col-sm-2">
+                      <a>$2333.233</a>
+                  </div>
+                  <div class="col-sm-1">
+                      <button>备注</button>
+                  </div>
+                  <div class="col-sm-3">
+                      <p>下单时间： 2019-03-10 09:05:12</p>
+                  </div>
+                  <div class="col-sm-1">
+
+                  </div>
+                </div>
+                <div class="order-body-content row" >
+                  <div class="col-sm-1">
+                    <img style="width:70px;height: 70px;" src="/static/img/milk2.jpg">
+                  </div>
+                  <div class="col-sm-2">
+                    <a>爱他美金装婴幼儿奶粉</a>
+                  </div>
+                  <div class="col-sm-2">
+                    <p>399.99 被马赛克了</p>
+                    <p>1 件</p>
+                  </div>
+                  <div class="col-sm-2">
+                    <p>总价： 399.99 </p>
+                    <p>优惠： 0.00 </p>
+                    <p>邮费： 4.94 </p>
+                    <p>合计： 44.93 </p>
+                    <p>成本： 36.00 </p>
+                    <p style="color: darkgreen">利润： 3.99 </p>
+
+                  </div>
+                  <div class="col-sm-1">
+                      <a>自动关闭</a>
+                  </div>
+                  <div class="col-sm-3">
+                      <img style="width: 40px; height: 40px;" src="/static/img/pink.jpg">
+                      <a>某个用户</a> | <a>所有订单</a><br><br>
+                      <p>李萌萌 12580125800</p>
+                      <p>100010 北京 北京市 朝阳区 一个美丽的地方</p>
+                  </div>
+                  <div class="col-sm-1">
+
+                  </div>
+                </div>
+            </div>
+
+            <div class="order-item">
+                <div class="order-body-content row" style="background-color: #f8f8f8">
+                  <div class="col-sm-3">
+                      <p>订单号：qj2niou23r8uijkqefwjknqo3iu1 </p>
+                      <p>交易号：qj2niou23r8uijkqefwj </p>
+                      <p>交易类型： 普通交易 </p>
+                  </div>
+                  <div class="col-sm-2">
+
+                  </div>
+                  <div class="col-sm-2">
+                      <a>$2333.233</a>
+                  </div>
+                  <div class="col-sm-1">
+                      <button>备注</button>
+                  </div>
+                  <div class="col-sm-3">
+                      <p>下单时间： 2019-03-10 09:05:12</p>
+                  </div>
+                  <div class="col-sm-1">
+
+                  </div>
+                </div>
+                <div class="order-body-content row" >
+                  <div class="col-sm-1">
+                    <img style="width:70px;height: 70px;" src="/static/img/milk2.jpg">
+                  </div>
+                  <div class="col-sm-2">
+                    <a>爱他美金装婴幼儿奶粉</a>
+                  </div>
+                  <div class="col-sm-2">
+                    <p>399.99 被马赛克了</p>
+                    <p>1 件</p>
+                  </div>
+                  <div class="col-sm-2">
+                    <p>总价： 399.99 </p>
+                    <p>优惠： 0.00 </p>
+                    <p>邮费： 4.94 </p>
+                    <p>合计： 44.93 </p>
+                    <p>成本： 36.00 </p>
+                    <p style="color: darkgreen">利润： 3.99 </p>
+
+                  </div>
+                  <div class="col-sm-1">
+                      <a>自动关闭</a>
+                  </div>
+                  <div class="col-sm-3">
+                      <img style="width: 40px; height: 40px;" src="/static/img/pink.jpg">
+                      <a>某个用户</a> | <a>所有订单</a><br><br>
+                      <p>李萌萌 12580125800</p>
+                      <p>100010 北京 北京市 朝阳区 一个美丽的地方</p>
+                  </div>
+                  <div class="col-sm-1">
+
+                  </div>
+                </div>
+            </div>
+        </div>
+
+
+    </div>
+
+    <div id="tab5" class="tab-pane fade">
+        <h1>tab5</h1>
+    </div>
+
+    <div id="tab6" class="tab-pane fade">
+        <h1>tab6</h1>
+    </div>
+
+    <div id="tab7" class="tab-pane fade">
+        <h1>tab7</h1>
+    </div>
+</div>
+
+
+<script>
+    function toggleSideBar() {
+        if (document.getElementById("mySidenav").style.width == "200px") {
+            closeNav();
+        } else {
+            openNav()
+        }
+    }
+
+    function openNav() {
+        document.getElementById("mySidenav").style.width = "200px";
+        document.getElementById("main").style.marginLeft = "200px";
+    }
+
+    function closeNav() {
+        document.getElementById("mySidenav").style.width = "0";
+        document.getElementById("main").style.marginLeft = "0";
+
+    }
+
+    function toggleOrderSubTabs() {
+        if (document.getElementById("subOrder1").style.display == "none") {
+            document.getElementById("subOrder1").style.display = "block";
+            document.getElementById("subOrder2").style.display = "block";
+            document.getElementById("subOrder3").style.display = "block";
+
+        } else {
+            document.getElementById("subOrder1").style.display = "none";
+            document.getElementById("subOrder2").style.display = "none";
+            document.getElementById("subOrder3").style.display = "none";
+        }
+    }
+</script>
+
+</body>
