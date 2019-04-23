@@ -2,6 +2,9 @@ from flask import Flask, render_template,jsonify
 from datetime import  datetime
 
 app = Flask(__name__)
+app.debug = 1
+app.secret_key = 'development key'
+
 
 
 @app.route('/')
@@ -38,6 +41,10 @@ def getTime():
     ret = jsonify(datetime.now())
     return ret
 
+@app.route('/dashboard')
+def dashboard():
+    return render_template('dashboard.html')
+
 
 if __name__ == '__main__':
-    app.run(port=80, host='0.0.0.0')
+    app.run(port=5002, debug=1)
