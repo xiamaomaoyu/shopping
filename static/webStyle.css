@@ -27,7 +27,7 @@ input:focus {outline:0;}
     background-color: white;
     height: auto;
     width: 40%;
-    padding: 8px 10px;
+    padding: 8px 10px 8px 0;
     float: left;
     margin-top: 40px;
     text-align: left;
@@ -39,6 +39,7 @@ input:focus {outline:0;}
     font: 20px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
     border: none;
     width: 90%;
+    padding-left: 10px;
 }
 
 .searchInput:focus{
