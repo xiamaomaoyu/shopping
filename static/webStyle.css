@@ -625,7 +625,7 @@ input:focus {outline:0;}
 
   ul.ui-autocomplete {
     background-color: #ffffff;
-    padding-inline-start: 0;
+    padding-inline-start: 10px;
     width: 40%;
   }
 
