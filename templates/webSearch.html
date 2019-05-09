@@ -20,6 +20,8 @@
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
 
 
+
+
 </head>
 <body>
 
@@ -37,14 +39,14 @@
     </script>
     <script>
     $(function() {
-    var availableTags;
-    var url = "/api/search/all_item_names";
-    $.getJSON(url, function (data){
-    availableTags = data;
-    $( "#searchInput" ).autocomplete({
-      source: availableTags
-    });
-    });
+        var availableTags;
+        var url = "/api/search/all_item_names";
+        $.getJSON(url, function (data){
+        availableTags = data;
+        $( "#searchInput" ).autocomplete({
+          source: availableTags
+        });
+        });
     })
     </script>
     <div class="cartBundle">
