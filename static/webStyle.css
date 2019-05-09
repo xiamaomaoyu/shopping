@@ -627,5 +627,6 @@ input:focus {outline:0;}
   }
 
   li.ui-menu-item{
-      font-size:30px;
+      font-size:20px;
+          list-style-type: none;
   }
