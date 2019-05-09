@@ -1,9 +1,10 @@
 from flask import Flask, render_template,jsonify
 from datetime import  datetime
+from api import api
 
 app = Flask(__name__)
 app.secret_key = 'development key'
-
+app.register_blueprint(api)
 
 
 @app.route('/')
@@ -19,9 +20,9 @@ def mycart():
 def mychat():
     return render_template("chat.html")
 
-@app.route('/item')
-def item():
-    return render_template("item.html")
+@app.route('/item/<id>')
+def item(id):
+    return render_template("item.html",id=id)
 
 @app.route('/user')
 def user():
@@ -35,15 +36,25 @@ def orders():
 def webHomepage():
     return render_template("webHomepage.html")
 
-@app.route('/getTime')
-def getTime():
-    ret = jsonify(datetime.now())
-    return ret
+@app.route('/webSearch/')
+@app.route('/webSearch/<keyword>')
+def webSearch(keyword=None):
+    if not keyword:
+        keyword = "A2二段"
+    return render_template("webSearch.html",keyword=keyword)
+
 
 @app.route('/dashboard')
 def dashboard():
     return render_template('dashboard.html')
 
 
+@app.route('/search/')
+@app.route('/search/<keyword>')
+def search(keyword=None):
+    if not keyword:
+        keyword = "A2二段"
+    return render_template("search.html",keyword=keyword)
+
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=80)
+    app.run(debug=True,port=5000)

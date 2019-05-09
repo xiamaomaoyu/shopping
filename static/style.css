@@ -1,3 +1,5 @@
+  button:focus {outline:0;}
+
   .navbar{
     margin-bottom: 0;
     border: none;
@@ -32,7 +34,14 @@
     -moz-border-radius: 50px;
     border-radius: 50px;
     border: none;
+  }
 
+  ul.ui-autocomplete {
+    background-color: #ffffff;
+  }
+
+  li.ui-menu-item{
+      font-size:30px;
   }
 
   .container{
@@ -66,6 +75,8 @@
 
   .cartImage{
       margin: 2% 5%;
+      width: 300px;
+      height: 300px;
 
   }
 
@@ -74,18 +85,39 @@
       width: 100%;
       border-radius: 20px;
   }
-
+  .searchCard{
+      margin: 1% 0 0 0;
+      width: 100%;
+      border-radius: 20px;
+  }
   .card-title{
       font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+  }
+  .card-price{
+      color: coral;
+      font-size: 40px;
+      padding-top: 150px;
+  }
+
+  #cardsWrap{
+      padding-bottom: 20%;
   }
 
   .card-text{
       font: 30px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
       color: #555555;
   }
+  .card-text-price{
+      font: 30px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      color: coral;
+  }
 
   .card-body{
       margin: 2% 0;
+  }
+
+  .card-img-top{
+      width: 100%;
   }
 
     body {
@@ -175,7 +207,12 @@
   .itemSelection{
       font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
       color: black;
-      padding: 2% 5%;
+      padding: 2%;
+      margin: 2% 3%;
+      border-radius: 45px;
+  }
+  .itemSelection:focus{
+      background-color: lightgoldenrodyellow;
   }
 
   .userLevel{
@@ -231,4 +268,8 @@
       padding: 5% 10%;
       font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
 
+  }
+
+  .detailImg{
+      width: 100%;
   }

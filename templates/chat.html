@@ -21,7 +21,7 @@
 
 <!-- top bar -->
 <nav class="navbar justify-content-between" style="background-color: coral">
-    <a class="navbar-brand cartTitle"> <i class="far fa-chevron-left"></i> </a>
+    <a onclick="toHome()" class="navbar-brand cartTitle"> <i class="far fa-chevron-left"></i> </a>
     <p class="cartTitle"> 澳洲制造客服 </p>
 </nav>
 
@@ -90,8 +90,28 @@
     <i style="color:white; font-size: 70px; margin: 4% 0; margin-right: 5%;   float: right" class="far fa-paper-plane"></i>
 </div>
 
+<script>
+    function toHome() {
+            url = "/";
+            window.location.assign(url);
+    }
 
+    function toChat() {
+            url = "/chat";
+            window.location.assign(url);
+    }
 
+    function toCart() {
+            url = "/cart";
+            window.location.assign(url);
+    }
+
+    function toUser() {
+            url = "/user";
+            window.location.assign(url);
+    }
+</script>
+</div>
 </body>
 
 </html>

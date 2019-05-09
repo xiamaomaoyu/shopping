@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+    <title>购物商城</title>
+	<link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+	<!--<link rel="stylesheet" href="https://pro.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-Bx4pytHkyTDy3aJKjGkGoHPt3tvv6zlwwjc3iqN7ktaiEMLDPqLSZYts2OjKcBx1" crossorigin="anonymous"> -->
+        <link href="/static/fontawesome-pro-5.8.1-web/css/all.css" rel="stylesheet"> <!--load all styles -->
+      <link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/base/jquery-ui.css">
+
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+	<script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+    <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
+    <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+
+</head>
+<body>
+<!-- top bar -->
+<div style="background-color: lightgray; width: 100%; height: 40%; text-align: center; position: relative">
+    <a onclick="toHome()" class="navbar-brand cartTitle"> <i class="far fa-chevron-left"></i> </a>
+    <input id="searchInput" style=" font-size: 30px; width: 50%; padding: 3%; margin: 4% 0;" {% if keyword %} value={{ keyword }} {% endif %} placeholder="爱他美奶粉2段">
+    <i onclick="searchAnother()" style="color:white; font-size: 70px; margin: 5% -4%; margin-right: 15%; float: right" class="far fa-search" ></i>
+    <script>
+        function searchAnother() {
+            url = "/search/"+document.getElementById("searchInput").value;
+            window.location.assign(url);
+        }
+    </script>
+    <script>
+    function toHome() {
+            url = "/";
+            window.location.assign(url);
+    }
+
+    function toChat() {
+            url = "/chat";
+            window.location.assign(url);
+    }
+
+    function toCart() {
+            url = "/cart";
+            window.location.assign(url);
+    }
+
+    function toUser() {
+            url = "/user";
+            window.location.assign(url);
+    }
+</script>
+
+</div>
+<script>
+$(function() {
+var availableTags;
+var url = "/api/search/all_item_names";
+$.getJSON(url, function (data){
+    availableTags = data;
+    $( "#searchInput" ).autocomplete({
+      source: availableTags
+    });
+});
+})
+</script>
+
+<div id="cardsWrap" class="container" style="padding-bottom: 10%;">
+</div>
+<script>
+
+function search() {
+
+    function addItemNode(item_data) {
+        var cardwrapper = document.createElement("div");
+        cardwrapper.className += " card searchCard";
+        cardwrapper.onclick = function goToItem(){
+            url = "/item/"+item_data.id;
+            window.location.assign(url);
+        }
+
+        var cardbundle = document.createElement("div");
+        cardbundle.className += "card-horizontal";
+        var cardImage = document.createElement("img");
+        cardImage.src="http://via.placeholder.com/300x300";
+        cardImage.src="/static/img/itemImg/"+ item_data.name +"/main.jpg"
+        cardImage.className += "cartImage";
+        var cardBody = document.createElement("div");
+        cardBody.className += "card-body";
+        var cardTitle = document.createElement("h4");
+        cardTitle.className += "card-title";
+        cardTitle.innerText = item_data.name;
+        var cardPrice = document.createElement("h2");
+        cardPrice.innerText = "$"+item_data.display_price;
+        cardPrice.className += "card-price";
+        cardId = document.createElement("p");
+        cardId.display = "hidden";
+        cardId.value = item_data.id;
+
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardPrice);
+        cardBody.appendChild(cardId);
+        cardbundle.appendChild(cardImage);
+        cardbundle.appendChild(cardBody);
+        cardwrapper.appendChild(cardbundle);
+        document.getElementById("cardsWrap").appendChild(cardwrapper);
+    }
+    var items;
+    var url = "/api/search/keyword/"+document.getElementById("searchInput").value;
+    $.getJSON(url, function (data){
+        items = data;
+        var i = 0;
+        for(i=0; i< items.length; i++){
+            addItemNode(items[i]);
+        }
+    });
+}
+
+search();
+
+
+</script>
+
+
+<!-- bottom bar -->
+<nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: white" role="navigation" >
+	<div class="container-fluid">
+        <ul class="nav navbar-nav localBottom">
+            <li class="active"><i class="fal fa-home" ></i></li>
+            <li>               <i class="fal fa-comment-dots"></i></li>
+            <li>               <i class="fal fa-shopping-cart"></i></li>
+            <li>               <i class="fal fa-user"> </i></li>
+        </ul>
+	</div>
+</nav>
+</body>
+</html>

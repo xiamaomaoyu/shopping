@@ -86,13 +86,34 @@
 <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: white" role="navigation" >
 	<div class="container-fluid">
         <ul class="nav navbar-nav localBottom">
-            <li class="active"><i class="fal fa-home" ></i></li>
-            <li>               <i class="fal fa-comment-dots"></i></li>
-            <li>               <i class="fal fa-shopping-cart"></i></li>
-            <li>               <i class="fal fa-user"> </i></li>
+            <li class="active"><i onclick="toHome()" class="fal fa-home" ></i></li>
+            <li>               <i onclick="toChat()" class="fal fa-comment-dots"></i></li>
+            <li>               <i onclick="toCart()" class="fal fa-shopping-cart"></i></li>
+            <li>               <i onclick="toUser()" class="fal fa-user"> </i></li>
         </ul>
 	</div>
 </nav>
+<script>
+    function toHome() {
+            url = "/";
+            window.location.assign(url);
+    }
+
+    function toChat() {
+            url = "/chat";
+            window.location.assign(url);
+    }
+
+    function toCart() {
+            url = "/cart";
+            window.location.assign(url);
+    }
+
+    function toUser() {
+            url = "/user";
+            window.location.assign(url);
+    }
+</script>
 
 </body>
 </html>

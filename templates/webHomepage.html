@@ -26,8 +26,14 @@
     <img class="logo" src="/static/img/logo.png">
     <div class="searchBundle">
         <input class="searchInput" placeholder="爱他美奶粉二段">
-        <i class="far fa-search searchIcon"></i>
+        <i onclick="searchAnother()" class="far fa-search searchIcon"></i>
     </div>
+    <script>
+        function searchAnother() {
+            url = "/webSearch/"+document.getElementById("searchInput").value;
+            window.location.assign(url);
+        }
+    </script>
     <div class="cartBundle">
         <i class="fal fa-shopping-cart homeCartIcon"></i>
         <p class="loginText"> 购物车 </p>

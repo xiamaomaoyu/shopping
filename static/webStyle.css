@@ -4,6 +4,10 @@ body {
 !important;
 }
 
+button:focus {outline:0;}
+input:focus {outline:0;}
+
+
 .firstBlock {
     width: 100%;
     min-width: 1100px;
@@ -23,7 +27,7 @@ body {
     background-color: white;
     height: auto;
     width: 40%;
-    padding: 10px 2%;
+    padding: 8px 10px;
     float: left;
     margin-top: 40px;
     text-align: left;
@@ -32,12 +36,21 @@ body {
 }
 
 .searchInput {
-    font: 15px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+    font: 20px/1 Tahoma, Helvetica, Arial, "\5b8b\4f53", sans-serif;
+    border: none;
+    width: 90%;
+}
+
+.searchInput:focus{
     border: none;
 }
 
 .searchIcon {
     float: right;
+    font-size: 20px;
+    margin-right: 10px;
+    margin-top: 3px;
+
 }
 
 .loginBundle {
@@ -521,6 +534,48 @@ body {
     border-radius: 30px;
 
 }
+
+
+  .card {
+    position: relative;
+    min-width: 0;
+    min-height: 450px;
+    word-wrap: break-word;
+    background-color: #fff;
+    background-clip: border-box;
+    border: none;
+    border-radius: 10px;
+    padding-bottom: 3px;
+      float: left;
+    font: 30px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+
+  }
+  .card-body{
+      padding: 0 15px;
+  }
+
+  .itemCard{
+     width: 20%;
+     margin: 3% 2%;
+
+  }
+  .card-text-price{
+      font: 30px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      color: coral;
+  }
+
+  .card-img-top{
+      width: 100%;
+  }
+
+  .card-text{
+      font: 30px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      color: #555555;
+  }
+
+  .card-body{
+      margin: 2% 0;
+  }
 
 .footerWrap {
     border: none;
