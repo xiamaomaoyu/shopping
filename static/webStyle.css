@@ -627,6 +627,7 @@ input:focus {outline:0;}
     background-color: #ffffff;
     padding-inline-start: 10px;
     width: 40%;
+      z-index: 5;
   }
 
   li.ui-menu-item{
