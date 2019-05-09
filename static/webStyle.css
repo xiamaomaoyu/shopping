@@ -621,3 +621,11 @@ input:focus {outline:0;}
 .vl {
     border-right: 1px solid #dddddd;
 }
+
+  ul.ui-autocomplete {
+    background-color: #ffffff;
+  }
+
+  li.ui-menu-item{
+      font-size:30px;
+  }
