@@ -33,6 +33,18 @@
             window.location.assign(url);
         }
     </script>
+    <script>
+    $(function() {
+    var availableTags;
+    var url = "/api/search/all_item_names";
+    $.getJSON(url, function (data){
+    availableTags = data;
+    $( "#searchInput" ).autocomplete({
+      source: availableTags
+    });
+    });
+    })
+    </script>
     <div class="cartBundle">
         <i class="fal fa-shopping-cart homeCartIcon"></i>
         <p class="loginText"> 购物车 </p>
