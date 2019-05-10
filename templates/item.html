@@ -58,6 +58,7 @@
             but.name = data.price_type;
             but.innerText = data.price_type;
             but.onclick = function selectPrice(){
+                but.focus();
                 var i;
                 for(i=0;i<itemdata.price_list.length;i++){
                     if(itemdata.price_list[i].price_type == this.name){
