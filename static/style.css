@@ -248,6 +248,33 @@
 
   }
 
+.addToCartNoticeWrapper {
+
+  position: fixed;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+
+  /* this is what centers your element in the fixed wrapper*/
+  display: flex;
+  flex-flow: column nowrap;
+  justify-content: center; /* aligns on vertical for column */
+  align-items: center; /* aligns on horizontal for column */
+
+
+}
+
+.addToCartNotice {
+  padding: 2% 5%;
+  text-align: center;
+
+  /* Just for styling */
+  background-color: rgba(83,83,83,0.8);
+  border: none;
+  font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+}
+
   .addToCart{
       background-color: orange;
       border-radius: 60px  0  0 60px;
@@ -256,6 +283,7 @@
       margin: 2% -10px 2% 0;
       padding: 5% 10%;
       font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      z-index: 5;
 
   }
 

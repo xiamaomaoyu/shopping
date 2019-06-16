@@ -57,8 +57,9 @@
             but.className += "itemSelection";
             but.name = data.price_type;
             but.innerText = data.price_type;
+            but.style.zIndex = 8;
             but.onclick = function selectPrice(){
-                but.focus();
+                this.focus();
                 var i;
                 for(i=0;i<itemdata.price_list.length;i++){
                     if(itemdata.price_list[i].price_type == this.name){
@@ -66,6 +67,7 @@
                     }
                 }
             };
+
             document.getElementById("pricesWrap").appendChild(but);
         }
 
@@ -84,9 +86,18 @@
 
 </script>
 
+
+<div id="addToCartNoticeWrapper" class="addToCartNoticeWrapper" style="display: none;"> <!-- Fixed element that spans the viewport -->
+  <div id="addToCartNotice" class="addToCartNotice" hidden>
+      <i style="font-size: 80px; color: orange" class="far fa-check"></i>
+      <br><br>
+      <p style="color: white">添加成功，在购物车等亲~</p>
+  </div> <!-- your actual centered element -->
+</div>
+
 <!-- Selection -->
 <div class="container" style="margin-top: 5%; background-color: white">
-    <div id="pricesWrap">
+    <div id="pricesWrap" style="z-index: 5">
     </div>
     <hr>
     <h2 class="itemSelection">服务 由澳洲制造你们的名字提供售后服务</h2>
@@ -95,6 +106,7 @@
 <div class="container" style="margin-top: 5%; text-align: center">
     <p class="itemSaleAmount" style="float: none"> 宝贝详情 </p>
 </div>
+
 
 <!-- Details -->
 <div id="itemDetails" class="container" style="margin-top: 1%; padding-bottom: 20%; background-color: white">
@@ -105,15 +117,17 @@
     <div  style="text-align: center; float: left; width: 40%;" >
         <i onclick="toHome()" class="fal fa-home itemBottomIcon "></i>
         <i onclick="toChat()" class="fal fa-comment-dots itemBottomIcon "></i>
-        <i onclick="toCart()" class="fal fa-shopping-cart itemBottomIcon "></i>
+        <i onclick="toCart()" id="cartIcon" class="fal fa-shopping-cart itemBottomIcon "></i>
     </div>
 
     <div style="text-align: center; float: right; width: 60%;">
-        <button class="addToCart">加入购物车</button>
+        <button id="addToCart" class="addToCart" onclick="addItemToCart()">加入购物车</button>
         <button class="purchaseNow">  立即购买  </button>
     </div>
 
 </nav>
+
+
 <script>
     function toHome() {
             url = "/";
@@ -133,6 +147,13 @@
     function toUser() {
             url = "/user";
             window.location.assign(url);
+    }
+
+    function addItemToCart() {
+        $('#addToCartNoticeWrapper').show(1).delay(1000).hide(1);
+        $('#addToCartNotice').show(1).delay(1000).hide(1);
+        //TODO send notification to /addItemToCart with{itemId, selectedPriceType}
+
     }
 </script>
 
