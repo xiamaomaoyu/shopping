@@ -60,12 +60,14 @@
 
                 var minus = document.createElement("span");
                 minus.className += "input-group-btn";
+                minus.style.height = "67px";
 
                 var minus_button = document.createElement("button");
                 minus_button.className += "btn btn-default btn-number";
                 minus_button.setAttribute("disable","disabled")
                 minus_button.setAttribute("data-type","minus");
                 minus_button.setAttribute("data-field",name)
+
                 minus_button.onclick = function (e) {
                 e.preventDefault();
 
@@ -118,6 +120,7 @@
                 input.value = quantity;
                 input.min = 1;
                 input.max = 99;
+                input.style.height = "67px";
                 input.onfocus = function () {
                 $(this).data('oldValue', $(this).val());
                 };
@@ -164,6 +167,7 @@
 
                 var add = document.createElement("span");
                 add.className += "input-group-btn";
+                add.style.height = "67px";
                 var add_button = document.createElement("button");
                 add_button.className += "btn btn-default btn-number";
                 add_button.setAttribute("data-type","plus");
