@@ -18,7 +18,6 @@ class cart_record:
 
 
 def get_records(phone_number):
-    print(phone_number)
     records = query_db("select item,item_price_type,quantity from cart_records where phone_number = ? ;",(phone_number,))
     records_list = []
     for record in records:
