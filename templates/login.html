@@ -1,0 +1,126 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css?v=1asdf22aiasdkjnkkaejflanvijpjoiasdfowqsf790">
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+    <link href="/static/fontawesome-pro-5.8.1-web/css/all.css" rel="stylesheet"> <!--load all styles -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!-- top bar -->
+<nav class="navbar justify-content-between">
+    <a onclick="toHome()" class="navbar-brand cartTitle"> <i style="color: #555555" class="far fa-chevron-left"></i>
+    </a>
+    <p style="color: coral; font-weight: bolder;" class="cartTitle"> 澳洲制造 </p>
+</nav>
+
+<div style=" height:230px; margin-top: 15%; margin-bottom: 30%;">
+    <img src="/static/img/orange.png"
+         style="width: 230px; height: 230px; position: absolute; left:0; right:0; margin-left: auto; margin-right: auto;">
+</div>
+
+<div>
+    <form method="post">
+        <input id="type" name="type" value="verification_code" hidden>
+        <div style="margin: 3% 8% 7% 8%; border-bottom: #555555 1px solid;">
+            <select style=" text-align: center; width: 20%; border: none; border-radius: 0;  font-size: 50px;
+            appearance:none; -moz-appearance:none; -webkit-appearance:none;   background: url(../static/img/br_down.png) no-repeat scroll right center transparent; ">
+                <option style="padding-left: 2%;">+61</option>
+                <option style="padding-left: 2%;">+86</option>
+            </select>
+            <p id="phone_number_incorrect_message" style="display:none; color: red"> phone_number incorrect </p>
+            <input id="phone_number" name="phone_number"
+                   style="padding-left: 3%; text-align: left; background-color: transparent;  width: 69%; border: none; border-radius: 0;  font-size: 50px; "
+                   placeholder="手机号">
+        </div>
+
+        <div style="margin: 3% 8% 30% 8%; border-bottom: #555555 1px solid;">
+            <div id="verificationCodeWrap" >
+                <input id="verification_code" name="verification_code" style="padding-left: 1%;background-color: transparent; text-align: left; width: 69%; border: none; border-radius: 0;  font-size: 50px; "
+                        placeholder="验证码">
+                <button id="getVerificationCode" type="button"
+                        style="margin-bottom: 1%; width: 30%; padding:1%; border-radius: 10px; background-color: coral; color: white; font-size: 40px;">
+                    获取验证码
+                </button>
+            </div>
+
+            <input id="password" name="password" style="padding-left: 1%; margin-bottom: 1%; text-align: left; background-color: transparent;  width: 69%; border: none; border-radius: 0;  font-size: 50px; " placeholder="请输入密码" hidden>
+        </div>
+
+
+        <div style="margin: 0 8%">
+            <a id="usePassword" onclick="usePassword()" style="font-size: 30px"> 使用密码登录(注册请使用手机验证码) </a>  <a onclick="useValidationCode()" id="useValidationCode" style="font-size: 30px" hidden> 使用手机验证码登录或注册 </a><br>
+
+            <button type="submit" style="width: 100%; margin: 3% 0 0 0; padding: 2% 1%;font-size: 50px; background-color: coral; color:white; ">
+                登录/注册
+            </button>
+
+        </div>
+    </form>
+</div>
+
+<script>
+    function toHome() {
+            url = "/";
+            window.location.assign(url);
+    }
+
+    function usePassword() {
+        $("#verificationCodeWrap").hide();
+        $("#useValidationCode").show();
+        $("#password").show();
+        $("#usePassword").hide();
+        $("#type").val("password");
+    }
+
+    function useValidationCode() {
+        $("#verificationCodeWrap").show();
+        $("#useValidationCode").hide();
+        $("#password").hide();
+        $("#usePassword").show();
+        $("#type").val("verification_code");
+    }
+</script>
+
+
+<script>
+    $('#getVerificationCode').on('click', function () {
+        var that = $(this);
+        that.css('background-color', 'lightgrey');
+        var timeo = 60;
+        var timeStop = setInterval(function () {
+            timeo--;
+            if (timeo > 0) {
+                that.text('重新发送' + timeo + 's');
+                that.attr('disabled', 'disabled');//禁止点击
+
+            } else {
+                timeo = 60;//当减到0时赋值为60
+                that.text('获取验证码');
+                clearInterval(timeStop);//清除定时器
+                that.removeAttr('disabled');//移除属性，可点击
+                that.css('background-color', 'coral');
+            }
+        }, 1000)
+
+        var url = "/api/login/send_verification_code/" + document.getElementById("phone_number").value;
+        $.ajax({
+           type: 'GET',
+           url: url,
+           timeout: 5000,
+           fail: function(xhr, textStatus, errorThrown){
+               $("#phone_number_incorrect_message").show();
+           }
+        });
+    })
+
+</script>
+</body>
+</html>

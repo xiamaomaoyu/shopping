@@ -65,6 +65,13 @@
   }
   .card-body{
       padding: 0 15px;
+
+  }
+
+  .cart-card-body{
+      padding: 0 15px;
+      width: calc(100% - 315px);
+
   }
 
   .itemCard{
@@ -300,4 +307,21 @@
 
   .detailImg{
       width: 100%;
+  }
+
+  .cartQuantityInput{
+      text-align: center;
+      font: 30px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+  }
+
+  .cartPlusMinusButtonWrap{
+      float: right;
+      margin-top: 15%;
+      padding: 0;
+  }
+
+  .cartPriceTag{
+      color: coral;
+      font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+      margin-top: 15%
   }

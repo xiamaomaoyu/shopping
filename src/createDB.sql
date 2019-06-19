@@ -10,6 +10,25 @@ CREATE TABLE IF NOT EXISTS "item_price" (
     price FLOAT
 );
 
+CREATE TABLE IF NOT EXISTS "user" (
+    phone_number  TEXT,
+    verification_code TEXT,
+    password TEXT,
+    nick_name TEXT
+);
+CREATE TABLE IF NOT EXISTS "cart_records" (
+    phone_number  TEXT references user(phone_number),
+    item  integer REFERENCES item(id),
+    item_price_type TEXT,
+    quantity integer
+);
+
+
+INSERT INTO user(phone_number,verification_code, password, nick_name) VALUES ("450539776", "123456","123","HaoMengMeng");
+INSERT INTO cart_records(phone_number, item, item_price_type, quantity) VALUES ("450539776", 5, "单罐包邮", 4);
+INSERT INTO cart_records(phone_number, item, item_price_type, quantity) VALUES ("450539776", 8, "单罐包邮", 4);
+
+
 
 INSERT INTO item(name, tags) VALUES ("爱他美铂金一段", "奶,奶粉,母婴");
 INSERT INTO item(name, tags) VALUES ("爱他美铂金二段", "奶,奶粉,母婴");

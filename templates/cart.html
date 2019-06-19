@@ -12,7 +12,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
-    <script src="/static/js/plusMinusBotton.js"></script>
 
 </head>
 <body>
@@ -26,211 +25,328 @@
 </nav>
 
 <div class="container" style="padding: 0; padding-bottom: 20%; margin: 0;">
-    <div class="container-fluid">
-        <div class="row card cartCard">
-            <div class="card-horizontal">
-                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Aptamil 爱他美白金版婴幼儿奶粉4段 900g</h4>
-                    <p class="card-text"> 规格： 三罐 包邮</p>
-                    <div class="col-sm-3" style="float: right; margin-top: 15%; padding: 0;">
-                        <div class="input-group">
-                            <span class="input-group-btn"><button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]"><span class="glyphicon glyphicon-minus"></span></button></span>
-                            <input type="text" style="text-align: center; font-size: 30px;" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
-                            <span class="input-group-btn"><button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"><span class="glyphicon glyphicon-plus"></span></button></span>
-                        </div>
-                    </div>
-                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>
+    <div id="cardContainer" class="container-fluid">
 
-                 </div>
-            </div>
-        </div>
-        <div class="row card cartCard">
-            <div class="card-horizontal">
-                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Aptamil 爱他美白金版婴幼儿奶粉4段 900g</h4>
-                    <p class="card-text"> 规格： 三罐 包邮</p>
-                    <div class="col-sm-3" style="float: right; margin-top: 15%; padding: 0;">
-                        <div class="input-group">
-                            <span class="input-group-btn"><button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]"><span class="glyphicon glyphicon-minus"></span></button></span>
-                            <input type="text" style="text-align: center; font-size: 30px;" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
-                            <span class="input-group-btn"><button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"><span class="glyphicon glyphicon-plus"></span></button></span>
-                        </div>
-                    </div>
-                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>
 
-                 </div>
-            </div>
-        </div>
-        <div class="row card cartCard">
-            <div class="card-horizontal">
-                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Aptamil 爱他美白金版婴幼儿奶粉4段 900g</h4>
-                    <p class="card-text"> 规格： 三罐 包邮</p>
-                    <div class="col-sm-3" style="float: right; margin-top: 15%; padding: 0;">
-                        <div class="input-group">
-                            <span class="input-group-btn"><button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]"><span class="glyphicon glyphicon-minus"></span></button></span>
-                            <input type="text" style="text-align: center; font-size: 30px;" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
-                            <span class="input-group-btn"><button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"><span class="glyphicon glyphicon-plus"></span></button></span>
-                        </div>
-                    </div>
-                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>
 
-                 </div>
-            </div>
-        </div>
-        <div class="row card cartCard">
-            <div class="card-horizontal">
-                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Aptamil 爱他美白金版婴幼儿奶粉4段 900g</h4>
-                    <p class="card-text"> 规格： 三罐 包邮</p>
-                    <div class="col-sm-3" style="float: right; margin-top: 15%; padding: 0;">
-                        <div class="input-group">
-                            <span class="input-group-btn"><button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]"><span class="glyphicon glyphicon-minus"></span></button></span>
-                            <input type="text" style="text-align: center; font-size: 30px;" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
-                            <span class="input-group-btn"><button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"><span class="glyphicon glyphicon-plus"></span></button></span>
-                        </div>
-                    </div>
-                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>
-
-                 </div>
-            </div>
-        </div>
-        <div class="row card cartCard">
-            <div class="card-horizontal">
-                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">
-                <div class="card-body">
-                    <h4 class="card-title">Aptamil 爱他美白金版婴幼儿奶粉4段 900g</h4>
-                    <p class="card-text"> 规格： 三罐 包邮</p>
-                    <div class="col-sm-3" style="float: right; margin-top: 15%; padding: 0;">
-                        <div class="input-group">
-                            <span class="input-group-btn"><button type="button" class="btn btn-default btn-number" disabled="disabled" data-type="minus" data-field="quant[1]"><span class="glyphicon glyphicon-minus"></span></button></span>
-                            <input type="text" style="text-align: center; font-size: 30px;" name="quant[1]" class="form-control input-number" value="1" min="1" max="10">
-                            <span class="input-group-btn"><button type="button" class="btn btn-default btn-number" data-type="plus" data-field="quant[1]"><span class="glyphicon glyphicon-plus"></span></button></span>
-                        </div>
-                    </div>
-                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>
-
-                 </div>
-            </div>
-        </div>
 
     </div>
 </div>
 
 
 <!-- bottom bar -->
-<nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: white; text-align: right;" role="navigation">
-    <i class="cartTotal2">合计：</i><i class="cartTotal"> $2333</i>
-    <button class="checkoutBotton">结算(5)</button>
+<nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: white; text-align: right;"
+     role="navigation">
+    <i class="cartTotal2">合计：</i><i id="totalPrice" class="cartTotal"> $2333</i>
+    <button id="checkoutButton" class="checkoutBotton">结算()</button>
     <hr>
     <div class="container-fluid">
         <ul class="nav navbar-nav localBottom">
-            <li class="active"><i onclick="toHome()" class="fal fa-home" ></i></li>
-            <li>               <i onclick="toChat()" class="fal fa-comment-dots"></i></li>
-            <li>               <i onclick="toCart()" class="fal fa-shopping-cart"></i></li>
-            <li>               <i onclick="toUser()" class="fal fa-user"> </i></li>
+            <li class="active"><i onclick="toHome()" class="fal fa-home"></i></li>
+            <li><i onclick="toChat()" class="fal fa-comment-dots"></i></li>
+            <li><i onclick="toCart()" class="fal fa-shopping-cart"></i></li>
+            <li><i onclick="toUser()" class="fal fa-user"> </i></li>
         </ul>
     </div>
 </nav>
+
+<script>
+            function createPlusMinusButtonGroup(name, quantity,i) {
+                var buttonWrap = document.createElement("div");
+                buttonWrap.className += "input-group";
+                buttonWrap.onclick = function () {
+                      event.stopPropagation();
+                }
+
+                var minus = document.createElement("span");
+                minus.className += "input-group-btn";
+
+                var minus_button = document.createElement("button");
+                minus_button.className += "btn btn-default btn-number";
+                minus_button.setAttribute("disable","disabled")
+                minus_button.setAttribute("data-type","minus");
+                minus_button.setAttribute("data-field",name)
+                minus_button.onclick = function (e) {
+                e.preventDefault();
+
+                fieldName = this.getAttribute('data-field');
+                type = this.getAttribute('data-type');
+                var input = document.getElementsByName(fieldName)[0];
+                var currentVal = parseInt(input.value);
+                if (!isNaN(currentVal)) {
+                    if (type == 'minus') {
+
+                        if (currentVal > input.getAttribute('min')) {
+                            input.value = currentVal-1;
+                            records[i].quantity = currentVal - 1;
+                            update_item_quantity(i);
+
+                        }
+                        if (parseInt(input.value) == input.getAttribute('min')) {
+                            this.getAttribute('disabled', true);
+                        }
+
+                    } else if (type == 'plus') {
+
+                        if (currentVal < input.getAttribute('max')) {
+                            input.value = currentVal+1;
+                            records[i].quantity = currentVal + 1;
+                            update_item_quantity(i);
+
+
+                        }
+                        if (parseInt(input.value) == input.getAttribute('max')) {
+                            this.getAttribute('disabled', true);
+                        }
+
+                    }
+                } else {
+                    input.val(0);
+                }
+            };
+
+                var minus_span = document.createElement("span");
+                minus_span.className += "glyphicon glyphicon-minus";
+
+
+                var input = document.createElement("input");
+                input.type = "text";
+                input.name = name;
+                input.className += "cartQuantityInput form-control input-number ";
+                input.style.fontSize = "30px";
+                input.style.textAlign = "center";
+                input.value = quantity;
+                input.min = 1;
+                input.max = 99;
+                input.onfocus = function () {
+                $(this).data('oldValue', $(this).val());
+                };
+                input.onChange = function () {
+
+                minValue = parseInt(this.getAttribute('min'));
+                maxValue = parseInt(this.getAttribute('max'));
+                valueCurrent = parseInt($(this).val());
+                records[i].quantity = valueCurrent;
+                update_item_quantity(i);
+
+
+                var name = this.getAttribute('name');
+                if (valueCurrent >= minValue) {
+                    $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+                } else {
+                    alert('Sorry, the minimum value was reached');
+                    $(this).val($(this).data('oldValue'));
+                }
+                if (valueCurrent <= maxValue) {
+                    $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+                } else {
+                    alert('Sorry, the maximum value was reached');
+                    $(this).val($(this).data('oldValue'));
+                }
+
+
+            };
+                input.onkeydown = function (e) {
+                // Allow: backspace, delete, tab, escape, enter and .
+                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                    // Allow: Ctrl+A
+                    (e.keyCode == 65 && e.ctrlKey === true) ||
+                    // Allow: home, end, left, right
+                    (e.keyCode >= 35 && e.keyCode <= 39)) {
+                    // let it happen, don't do anything
+                    return;
+                }
+                // Ensure that it is a number and stop the keypress
+                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                    e.preventDefault();
+                }
+            }
+
+                var add = document.createElement("span");
+                add.className += "input-group-btn";
+                var add_button = document.createElement("button");
+                add_button.className += "btn btn-default btn-number";
+                add_button.setAttribute("data-type","plus");
+                add_button.setAttribute("data-field",name);
+                add_button.onclick = function (e) {
+                e.preventDefault();
+
+                fieldName = this.getAttribute('data-field');
+                type = this.getAttribute('data-type');
+                var input = document.getElementsByName(fieldName)[0];
+                var currentVal = parseInt(input.value);
+                if (!isNaN(currentVal)) {
+                    if (type == 'minus') {
+
+                        if (currentVal > input.getAttribute('min')) {
+                            input.value = currentVal-1;
+                            records[i].quantity = currentVal - 1;
+
+
+                            update_item_quantity(i);
+
+
+                        }
+                        if (parseInt(input.value) == input.getAttribute('min')) {
+                            this.getAttribute('disabled', true);
+                        }
+
+                    } else if (type == 'plus') {
+
+                        if (currentVal < input.getAttribute('max')) {
+                            input.value = currentVal+1;
+                            records[i].quantity = currentVal + 1;
+                            update_item_quantity(i);
+
+
+                        }
+                        if (parseInt(input.value) == input.getAttribute('max')) {
+                            this.getAttribute('disabled', true);
+                        }
+
+                    }
+                } else {
+                    input.val(0);
+                }
+            };
+
+                var add_span = document.createElement("span");
+                add_span.className += "glyphicon glyphicon-plus";
+
+                minus_button.appendChild(minus_span);
+                minus.appendChild(minus_button);
+                add_button.appendChild(add_span);
+                add.appendChild(add_button);
+                buttonWrap.appendChild(minus);
+                buttonWrap.appendChild(input);
+                buttonWrap.appendChild(add);
+                return buttonWrap;
+            }
+
+            function addRecordNode(recordData,i) {
+                var cardWrap2 = document.createElement("div");
+                cardWrap2.className += "row card cartCard";
+                cardWrap2.onclick = function toItem() {
+                    url = "/item/"+recordData.item_id;
+                    window.location.assign(url);
+                };
+
+                var cardItemId = document.createElement("input");
+                cardItemId.value = recordData.item_id;
+                cardItemId.style.display = "none";
+
+                var cardWrap1 = document.createElement("div");
+                cardWrap1.className += "card-horizontal";
+
+                var cardImage = document.createElement("img");
+                cardImage.className += "cartImage";
+                cardImage.src += "/static/img/itemImg/"+recordData.item_name+"/main.jpg";
+                cardImage.style.width = "300px";
+                cardImage.style.height = "300px";
+                cardImage.alt += "Card image cap";
+
+                var cardBody = document.createElement("div");
+                cardBody.className += "cart-card-body";
+
+
+                var cardTitle = document.createElement("h4");
+                cardTitle.className += "card-title";
+                cardTitle.innerText = recordData.item_name;
+
+
+                var cardText = document.createElement("p");
+                cardText.className += "card-text";
+                cardText.innerText = "规格：  " + recordData.item_price_type;
+
+                var cardRightWrap2 = document.createElement("div");
+                cardRightWrap2.className += "col-sm-3 cartPlusMinusButtonWrap";
+                cardRightWrap2.style.cssFloat = "right";
+                cardRightWrap2.style.marginTop = "15%";
+                cardRightWrap2.padding = 0;
+
+                var data_field_name = "record"+i;
+                var minus_plus_button = createPlusMinusButtonGroup(data_field_name, recordData.quantity,i);
+
+                var priceTag = document.createElement('h2');
+                priceTag.style += "color: coral; font-size: 40px; margin-top: 15%";
+                priceTag.className += "cartPriceTag";
+                priceTag.innerText = "$ " + recordData.price;
+
+                cardRightWrap2.appendChild(minus_plus_button);
+                cardBody.appendChild(cardTitle);
+                cardBody.appendChild(cardText);
+                cardBody.appendChild(cardRightWrap2);
+                cardBody.appendChild(priceTag);
+                cardWrap1.appendChild(cardImage);
+                cardWrap1.appendChild(cardBody);
+                cardWrap2.appendChild(cardWrap1);
+                document.getElementById("cardContainer").appendChild(cardWrap2);
+            }
+
+            function reCalTotalPrice() {
+                var overallPrice = 0;
+                var i = 0;
+                for (i = 0; i < records.length; i++) {
+                    overallPrice += records[i].price*records[i].quantity;
+                }
+                document.getElementById("totalPrice").innerText = "$"+overallPrice.toFixed(2);
+                
+
+            }
+            
+            function update_item_quantity(i) {
+                $.ajax({
+                        type: 'post',
+                        url:  "/api/cart/update_quantity",
+                        data: { "phone_number": "{{ current_user.phone_number }}",
+                                "item_id" : records[i].item_id,
+                                "item_price_type": records[i].item_price_type,
+                                "quantity": records[i].quantity }
+                });
+
+                reCalTotalPrice();
+                
+            }
+
+            var url = "/api/cart/get_records/" + "{{ current_user.phone_number }}";
+            var records;
+            var overallPrice = 0;
+            $.getJSON(url, function (data) {
+                records = data;
+                var i = 0;
+                for (i = 0; i < records.length; i++) {
+                    addRecordNode(records[i],i);
+                    overallPrice += records[i].price*records[i].quantity;
+                }
+                document.getElementById("checkoutButton").innerText = "结算("+records.length+")";
+                document.getElementById("totalPrice").innerText = "$"+overallPrice;
+            });
+
+
+
+        </script>
 <script>
     function toHome() {
-            url = "/";
-            window.location.assign(url);
+        url = "/";
+        window.location.assign(url);
     }
 
     function toChat() {
-            url = "/chat";
-            window.location.assign(url);
+        url = "/chat";
+        window.location.assign(url);
     }
 
     function toCart() {
-            url = "/cart";
-            window.location.assign(url);
+        url = "/cart";
+        window.location.assign(url);
     }
 
     function toUser() {
-            url = "/user";
-            window.location.assign(url);
-    }
-</script>
-
-
-<script>
-$('.btn-number').click(function(e){
-    e.preventDefault();
-
-    fieldName = $(this).attr('data-field');
-    type      = $(this).attr('data-type');
-    var input = $("input[name='"+fieldName+"']");
-    var currentVal = parseInt(input.val());
-    if (!isNaN(currentVal)) {
-        if(type == 'minus') {
-
-            if(currentVal > input.attr('min')) {
-                input.val(currentVal - 1).change();
-            }
-            if(parseInt(input.val()) == input.attr('min')) {
-                $(this).attr('disabled', true);
-            }
-
-        } else if(type == 'plus') {
-
-            if(currentVal < input.attr('max')) {
-                input.val(currentVal + 1).change();
-            }
-            if(parseInt(input.val()) == input.attr('max')) {
-                $(this).attr('disabled', true);
-            }
-
-        }
-    } else {
-        input.val(0);
-    }
-});
-$('.input-number').focusin(function(){
-   $(this).data('oldValue', $(this).val());
-});
-$('.input-number').change(function() {
-
-    minValue =  parseInt($(this).attr('min'));
-    maxValue =  parseInt($(this).attr('max'));
-    valueCurrent = parseInt($(this).val());
-
-    name = $(this).attr('name');
-    if(valueCurrent >= minValue) {
-        $(".btn-number[data-type='minus'][data-field='"+name+"']").removeAttr('disabled')
-    } else {
-        alert('Sorry, the minimum value was reached');
-        $(this).val($(this).data('oldValue'));
-    }
-    if(valueCurrent <= maxValue) {
-        $(".btn-number[data-type='plus'][data-field='"+name+"']").removeAttr('disabled')
-    } else {
-        alert('Sorry, the maximum value was reached');
-        $(this).val($(this).data('oldValue'));
+        url = "/user";
+        window.location.assign(url);
     }
 
 
-});
-$(".input-number").keydown(function (e) {
-        // Allow: backspace, delete, tab, escape, enter and .
-        if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-             // Allow: Ctrl+A
-            (e.keyCode == 65 && e.ctrlKey === true) ||
-             // Allow: home, end, left, right
-            (e.keyCode >= 35 && e.keyCode <= 39)) {
-                 // let it happen, don't do anything
-                 return;
-        }
-        // Ensure that it is a number and stop the keypress
-        if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-            e.preventDefault();
-        }
-    });
 </script>
 </body>
 

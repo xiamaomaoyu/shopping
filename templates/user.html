@@ -18,10 +18,19 @@
 
 
 <!-- top bar -->
-<nav class="navbar justify-content-between" style="background-color: coral; padding: 2% 3%; padding-bottom: 15%; ">
-    <a class="navbar-brand "> <img src="/static/img/yellow.png" style="width: 150px; height: 150px;"></i> </a>
-    <p class="userGreeting"> 用户自己起的名字 </p>
-    <p class="userLevel" style="margin-top: 2%;"> 会员等级：100级 剩余积分：5000+</p>
+
+<nav class="navbar justify-content-inbetween" style="background-color: coral; top:0; width: 100%; position: relative; padding: 2% 3%; padding-bottom: 15%; ">
+        <a class="navbar-brand "> <img src="/static/img/yellow.png" style="width: 150px; height: 150px;"></i> </a>
+        <p class="userGreeting"> {{ user.nick_name }} </p>
+        <div style=" width: 100%;text-align: right;margin-bottom: 5%;">
+                <i style="font-size: 80px;  color: white" onclick="logout()" class="far fa-sign-out"></i>
+
+        </div>
+        <p class="userLevel" style="margin-top: 2%;"> 会员等级：   1级   &nbsp;&nbsp; 剩余积分：50 </p>
+
+
+
+
 
 </nav>
 
@@ -112,6 +121,11 @@
     function toUser() {
             url = "/user";
             window.location.assign(url);
+    }
+    function logout() {
+            url = "/logout"
+            window.location.assign(url);
+
     }
 </script>
 

@@ -1,20 +1,69 @@
-from flask import Flask, render_template,jsonify
+from flask import Flask, render_template,jsonify, redirect, url_for, request
+from flask_login import LoginManager,login_user, current_user, login_required, logout_user, UserMixin, login_manager
+from src.user import get_user
+from src.db_hdl import query_db
+
 from datetime import  datetime
 from api import api
 
 app = Flask(__name__)
 app.secret_key = 'development key'
 app.register_blueprint(api)
+login_manager = LoginManager()
+login_manager.init_app(app)
 
+
+@login_manager.user_loader
+def load_user(id):
+    return get_user(id)
+
+@app.route('/login', methods=["POST", "GET"])
+def login():
+    if current_user.is_authenticated:
+        return redirect(url_for("index"))
+    if request.method == "POST":
+        if request.form['type'] == "password":
+            phone_number = request.form['phone_number']
+            password = request.form['password']
+            row = query_db("SELECT password FROM user WHERE phone_number=? ;",(phone_number,),one=True)
+            if password == row['password']:
+                login_user(get_user(phone_number))
+                return redirect(url_for("index"))
+            # TODO: else respond username or password incorrect
+        elif request.form['type'] == "verification_code":
+            phone_number = request.form['phone_number']
+            verfication_code = request.form['verification_code']
+            row = query_db("SELECT verification_code,nick_name FROM user WHERE phone_number=? ;",(phone_number,),one=True)
+            if verfication_code == row['verification_code']:
+                if row["nick_name"] == "NEWUSER":
+                    login_user(get_user(phone_number))
+                    return render_template("register.html",phone_number=phone_number)
+                else:
+                    login_user(get_user(phone_number))
+                    return redirect(url_for("index"))
+            # TODO: else respond verification code incorrect
+    return render_template("login.html")
+
+# TODO: register
+
+
+
+@app.route('/logout', methods=["POST", "GET"])
+@login_required
+def logout():
+    logout_user()
+    return redirect(url_for("login"))
 
 @app.route('/')
-def hello_world():
+def index():
     return render_template("homepage.html")
 
 
 @app.route('/cart')
 def mycart():
-    return render_template("cart.html")
+    if current_user.is_anonymous == True:
+        return redirect(url_for("login"))
+    return render_template("cart.html",user=current_user)
 
 @app.route('/chat')
 def mychat():
@@ -26,7 +75,9 @@ def item(id):
 
 @app.route('/user')
 def user():
-    return render_template("user.html")
+    if current_user.is_anonymous == True:
+        return redirect(url_for("login"))
+    return render_template("user.html",user=current_user)
 
 @app.route('/orders')
 def orders():
@@ -55,6 +106,8 @@ def search(keyword=None):
     if not keyword:
         keyword = "A2二段"
     return render_template("search.html",keyword=keyword)
+
+
 
 if __name__ == '__main__':
     app.run(host='0.0.0.0',port=80)
