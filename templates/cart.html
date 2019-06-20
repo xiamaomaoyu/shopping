@@ -323,7 +323,7 @@
                     overallPrice += records[i].price*records[i].quantity;
                 }
                 document.getElementById("checkoutButton").innerText = "结算("+records.length+")";
-                document.getElementById("totalPrice").innerText = "$"+overallPrice;
+                document.getElementById("totalPrice").innerText = "$"+overallPrice.toFixed(2);
             });
 
 
