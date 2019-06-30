@@ -154,5 +154,7 @@
 }
 
 .msg_history {
-	overflow-y: auto;
+	overflow: auto;
+	flex-direction: column;
+	position: relative;
 }

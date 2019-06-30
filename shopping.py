@@ -67,7 +67,7 @@ def mycart():
 
 @app.route('/chat')
 def mychat():
-    return render_template("chat.html")
+    return render_template("chat.html", user=current_user.get_id())
 
 @app.route('/item/<id>')
 def item(id):
@@ -110,4 +110,4 @@ def search(keyword=None):
 
 
 if __name__ == '__main__':
-    app.run(host='0.0.0.0',port=80)
+    app.run(host='0.0.0.0',port=5100)
