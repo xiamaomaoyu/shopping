@@ -75,6 +75,7 @@ def add_record():
     return make_response(jsonify(message='success'), 200)
 
 
+
 @api.route('/api/cart/update_quantity',methods=['POST','GET'])
 def update_quantity():
     phone_number = request.form.get("phone_number")
