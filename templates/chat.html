@@ -54,8 +54,6 @@
         var id = Math.random().toString(36).substring(7);
         var socket = io.connect('http://' + document.domain + ':' + '5000');
         var input = $("#user_input");
-
-
         socket.on(id, function( msg ) {
             var info = unescape(msg.user_message);
             var img_64 = unescape(msg.user_image);

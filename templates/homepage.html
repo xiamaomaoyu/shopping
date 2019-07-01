@@ -17,37 +17,50 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
     <script src="https://code.jquery.com/jquery-1.12.4.js"></script>
     <script src="https://code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+    <script src="https://cdn.rawgit.com/serratus/quaggaJS/0420d5e0/dist/quagga.min.js"></script>
 
+    <style>
+        /* In order to place the tracking correctly */
+        canvas.drawing, canvas.drawingBuffer {
+            position: absolute;
+            left: 0;
+            top: 0;
+        }
+    </style>
 
 </head>
 <body>
 
 <!-- top bar -->
 <div style="background-color: coral; width: 100%; height: 40%; text-align: center; position: relative">
-    <i class="fas fa-barcode-read" style="color: white; font-size: 70px; margin: 5% 6%; float: left"></i>
+    <i class="fas fa-barcode-read" style="color: white; font-size: 70px; margin: 5% 6%; float: left" id="btn"></i>
     <input id="searchInput" style=" font-size: 30px; width: 50%; padding: 3%; margin: 4% 0;" placeholder="爱他美奶粉2段">
     <i onclick="searchAnother()" style="color:white; font-size: 70px; margin: 5% -4%; margin-right: 15%; float: right" class="far fa-search" ></i>
 </div>
 <script>
-$(function() {
-var availableTags;
-var url = "/api/search/all_item_names";
-$.getJSON(url, function (data){
-    availableTags = data;
-    $( "#searchInput" ).autocomplete({
-      source: availableTags
+    $(function() {
+        var availableTags;
+        var url = "/api/search/all_item_names";
+        $.getJSON(url, function (data){
+            availableTags = data;
+            $( "#searchInput" ).autocomplete({
+              source: availableTags
+            });
+        });
     });
-});
-})
-        function searchAnother() {
-            url = "/search/"+document.getElementById("searchInput").value;
-            window.location.assign(url);
-        }
+    function searchAnother() {
+        url = "/search/"+document.getElementById("searchInput").value;
+        window.location.assign(url);
+    }
 </script>
 
 
 <!-- sliding window -->
-<div class="container" style="padding: 0; margin: 0; ">
+<div class="container" style="padding: 0; margin: 0;">
+    <div id="scanner-container"></div>
+</div>
+
+<div class="container" style="padding: 0; margin: 0; " id="slding">
   <div id="myCarousel" class="carousel slide" data-ride="carousel" >
     <!-- Indicators -->
     <ol class="carousel-indicators">
@@ -213,6 +226,134 @@ search();
             url = "/user";
             window.location.assign(url);
     }
+</script>
+
+<script>
+    var _scannerIsRunning = false;
+    var width = $(window).width();
+
+    function startScanner() {
+        Quagga.init({
+            inputStream: {
+                name: "Live",
+                type: "LiveStream",
+                target: document.querySelector('#scanner-container'),
+                constraints: {
+                    width: width,
+                    height: width/1.5,
+                    facingMode: "environment"
+                },
+            },
+            decoder: {
+                readers: [
+                    "code_128_reader",
+                    "ean_reader",
+                    "ean_8_reader",
+                    "code_39_reader",
+                    "code_39_vin_reader",
+                    "codabar_reader",
+                    "upc_reader",
+                    "upc_e_reader",
+                    "i2of5_reader"
+                ],
+                debug: {
+                    showCanvas: true,
+                    showPatches: true,
+                    showFoundPatches: true,
+                    showSkeleton: true,
+                    showLabels: true,
+                    showPatchLabels: true,
+                    showRemainingPatchLabels: true,
+                    boxFromPatches: {
+                        showTransformed: true,
+                        showTransformedBox: true,
+                        showBB: true
+                    }
+                }
+            },
+
+        }, function (err) {
+            if (err) {
+                alert("Your phone does not allow live stream!");
+                $("#slding").show();
+                $("#scanner-container").hide();
+                return
+            }
+
+            console.log("Initialization finished. Ready to start");
+            Quagga.start();
+
+            // Set flag to is running
+            _scannerIsRunning = true;
+        });
+
+        Quagga.onProcessed(function (result) {
+            var drawingCtx = Quagga.canvas.ctx.overlay,
+            drawingCanvas = Quagga.canvas.dom.overlay;
+
+            if (result) {
+                if (result.boxes) {
+                    drawingCtx.clearRect(0, 0, parseInt(drawingCanvas.getAttribute("width")), parseInt(drawingCanvas.getAttribute("height")));
+                    result.boxes.filter(function (box) {
+                        return box !== result.box;
+                    }).forEach(function (box) {
+                        Quagga.ImageDebug.drawPath(box, { x: 0, y: 1 }, drawingCtx, { color: "green", lineWidth: 2 });
+                    });
+                }
+
+                if (result.box) {
+                    Quagga.ImageDebug.drawPath(result.box, { x: 0, y: 1 }, drawingCtx, { color: "#00F", lineWidth: 2 });
+                }
+
+                if (result.codeResult && result.codeResult.code) {
+                    Quagga.ImageDebug.drawPath(result.line, { x: 'x', y: 'y' }, drawingCtx, { color: 'red', lineWidth: 3 });
+                }
+            }
+        });
+
+
+        Quagga.onDetected(function (result) {
+            // 显示结果
+            console.log("Barcode detected and processed : " + result.codeResult.code, result);
+
+            // 转跳网页地址
+            if (result.codeResult.code.length >= 13) {
+                var urls = "/item/"+result.codeResult.code +"/";
+                $(location).attr('href', urls);
+
+                Quagga.stop();
+                _scannerIsRunning = false;
+            }
+        });
+    }
+
+
+    // Start/stop scanner
+    document.getElementById("btn").addEventListener("click", function () {
+        if (_scannerIsRunning) {
+            Quagga.stop();
+            _scannerIsRunning = false;
+            $("#slding").show();
+            $("#scanner-container").hide();
+        } else {
+            $("#slding").hide();
+            startScanner();
+        }
+    }, false);
+
+
+    // TODO stop bar code scan
+    $('body').keypress(function(e){
+        if(e.which === 27){
+            // Close my modal window
+            if (_scannerIsRunning) {
+                Quagga.stop();
+                _scannerIsRunning = false;
+            }
+            $("#slding").show();
+            $("#scanner-container").hide();
+        }
+    });
 </script>
 
 </body>
