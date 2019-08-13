@@ -2,6 +2,7 @@ from flask import jsonify, Blueprint, request, abort, make_response
 import src.search as search
 import src.item as item
 from src.db_hdl import *
+import src.receiver_detail as ReceiverDetail
 from src.sms_hdl import send_customer
 import src.cart_hdl as Cart
 from src.user import *
@@ -94,4 +95,26 @@ def delete_item():
     item_price_type = request.form.get("item_price_type")
     print("delete ",phone_number," ",item_price_type,)
     Cart.delete_item(phone_number,item_id,item_price_type)
+    return make_response(jsonify(message='success'), 200)
+
+@api.route('/api/receiver_detail/get_details',methods=['POST','GET'])
+def get_details():
+    phone_number = request.form.get("phone_number")
+    details = ReceiverDetail.get_receiver_details(phone_number)
+    return make_response(jsonify(message='success', details=details), 200)
+
+@api.route('/api/receiver_detail/add_detail',methods=['POST','GET'])
+def add_detail():
+    phone_number = request.form.get("phone_number")
+    receiver_name = request.form.get("receiver_name")
+    receiver_address = request.form.get("receiver_address")
+    receiver_phone = request.form.get("receiver_phone")
+    ReceiverDetail.add_receiver_details(phone_number, receiver_name,receiver_address,receiver_phone)
+    return make_response(jsonify(message='success'), 200)
+
+@api.route('/api/receiver_detail/set_detail',methods=['POST','GET'])
+def add_detail():
+    phone_number = request.form.get("phone_number")
+    detail_id = request.form.get("detail_id")
+    ReceiverDetail.set_as_receiver(phone_number, detail_id)
     return make_response(jsonify(message='success'), 200)
