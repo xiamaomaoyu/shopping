@@ -85,3 +85,13 @@ def update_quantity():
     Cart.updata_quantity(phone_number,item_id,item_price_type,quantity)
     print("update ",phone_number," ",item_price_type,"   ",quantity)
     return make_response(jsonify(message='success'), 200)
+
+
+@api.route('/api/cart/delete_item',methods=['POST','GET'])
+def delete_item():
+    item_id = request.form.get("item_id")
+    phone_number = request.form.get("phone_number")
+    item_price_type = request.form.get("item_price_type")
+    print("delete ",phone_number," ",item_price_type,)
+    Cart.delete_item(phone_number,item_id,item_price_type)
+    return make_response(jsonify(message='success'), 200)
