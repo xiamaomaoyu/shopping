@@ -25,6 +25,7 @@ CREATE TABLE IF NOT EXISTS "cart_records" (
 );
 
 CREATE TABLE IF NOT EXISTS "order" (
+    order_id INTEGER,
     phone_number  TEXT references user(phone_number),
     item  integer REFERENCES item(id),
     item_price_type TEXT,
