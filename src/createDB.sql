@@ -14,7 +14,8 @@ CREATE TABLE IF NOT EXISTS "user" (
     phone_number  TEXT,
     verification_code TEXT,
     password TEXT,
-    nick_name TEXT
+    nick_name TEXT,
+    receiver_detail INTEGER references receiver_detail(id)
 );
 CREATE TABLE IF NOT EXISTS "cart_records" (
     phone_number  TEXT references user(phone_number),
@@ -23,6 +24,23 @@ CREATE TABLE IF NOT EXISTS "cart_records" (
     quantity integer
 );
 
+CREATE TABLE IF NOT EXISTS "order" (
+    phone_number  TEXT references user(phone_number),
+    item  integer REFERENCES item(id),
+    item_price_type TEXT,
+    quantity integer,
+    receiver_name TEXT,
+    receiver_address TEXT,
+    receiver_phone TEXT
+);
+
+CREATE TABLE IF NOT EXISTS "receiver_detail" (
+    id INTEGER PRIMARY KEY,
+    phone_number  TEXT references user(phone_number),
+    receiver_name TEXT,
+    receiver_address TEXT,
+    receiver_phone TEXT
+);
 
 INSERT INTO user(phone_number,verification_code, password, nick_name) VALUES ("450539776", "123456","123","HaoMengMeng");
 INSERT INTO cart_records(phone_number, item, item_price_type, quantity) VALUES ("450539776", 5, "单罐包邮", 4);
