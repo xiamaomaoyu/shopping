@@ -108,6 +108,6 @@ def add_detail(phone_number, receiver_name, receiver_address, receiver_phone):
     return make_response(jsonify(message='success'), 200)
 
 @api.route('/api/receiver_detail/set_detail/<phone_number>/<detail_id>',methods=['POST','GET'])
-def add_detail(phone_number, detail_id):
+def set_detail(phone_number, detail_id):
     ReceiverDetail.set_as_receiver(phone_number, detail_id)
     return make_response(jsonify(message='success'), 200)
