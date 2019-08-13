@@ -97,24 +97,17 @@ def delete_item():
     Cart.delete_item(phone_number,item_id,item_price_type)
     return make_response(jsonify(message='success'), 200)
 
-@api.route('/api/receiver_detail/get_details',methods=['POST','GET'])
-def get_details():
-    phone_number = request.form.get("phone_number")
+@api.route('/api/receiver_detail/get_details/<phone_number>',methods=['POST','GET'])
+def get_details(phone_number):
     details = ReceiverDetail.get_receiver_details(phone_number)
     return make_response(jsonify(message='success', details=details), 200)
 
-@api.route('/api/receiver_detail/add_detail',methods=['POST','GET'])
-def add_detail():
-    phone_number = request.form.get("phone_number")
-    receiver_name = request.form.get("receiver_name")
-    receiver_address = request.form.get("receiver_address")
-    receiver_phone = request.form.get("receiver_phone")
+@api.route('/api/receiver_detail/add_detail/<phone_number>/<receiver_name>/<receiver_address>/<receiver_phone>',methods=['POST','GET'])
+def add_detail(phone_number, receiver_name, receiver_address, receiver_phone):
     ReceiverDetail.add_receiver_details(phone_number, receiver_name,receiver_address,receiver_phone)
     return make_response(jsonify(message='success'), 200)
 
-@api.route('/api/receiver_detail/set_detail',methods=['POST','GET'])
-def add_detail():
-    phone_number = request.form.get("phone_number")
-    detail_id = request.form.get("detail_id")
+@api.route('/api/receiver_detail/set_detail/<phone_number>/<detail_id>',methods=['POST','GET'])
+def add_detail(phone_number, detail_id):
     ReceiverDetail.set_as_receiver(phone_number, detail_id)
     return make_response(jsonify(message='success'), 200)
