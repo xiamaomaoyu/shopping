@@ -252,6 +252,15 @@
                 var cardBody = document.createElement("div");
                 cardBody.className += "cart-card-body";
 
+                var cardDeleteWrap = document.createElement("div");
+                cardDeleteWrap.style.textAlign = "right";
+                cardDeleteWrap.width = "100%";
+                cardDeleteWrap.style.padding = "20px 10px 0 0";
+
+                var cardDelete = document.createElement("i");
+                cardDelete.className += "far fa-times-circle";
+                cardDelete.style.color = "darkgrey";
+
 
                 var cardTitle = document.createElement("h4");
                 cardTitle.className += "card-title";
@@ -276,7 +285,9 @@
                 priceTag.className += "cartPriceTag";
                 priceTag.innerText = "$ " + recordData.price;
 
+                cardDeleteWrap.appendChild(cardDelete);
                 cardRightWrap2.appendChild(minus_plus_button);
+                cardBody.appendChild(cardDeleteWrap);
                 cardBody.appendChild(cardTitle);
                 cardBody.appendChild(cardText);
                 cardBody.appendChild(cardRightWrap2);
