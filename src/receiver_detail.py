@@ -28,3 +28,5 @@ def set_as_receiver(phone_number, id):
         (id, phone_number))
 
 
+def delete_detail(detail_id):
+    DB.query_db("DELETE from receiver_detail where id=?", (detail_id,))

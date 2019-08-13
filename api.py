@@ -103,6 +103,11 @@ def get_details(phone_number):
     details = ReceiverDetail.get_receiver_details(phone_number)
     return make_response(jsonify(message='success', details=details), 200)
 
+@api.route('/api/receiver_detail/delete_detail/<detail_id>',methods=['POST','GET'])
+def get_details(detail_id):
+    ReceiverDetail.delete_detail(detail_id)
+    return make_response(jsonify(message='success'), 200)
+
 @api.route('/api/receiver_detail/add_detail/<phone_number>/<receiver_name>/<receiver_address>/<receiver_phone>',methods=['POST','GET'])
 def add_detail(phone_number, receiver_name, receiver_address, receiver_phone):
     ReceiverDetail.add_receiver_details(phone_number, receiver_name,receiver_address,receiver_phone)
@@ -117,4 +122,8 @@ def set_detail(phone_number, detail_id):
 def save_order(phone_number):
     Order.add_order(phone_number)
     return make_response(jsonify(message='success'), 200)
+
+@api.route('/api/get_orders',methods=['POST','GET'])
+def get_orders():
+    return make_response(jsonify(message='success', orders=Order.get_orders()), 200)
 

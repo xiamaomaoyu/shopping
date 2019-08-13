@@ -17,3 +17,5 @@ def add_order(phone_number):
             receiver_detail['receiver_name'], receiver_detail['receiver_address'], receiver_detail['receiver_phone']))
 
 
+def get_orders():
+    return DB.query_db("select * from orders")
