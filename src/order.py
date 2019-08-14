@@ -23,7 +23,9 @@ def get_orders():
     orders = DB.query_db("select * from orders")
     for order in orders:
         item_name = DB.query_db("select name from item where id=?", (order['item'],))
-        result += tuple([item_name] + list(order[1:]))
+        order = dict(order)
+        order['item'] = item_name
+        result += order
     return result
 
 
