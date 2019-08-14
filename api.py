@@ -127,3 +127,8 @@ def save_order(phone_number):
 def get_orders():
     return make_response(jsonify(message='success', orders=Order.get_orders()), 200)
 
+@api.route('/api/get_order/<phone_number>',methods=['POST','GET'])
+def get_order_by_phone(phone_number):
+    return make_response(jsonify(message='success', orders=Order.get_order_by_phone(phone_number)), 200)
+
+

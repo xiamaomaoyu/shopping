@@ -20,3 +20,7 @@ def add_order(phone_number):
 
 def get_orders():
     return DB.query_db("select * from orders")
+
+
+def get_order_by_phone(phone_number):
+    return DB.query_db("select * from orders where phone_number=?", (phone_number,))
