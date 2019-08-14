@@ -1,4 +1,5 @@
 import src.db_hdl as DB
+import datetime
 
 
 def add_order(phone_number):
@@ -12,9 +13,9 @@ def add_order(phone_number):
     cart_records = DB.query_db("select * from cart_records where phone_number=?", (phone_number,))
     for record in cart_records:
         DB.query_db(
-            "insert into orders(order_id, phone_number, item, item_price_type, quantity, receiver_name, receiver_address, receiver_phone) values (?, ?, ?, ?, ?, ?, ?, ?)",
+            "insert into orders(order_id, phone_number, item, item_price_type, quantity, receiver_name, receiver_address, receiver_phone, order_time) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (max_id + 1, phone_number, record['item'], record['item_price_type'], record['quantity'],
-            receiver_detail['receiver_name'], receiver_detail['receiver_address'], receiver_detail['receiver_phone']))
+            receiver_detail['receiver_name'], receiver_detail['receiver_address'], receiver_detail['receiver_phone'], datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
 
 
 def get_orders():
