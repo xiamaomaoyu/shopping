@@ -23,9 +23,11 @@ def get_orders():
     orders = DB.query_db("select * from orders")
     for order in orders:
         item_name = DB.query_db("select name from item where id=?", (order['item'],))
-        order = dict(order)
-        order['item'] = item_name
-        result += order
+        _order = {}
+        for row in order:
+            _order[row] = order[row]
+        _order['item'] = item_name
+        result += _order
     return result
 
 
@@ -34,7 +36,9 @@ def get_order_by_phone(phone_number):
     orders = DB.query_db("select * from orders where phone_number=?", (phone_number,))
     for order in orders:
         item_name = DB.query_db("select name from item where id=?", (order['item'],))
-        order = dict(order)
-        order['item'] = item_name
-        result += order
+        _order = {}
+        for row in order:
+            _order[row] = order[row]
+        _order['item'] = item_name
+        result += _order
     return result
