@@ -32,5 +32,7 @@ def get_order_by_phone(phone_number):
     orders = DB.query_db("select * from orders where phone_number=?", (phone_number,))
     for order in orders:
         item_name = DB.query_db("select name from item where id=?", (order['item'],))
-        result += tuple([item_name] + list(order[1:]))
+        order = dict(order)
+        order['item'] = item_name
+        result += order
     return result
