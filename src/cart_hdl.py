@@ -45,3 +45,8 @@ def get_cart(phone_number):
     for record in records:
         print(record)
     return
+
+
+def clear(phone_number):
+    execute_db("DELETE FROM cart_records WHERE phone_number=?;",
+               (phone_number,))
