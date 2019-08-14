@@ -104,7 +104,7 @@ def get_details(phone_number):
     return make_response(jsonify(message='success', details=details), 200)
 
 @api.route('/api/receiver_detail/delete_detail/<detail_id>',methods=['POST','GET'])
-def get_details(detail_id):
+def delete_details(detail_id):
     ReceiverDetail.delete_detail(detail_id)
     return make_response(jsonify(message='success'), 200)
 
