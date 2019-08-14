@@ -19,8 +19,18 @@ def add_order(phone_number):
 
 
 def get_orders():
-    return DB.query_db("select * from orders")
+    result = []
+    orders = DB.query_db("select * from orders")
+    for order in orders:
+        item_name = DB.query_db("select name from item where id=?", (order['item'],))
+        result += tuple([item_name] + list(order[1:]))
+    return result
 
 
 def get_order_by_phone(phone_number):
-    return DB.query_db("select * from orders where phone_number=?", (phone_number,))
+    result = []
+    orders = DB.query_db("select * from orders where phone_number=?", (phone_number,))
+    for order in orders:
+        item_name = DB.query_db("select name from item where id=?", (order['item'],))
+        result += tuple([item_name] + list(order[1:]))
+    return result
