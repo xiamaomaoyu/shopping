@@ -71,7 +71,7 @@
     </div>
 
     <div class="divButton">
-        <i class="far fa-map-marker-alt"  style="width: 100%; margin: 5% 0; font-size: 50px"></i>
+        <i class="far fa-map-marker-alt"  style="width: 100%; margin: 5% 0; font-size: 50px" onclick="goToAddress()"></i>
         <p> 收货地址 </p>
     </div>
 
@@ -123,9 +123,12 @@
             window.location.assign(url);
     }
     function logout() {
-            url = "/logout"
+            url = "/logout";
             window.location.assign(url);
+    }
 
+    function goToAddress() {
+        window.location.assign("/user/address/controller/");
     }
 </script>
 
