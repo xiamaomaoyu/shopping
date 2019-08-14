@@ -32,7 +32,8 @@ CREATE TABLE IF NOT EXISTS "orders" (
     quantity integer,
     receiver_name TEXT,
     receiver_address TEXT,
-    receiver_phone TEXT
+    receiver_phone TEXT,
+    order_time TEXT
 );
 
 CREATE TABLE IF NOT EXISTS "receiver_detail" (
