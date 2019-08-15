@@ -261,7 +261,14 @@
             var cardDelete = document.createElement("i");
             cardDelete.className += "far fa-times-circle";
             cardDelete.style.color = "darkgrey";
-            cardDelete.onclick = function ()
+            cardDelete.onclick = function () {
+                var id = recordData.item_id;
+                var url = '/api/cart/delete_item/' + id + "/" + "{{ current_user.phone_number }}" + "/" + recordData.item_price_type;
+                $.getJSON(url, function (data) {
+                    // console.log(data);
+                    location.reload();
+                })
+            };
 
 
             var cardTitle = document.createElement("h4");
