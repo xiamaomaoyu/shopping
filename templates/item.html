@@ -130,7 +130,7 @@
 
     <div style="text-align: center; float: right; width: 60%;">
         <button id="addToCart" class="addToCart" onclick="addItemToCart()">加入购物车</button>
-        <button class="purchaseNow">  立即购买  </button>
+        <button class="purchaseNow" onclick="buyNow()">  立即购买  </button>
     </div>
 
 </nav>
@@ -179,8 +179,11 @@
         });
         $('#addToCartNoticeWrapper').show(1).delay(1000).hide(1);
         $('#addToCartNotice').show(1).delay(1000).hide(1);
+    }
 
-
+    function buyNow() {
+        addItemToCart();
+        toCart();
     }
 </script>
 
