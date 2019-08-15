@@ -17,6 +17,7 @@ login_manager.init_app(app)
 def load_user(id):
     return get_user(id)
 
+
 @app.route('/login', methods=["POST", "GET"])
 def login():
     if current_user.is_authenticated:
@@ -47,6 +48,10 @@ def login():
 # TODO: register
 
 
+@app.route('/staff/', methods=["POST", "GET"])
+def staff():
+    return render_template('staffChat.html')
+
 
 @app.route('/logout', methods=["POST", "GET"])
 @login_required
@@ -54,38 +59,48 @@ def logout():
     logout_user()
     return redirect(url_for("login"))
 
+
 @app.route('/')
 def index():
     return render_template("homepage.html")
 
 
 @app.route('/cart')
+@login_required
 def mycart():
     if current_user.is_anonymous == True:
         return redirect(url_for("login"))
     return render_template("cart.html",user=current_user)
 
+
 @app.route('/chat')
+@login_required
 def mychat():
     return render_template("chat.html", user=current_user.get_id())
+
 
 @app.route('/item/<id>')
 def item(id):
     return render_template("item.html",id=id)
 
+
 @app.route('/user')
+@login_required
 def user():
     if current_user.is_anonymous == True:
         return redirect(url_for("login"))
     return render_template("user.html",user=current_user)
 
+
 @app.route('/orders')
 def orders():
     return render_template("orders.html")
 
+
 @app.route('/webHomepage')
 def webHomepage():
     return render_template("webHomepage.html")
+
 
 @app.route('/webSearch/')
 @app.route('/webSearch/<keyword>')
@@ -93,6 +108,18 @@ def webSearch(keyword=None):
     if not keyword:
         keyword = "A2二段"
     return render_template("webSearch.html",keyword=keyword)
+
+
+@app.route('/address/')
+@login_required
+def address():
+    return render_template("userDetails.html")
+
+
+@app.route('/pay/')
+@login_required
+def pay():
+    return render_template("payapl_demo.html",user=current_user)
 
 
 @app.route('/dashboard')
@@ -108,6 +135,10 @@ def search(keyword=None):
     return render_template("search.html",keyword=keyword)
 
 
+@app.route('/user/address/controller/')
+def addressController():
+    return render_template("addressPage.html")
+
 
 if __name__ == '__main__':
-    app.run(port=80,host='0.0.0.0')
+    app.run(port=5100,host='127.0.0.1', debug=True)

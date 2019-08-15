@@ -44,8 +44,7 @@
         var current = "";
         var image_base64 = "";
         var input = $("#user_input");
-        var socket = io.connect('http://' + document.domain + ':' + location.port);
-
+        var socket = io.connect('http://' + document.domain + ':' + '5000');
 
         socket.on( 'staff', function( msg ) {
             var user_id = msg.user_id;

@@ -2,6 +2,8 @@ from flask import jsonify, Blueprint, request, abort, make_response
 import src.search as search
 import src.item as item
 from src.db_hdl import *
+import src.receiver_detail as ReceiverDetail
+import src.order as Order
 from src.sms_hdl import send_customer
 import src.cart_hdl as Cart
 from src.user import *
@@ -85,3 +87,49 @@ def update_quantity():
     Cart.updata_quantity(phone_number,item_id,item_price_type,quantity)
     print("update ",phone_number," ",item_price_type,"   ",quantity)
     return make_response(jsonify(message='success'), 200)
+
+
+@api.route('/api/cart/delete_item',methods=['POST','GET'])
+def delete_item():
+    item_id = request.form.get("item_id")
+    phone_number = request.form.get("phone_number")
+    item_price_type = request.form.get("item_price_type")
+    print("delete ",phone_number," ",item_price_type,)
+    Cart.delete_item(phone_number,item_id,item_price_type)
+    return make_response(jsonify(message='success'), 200)
+
+@api.route('/api/receiver_detail/get_details/<phone_number>',methods=['POST','GET'])
+def get_details(phone_number):
+    details = ReceiverDetail.get_receiver_details(phone_number)
+    return make_response(jsonify(message='success', details=details), 200)
+
+@api.route('/api/receiver_detail/delete_detail/<detail_id>',methods=['POST','GET'])
+def delete_details(detail_id):
+    ReceiverDetail.delete_detail(detail_id)
+    return make_response(jsonify(message='success'), 200)
+
+@api.route('/api/receiver_detail/add_detail/<phone_number>/<receiver_name>/<receiver_address>/<receiver_phone>',methods=['POST','GET'])
+def add_detail(phone_number, receiver_name, receiver_address, receiver_phone):
+    ReceiverDetail.add_receiver_details(phone_number, receiver_name,receiver_address,receiver_phone)
+    return make_response(jsonify(message='success'), 200)
+
+@api.route('/api/receiver_detail/set_detail/<phone_number>/<detail_id>',methods=['POST','GET'])
+def set_detail(phone_number, detail_id):
+    ReceiverDetail.set_as_receiver(phone_number, detail_id)
+    return make_response(jsonify(message='success'), 200)
+
+@api.route('/api/save_order/<phone_number>',methods=['POST','GET'])
+def save_order(phone_number):
+    Order.add_order(phone_number)
+    Cart.clear(phone_number)
+    return make_response(jsonify(message='success'), 200)
+
+@api.route('/api/get_orders',methods=['POST','GET'])
+def get_orders():
+    return make_response(jsonify(message='success', orders=Order.get_orders()), 200)
+
+@api.route('/api/get_order/<phone_number>',methods=['POST','GET'])
+def get_order_by_phone(phone_number):
+    return make_response(jsonify(message='success', orders=Order.get_order_by_phone(phone_number)), 200)
+
+
