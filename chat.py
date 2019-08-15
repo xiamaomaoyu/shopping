@@ -6,9 +6,9 @@ app.config['SECRET_KEY'] = 'vnkdjnfjknfl1232#'
 socketio = SocketIO(app)
 
 
-@app.route('/staff/', methods=["POST", "GET"])
-def staff():
-    return render_template('staffChat.html')
+# @app.route('/staff/', methods=["POST", "GET"])
+# def staff():
+#     return render_template('staffChat.html')
 
 @socketio.on('user post')
 def handle_user_post(str, methods=['GET', 'POST']):

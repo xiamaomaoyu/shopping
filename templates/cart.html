@@ -51,292 +51,301 @@
 </nav>
 
 <script>
-            function createPlusMinusButtonGroup(name, quantity,i) {
-                var buttonWrap = document.createElement("div");
-                buttonWrap.className += "input-group";
-                buttonWrap.onclick = function () {
-                      event.stopPropagation();
-                }
+    var nums = 0;
+        function createPlusMinusButtonGroup(name, quantity,i) {
+            var buttonWrap = document.createElement("div");
+            buttonWrap.className += "input-group";
+            buttonWrap.onclick = function () {
+                  event.stopPropagation();
+            };
 
-                var minus = document.createElement("span");
-                minus.className += "input-group-btn";
-                minus.style.height = "67px";
+            var minus = document.createElement("span");
+            minus.className += "input-group-btn";
+            minus.style.height = "67px";
 
-                var minus_button = document.createElement("button");
-                minus_button.className += "btn btn-default btn-number";
-                minus_button.setAttribute("disable","disabled")
-                minus_button.setAttribute("data-type","minus");
-                minus_button.setAttribute("data-field",name)
+            var minus_button = document.createElement("button");
+            minus_button.className += "btn btn-default btn-number";
+            minus_button.setAttribute("disable","disabled")
+            minus_button.setAttribute("data-type","minus");
+            minus_button.setAttribute("data-field",name)
 
-                minus_button.onclick = function (e) {
-                e.preventDefault();
+            minus_button.onclick = function (e) {
+            e.preventDefault();
 
-                fieldName = this.getAttribute('data-field');
-                type = this.getAttribute('data-type');
-                var input = document.getElementsByName(fieldName)[0];
-                var currentVal = parseInt(input.value);
-                if (!isNaN(currentVal)) {
-                    if (type == 'minus') {
+            fieldName = this.getAttribute('data-field');
+            type = this.getAttribute('data-type');
+            var input = document.getElementsByName(fieldName)[0];
+            var currentVal = parseInt(input.value);
+            if (!isNaN(currentVal)) {
+                if (type == 'minus') {
 
-                        if (currentVal > input.getAttribute('min')) {
-                            input.value = currentVal-1;
-                            records[i].quantity = currentVal - 1;
-                            update_item_quantity(i);
-
-                        }
-                        if (parseInt(input.value) == input.getAttribute('min')) {
-                            this.getAttribute('disabled', true);
-                        }
-
-                    } else if (type == 'plus') {
-
-                        if (currentVal < input.getAttribute('max')) {
-                            input.value = currentVal+1;
-                            records[i].quantity = currentVal + 1;
-                            update_item_quantity(i);
-
-
-                        }
-                        if (parseInt(input.value) == input.getAttribute('max')) {
-                            this.getAttribute('disabled', true);
-                        }
+                    if (currentVal > input.getAttribute('min')) {
+                        input.value = currentVal-1;
+                        records[i].quantity = currentVal - 1;
+                        update_item_quantity(i);
 
                     }
-                } else {
-                    input.val(0);
-                }
-            };
+                    if (parseInt(input.value) == input.getAttribute('min')) {
+                        this.getAttribute('disabled', true);
+                    }
 
-                var minus_span = document.createElement("span");
-                minus_span.className += "glyphicon glyphicon-minus";
+                } else if (type == 'plus') {
 
+                    if (currentVal < input.getAttribute('max')) {
+                        input.value = currentVal+1;
+                        records[i].quantity = currentVal + 1;
+                        update_item_quantity(i);
 
-                var input = document.createElement("input");
-                input.type = "text";
-                input.name = name;
-                input.className += "cartQuantityInput form-control input-number ";
-                input.style.fontSize = "30px";
-                input.style.textAlign = "center";
-                input.value = quantity;
-                input.min = 1;
-                input.max = 99;
-                input.style.height = "67px";
-                input.onfocus = function () {
-                $(this).data('oldValue', $(this).val());
-                };
-                input.onChange = function () {
-
-                minValue = parseInt(this.getAttribute('min'));
-                maxValue = parseInt(this.getAttribute('max'));
-                valueCurrent = parseInt($(this).val());
-                records[i].quantity = valueCurrent;
-                update_item_quantity(i);
-
-
-                var name = this.getAttribute('name');
-                if (valueCurrent >= minValue) {
-                    $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
-                } else {
-                    alert('Sorry, the minimum value was reached');
-                    $(this).val($(this).data('oldValue'));
-                }
-                if (valueCurrent <= maxValue) {
-                    $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
-                } else {
-                    alert('Sorry, the maximum value was reached');
-                    $(this).val($(this).data('oldValue'));
-                }
-
-
-            };
-                input.onkeydown = function (e) {
-                // Allow: backspace, delete, tab, escape, enter and .
-                if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
-                    // Allow: Ctrl+A
-                    (e.keyCode == 65 && e.ctrlKey === true) ||
-                    // Allow: home, end, left, right
-                    (e.keyCode >= 35 && e.keyCode <= 39)) {
-                    // let it happen, don't do anything
-                    return;
-                }
-                // Ensure that it is a number and stop the keypress
-                if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
-                    e.preventDefault();
-                }
-            }
-
-                var add = document.createElement("span");
-                add.className += "input-group-btn";
-                add.style.height = "67px";
-                var add_button = document.createElement("button");
-                add_button.className += "btn btn-default btn-number";
-                add_button.setAttribute("data-type","plus");
-                add_button.setAttribute("data-field",name);
-                add_button.onclick = function (e) {
-                e.preventDefault();
-
-                fieldName = this.getAttribute('data-field');
-                type = this.getAttribute('data-type');
-                var input = document.getElementsByName(fieldName)[0];
-                var currentVal = parseInt(input.value);
-                if (!isNaN(currentVal)) {
-                    if (type == 'minus') {
-
-                        if (currentVal > input.getAttribute('min')) {
-                            input.value = currentVal-1;
-                            records[i].quantity = currentVal - 1;
-
-
-                            update_item_quantity(i);
-
-
-                        }
-                        if (parseInt(input.value) == input.getAttribute('min')) {
-                            this.getAttribute('disabled', true);
-                        }
-
-                    } else if (type == 'plus') {
-
-                        if (currentVal < input.getAttribute('max')) {
-                            input.value = currentVal+1;
-                            records[i].quantity = currentVal + 1;
-                            update_item_quantity(i);
-
-
-                        }
-                        if (parseInt(input.value) == input.getAttribute('max')) {
-                            this.getAttribute('disabled', true);
-                        }
 
                     }
-                } else {
-                    input.val(0);
+                    if (parseInt(input.value) == input.getAttribute('max')) {
+                        this.getAttribute('disabled', true);
+                    }
+
                 }
+            } else {
+                input.val(0);
+            }
+        };
+
+            var minus_span = document.createElement("span");
+            minus_span.className += "glyphicon glyphicon-minus";
+
+
+            var input = document.createElement("input");
+            input.type = "text";
+            input.name = name;
+            input.className += "cartQuantityInput form-control input-number ";
+            input.style.fontSize = "30px";
+            input.style.textAlign = "center";
+            input.value = quantity;
+            input.min = 1;
+            input.max = 99;
+            input.style.height = "67px";
+            input.onfocus = function () {
+            $(this).data('oldValue', $(this).val());
+            };
+            input.onChange = function () {
+
+            minValue = parseInt(this.getAttribute('min'));
+            maxValue = parseInt(this.getAttribute('max'));
+            valueCurrent = parseInt($(this).val());
+            records[i].quantity = valueCurrent;
+            update_item_quantity(i);
+
+
+            var name = this.getAttribute('name');
+            if (valueCurrent >= minValue) {
+                $(".btn-number[data-type='minus'][data-field='" + name + "']").removeAttr('disabled')
+            } else {
+                alert('Sorry, the minimum value was reached');
+                $(this).val($(this).data('oldValue'));
+            }
+            if (valueCurrent <= maxValue) {
+                $(".btn-number[data-type='plus'][data-field='" + name + "']").removeAttr('disabled')
+            } else {
+                alert('Sorry, the maximum value was reached');
+                $(this).val($(this).data('oldValue'));
+            }
+
+
+        };
+            input.onkeydown = function (e) {
+            // Allow: backspace, delete, tab, escape, enter and .
+            if ($.inArray(e.keyCode, [46, 8, 9, 27, 13, 190]) !== -1 ||
+                // Allow: Ctrl+A
+                (e.keyCode == 65 && e.ctrlKey === true) ||
+                // Allow: home, end, left, right
+                (e.keyCode >= 35 && e.keyCode <= 39)) {
+                // let it happen, don't do anything
+                return;
+            }
+            // Ensure that it is a number and stop the keypress
+            if ((e.shiftKey || (e.keyCode < 48 || e.keyCode > 57)) && (e.keyCode < 96 || e.keyCode > 105)) {
+                e.preventDefault();
+            }
+        }
+
+            var add = document.createElement("span");
+            add.className += "input-group-btn";
+            add.style.height = "67px";
+            var add_button = document.createElement("button");
+            add_button.className += "btn btn-default btn-number";
+            add_button.setAttribute("data-type","plus");
+            add_button.setAttribute("data-field",name);
+            add_button.onclick = function (e) {
+            e.preventDefault();
+
+            fieldName = this.getAttribute('data-field');
+            type = this.getAttribute('data-type');
+            var input = document.getElementsByName(fieldName)[0];
+            var currentVal = parseInt(input.value);
+            if (!isNaN(currentVal)) {
+                if (type == 'minus') {
+
+                    if (currentVal > input.getAttribute('min')) {
+                        input.value = currentVal-1;
+                        records[i].quantity = currentVal - 1;
+
+
+                        update_item_quantity(i);
+
+
+                    }
+                    if (parseInt(input.value) == input.getAttribute('min')) {
+                        this.getAttribute('disabled', true);
+                    }
+
+                } else if (type == 'plus') {
+
+                    if (currentVal < input.getAttribute('max')) {
+                        input.value = currentVal+1;
+                        records[i].quantity = currentVal + 1;
+                        update_item_quantity(i);
+
+
+                    }
+                    if (parseInt(input.value) == input.getAttribute('max')) {
+                        this.getAttribute('disabled', true);
+                    }
+
+                }
+            } else {
+                input.val(0);
+            }
+        };
+
+            var add_span = document.createElement("span");
+            add_span.className += "glyphicon glyphicon-plus";
+
+            minus_button.appendChild(minus_span);
+            minus.appendChild(minus_button);
+            add_button.appendChild(add_span);
+            add.appendChild(add_button);
+            buttonWrap.appendChild(minus);
+            buttonWrap.appendChild(input);
+            buttonWrap.appendChild(add);
+            return buttonWrap;
+        }
+
+        function addRecordNode(recordData,i) {
+            var cardWrap2 = document.createElement("div");
+            cardWrap2.className += "row card cartCard";
+            cardWrap2.onclick = function toItem() {
+                url = "/item/"+recordData.item_id;
+                window.location.assign(url);
             };
 
-                var add_span = document.createElement("span");
-                add_span.className += "glyphicon glyphicon-plus";
+            var cardItemId = document.createElement("input");
+            cardItemId.value = recordData.item_id;
+            cardItemId.style.display = "none";
 
-                minus_button.appendChild(minus_span);
-                minus.appendChild(minus_button);
-                add_button.appendChild(add_span);
-                add.appendChild(add_button);
-                buttonWrap.appendChild(minus);
-                buttonWrap.appendChild(input);
-                buttonWrap.appendChild(add);
-                return buttonWrap;
-            }
+            var cardWrap1 = document.createElement("div");
+            cardWrap1.className += "card-horizontal";
 
-            function addRecordNode(recordData,i) {
-                var cardWrap2 = document.createElement("div");
-                cardWrap2.className += "row card cartCard";
-                cardWrap2.onclick = function toItem() {
-                    url = "/item/"+recordData.item_id;
-                    window.location.assign(url);
-                };
+            var cardImage = document.createElement("img");
+            cardImage.className += "cartImage";
+            cardImage.src += "/static/img/itemImg/"+recordData.item_name+"/main.jpg";
+            cardImage.style.width = "300px";
+            cardImage.style.height = "300px";
+            cardImage.alt += "Card image cap";
 
-                var cardItemId = document.createElement("input");
-                cardItemId.value = recordData.item_id;
-                cardItemId.style.display = "none";
+            var cardBody = document.createElement("div");
+            cardBody.className += "cart-card-body";
 
-                var cardWrap1 = document.createElement("div");
-                cardWrap1.className += "card-horizontal";
+            var cardDeleteWrap = document.createElement("div");
+            cardDeleteWrap.style.textAlign = "right";
+            cardDeleteWrap.width = "100%";
+            cardDeleteWrap.style.padding = "20px 10px 0 0";
 
-                var cardImage = document.createElement("img");
-                cardImage.className += "cartImage";
-                cardImage.src += "/static/img/itemImg/"+recordData.item_name+"/main.jpg";
-                cardImage.style.width = "300px";
-                cardImage.style.height = "300px";
-                cardImage.alt += "Card image cap";
-
-                var cardBody = document.createElement("div");
-                cardBody.className += "cart-card-body";
-
-                var cardDeleteWrap = document.createElement("div");
-                cardDeleteWrap.style.textAlign = "right";
-                cardDeleteWrap.width = "100%";
-                cardDeleteWrap.style.padding = "20px 10px 0 0";
-
-                var cardDelete = document.createElement("i");
-                cardDelete.className += "far fa-times-circle";
-                cardDelete.style.color = "darkgrey";
+            var cardDelete = document.createElement("i");
+            cardDelete.className += "far fa-times-circle";
+            cardDelete.style.color = "darkgrey";
 
 
-                var cardTitle = document.createElement("h4");
-                cardTitle.className += "card-title";
-                cardTitle.innerText = recordData.item_name;
+            var cardTitle = document.createElement("h4");
+            cardTitle.className += "card-title";
+            cardTitle.innerText = recordData.item_name;
 
 
-                var cardText = document.createElement("p");
-                cardText.className += "card-text";
-                cardText.innerText = "规格：  " + recordData.item_price_type;
+            var cardText = document.createElement("p");
+            cardText.className += "card-text";
+            cardText.innerText = "规格：  " + recordData.item_price_type;
 
-                var cardRightWrap2 = document.createElement("div");
-                cardRightWrap2.className += "col-sm-3 cartPlusMinusButtonWrap";
-                cardRightWrap2.style.cssFloat = "right";
-                cardRightWrap2.style.marginTop = "15%";
-                cardRightWrap2.padding = 0;
+            var cardRightWrap2 = document.createElement("div");
+            cardRightWrap2.className += "col-sm-3 cartPlusMinusButtonWrap";
+            cardRightWrap2.style.cssFloat = "right";
+            cardRightWrap2.style.marginTop = "15%";
+            cardRightWrap2.padding = 0;
 
-                var data_field_name = "record"+i;
-                var minus_plus_button = createPlusMinusButtonGroup(data_field_name, recordData.quantity,i);
+            var data_field_name = "record"+i;
+            var minus_plus_button = createPlusMinusButtonGroup(data_field_name, recordData.quantity,i);
 
-                var priceTag = document.createElement('h2');
-                priceTag.style += "color: coral; font-size: 40px; margin-top: 15%";
-                priceTag.className += "cartPriceTag";
-                priceTag.innerText = "$ " + recordData.price;
+            var priceTag = document.createElement('h2');
+            priceTag.style += "color: coral; font-size: 40px; margin-top: 15%";
+            priceTag.className += "cartPriceTag";
+            priceTag.innerText = "$ " + recordData.price;
 
-                cardDeleteWrap.appendChild(cardDelete);
-                cardRightWrap2.appendChild(minus_plus_button);
-                cardBody.appendChild(cardDeleteWrap);
-                cardBody.appendChild(cardTitle);
-                cardBody.appendChild(cardText);
-                cardBody.appendChild(cardRightWrap2);
-                cardBody.appendChild(priceTag);
-                cardWrap1.appendChild(cardImage);
-                cardWrap1.appendChild(cardBody);
-                cardWrap2.appendChild(cardWrap1);
-                document.getElementById("cardContainer").appendChild(cardWrap2);
-            }
+            cardDeleteWrap.appendChild(cardDelete);
+            cardRightWrap2.appendChild(minus_plus_button);
+            cardBody.appendChild(cardDeleteWrap);
+            cardBody.appendChild(cardTitle);
+            cardBody.appendChild(cardText);
+            cardBody.appendChild(cardRightWrap2);
+            cardBody.appendChild(priceTag);
+            cardWrap1.appendChild(cardImage);
+            cardWrap1.appendChild(cardBody);
+            cardWrap2.appendChild(cardWrap1);
+            document.getElementById("cardContainer").appendChild(cardWrap2);
+        }
 
-            function reCalTotalPrice() {
-                var overallPrice = 0;
-                var i = 0;
-                for (i = 0; i < records.length; i++) {
-                    overallPrice += records[i].price*records[i].quantity;
-                }
-                document.getElementById("totalPrice").innerText = "$"+overallPrice.toFixed(2);
-                
-
-            }
-            
-            function update_item_quantity(i) {
-                $.ajax({
-                        type: 'post',
-                        url:  "/api/cart/update_quantity",
-                        data: { "phone_number": "{{ current_user.phone_number }}",
-                                "item_id" : records[i].item_id,
-                                "item_price_type": records[i].item_price_type,
-                                "quantity": records[i].quantity }
-                });
-
-                reCalTotalPrice();
-                
-            }
-
-            var url = "/api/cart/get_records/" + "{{ current_user.phone_number }}";
-            var records;
+        function reCalTotalPrice() {
             var overallPrice = 0;
-            $.getJSON(url, function (data) {
-                records = data;
-                var i = 0;
-                for (i = 0; i < records.length; i++) {
-                    addRecordNode(records[i],i);
-                    overallPrice += records[i].price*records[i].quantity;
-                }
-                document.getElementById("checkoutButton").innerText = "结算("+records.length+")";
-                document.getElementById("totalPrice").innerText = "$"+overallPrice.toFixed(2);
+            var i = 0;
+            for (i = 0; i < records.length; i++) {
+                overallPrice += records[i].price*records[i].quantity;
+            }
+            document.getElementById("totalPrice").innerText = "$"+overallPrice.toFixed(2);
+
+
+        }
+
+        function update_item_quantity(i) {
+            $.ajax({
+                    type: 'post',
+                    url:  "/api/cart/update_quantity",
+                    data: { "phone_number": "{{ current_user.phone_number }}",
+                            "item_id" : records[i].item_id,
+                            "item_price_type": records[i].item_price_type,
+                            "quantity": records[i].quantity }
             });
 
+            reCalTotalPrice();
+
+        }
+
+        var url = "/api/cart/get_records/" + "{{ current_user.phone_number }}";
+        var records;
+        var overallPrice = 0;
+        $.getJSON(url, function (data) {
+            records = data;
+            var i = 0;
+            for (i = 0; i < records.length; i++) {
+                addRecordNode(records[i],i);
+                overallPrice += records[i].price*records[i].quantity;
+            }
+            document.getElementById("checkoutButton").innerText = "结算("+records.length+")";
+            document.getElementById("totalPrice").innerText = "$"+overallPrice.toFixed(2);
+            nums = records.length;
+
+        });
+
+        $("#checkoutButton").click(function () {
+           if (nums !== 0) {
+               url = "/address";
+               window.location.assign(url);
+           }
+        });
 
 
         </script>

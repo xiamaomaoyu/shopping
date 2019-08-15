@@ -27,8 +27,9 @@ def get_orders():
         _order = {}
         for row in order:
             _order[row] = order[row]
+        item_id = _order['item']
         _order['item'] = item_name[0]['name']
-        # print(_order)
+        _order['price'] = int(_order['quantity']) * int(DB.query_db("select price from item_price where item=? and price_type=?", (item_id, _order["item_price_type"]))[0]['price'])
         result += [_order]
     return result
 
@@ -41,6 +42,9 @@ def get_order_by_phone(phone_number):
         _order = {}
         for row in order:
             _order[row] = order[row]
+        item_id = _order['item']
+
         _order['item'] = item_name[0]['name']
+        _order['price'] = int(_order['quantity']) * int(DB.query_db("select price from item_price where item=? and price_type=?", (item_id, _order["item_price_type"]))[0]['price'])
         result += [_order]
     return result
