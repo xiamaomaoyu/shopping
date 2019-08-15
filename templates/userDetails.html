@@ -28,8 +28,7 @@
 
     <nav class=" " style="height: 200px; background-color: coral">
         <div style="text-align: right; width: 100%; position: absolute; z-index: 5;" >
-            <button id="add_new" style=" margin: 6%; color:white; font-size: 35px; "> 添加新地址 </button>
-
+            <button id="add_new" style=" background-color: coral; border:none; border-radius: 0; margin: 6%; color:white; font-size: 35px; "> 添加新地址 </button>
         </div>
         <div style="text-align: center; width: 100%; position: absolute;">
             <i class="navbar-brand cartTitle" style="text-align: center; width: 100%;"> 确认订单 </i>
@@ -89,7 +88,6 @@
 
        var u = "/api/receiver_detail/add_detail/" + "{{ current_user.phone_number }}" + "/" + username.val() + "/" + address.val() + "/" + phone.val();
        $.getJSON(u,function (data) {
-           alert("Add details: " + data.message);
            window.location.assign("/pay");
        });
     });
@@ -215,7 +213,6 @@
         $.getJSON(url, function (data) {
             if (data.message === "success") {
                 fetch();
-                alert("Delete success");
             }
         });
     }
