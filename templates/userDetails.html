@@ -5,146 +5,221 @@
     <title>Title</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
         <link href="https://cdnjs.cloudflare.com/ajax/libs/sweetalert/1.1.3/sweetalert.css" rel="stylesheet"/>
-
     <!-- Bootstrap CSS CDN -->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css"
           integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4" crossorigin="anonymous">
     <!-- Our Custom CSS -->
-
     <link rel="stylesheet" href="http://apps.bdimg.com/libs/jqueryui/1.10.4/css/jquery-ui.min.css">
-
     <!-- Font Awesome JS -->
     <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.0/css/all.css"
           integrity="sha384-aOkxzJ5uQz7WBObEZcHvV5JvRW3TUc2rNPA7pe3AwnsUohiw1Vj2Rgx2KSOkF5+h" crossorigin="anonymous">
-
-
     <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+    <link href="/static/fontawesome-pro-5.8.1-web/css/all.css" rel="stylesheet"> <!--load all styles -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
 </head>
-    <body>
-        <button id="all_details">Choose address</button>
-        <button id="add_new">Add a new address</button>
+<body>
 
-        <div id="details">
+    <nav class=" " style="height: 200px; background-color: coral">
+        <div style="text-align: right; width: 100%; position: absolute; z-index: 5;" >
+            <button id="add_new" style=" margin: 6%; color:white; font-size: 35px; "> 添加新地址 </button>
 
         </div>
-
-        <div id="addNew" style="display: none">
-            <form method="post">
-                <input id="username" placeholder="Please input your username" required><br>
-                <input id="phone" placeholder="Please input your phone number" required><br>
-                <input id="address" placeholder="Please input your address" required><br>
-                <button class="btn btn-primary btn-lg" type="button" id="add">Add</button>
-            </form>
+        <div style="text-align: center; width: 100%; position: absolute;">
+            <i class="navbar-brand cartTitle" style="text-align: center; width: 100%;"> 确认订单 </i>
         </div>
-    </body>
 
-    <script>
-        var detials = $("#details");
+    </nav>
+
+    <div id="chooseAdd">
+        <div id="details"></div>
+        <div style="text-align: right;">
+           <button type="button" class="btn " id=\"pay\" onclick="checkPay()" style="background-color: coral; color: white; margin: 5% 0  0 0; font-size: 50px; padding: 20px 50px;">付款</button>"
+        </div>
+    </div>
+
+
+    <div id="addNew" style="display: none">
+        <input  id="username" style="width: 100%; padding: 30px 0 30px 50px; border-bottom: #4c4c4c 1px solid;border-radius: 0; font-size: 40px;" placeholder="收件人" required><br>
+        <input id="phone" style="width: 100%; padding: 30px 0 30px 50px; border-radius: 0; font-size: 40px;" placeholder="联系电话" required><br>
+        <p style="margin: 10px 0 5px 50px; font-size: 40px; color: #4c4c4c;">详细地址：</p>
+        <textarea id="address"style="width: 100%; height: 300px; padding: 10px 0 10px 35px; border-radius: 0; font-size: 40px;" placeholder="详细地址" required>  </textarea><br>
+        <div style="display: flex;">
+        <div style="text-align: left; width: 50%;">
+            <button class="btn" id="all_details" style="background-color: coral; color: white; margin: 10% 0  0 5%; font-size: 50px; padding: 20px 50px;" >返回选择 </button>
+        </div>
+        <div style="text-align: right; width: 50%;">
+            <button class="btn" type="button" id="add" style="background-color: coral;  color: white; margin: 10% 5%  0 0; font-size: 50px; padding: 20px 50px;">添加地址</button>
+        </div>
+        </div>
+    </div>
+</body>
+
+<script>
+    fetch();
+    $("#add_new").click(function () {
+       $("#chooseAdd").hide();
+       $("#addNew").show();
+    });
+
+
+    $("#all_details").click(function () {
+        $("#chooseAdd").show();
         fetch();
-        $("#add_new").click(function () {
-           detials.hide();
-           $("#addNew").show();
-        });
+        $("#addNew").hide();
+    });
 
-        $("#all_details").click(function () {
-           detials.show();
-           fetch();
-           $("#addNew").hide();
-        });
+    /*
+    detials.click(function () {
+       $("#addNew").hide();
+       detials.show();
+    });
+     */
 
-        /*
-        detials.click(function () {
-           $("#addNew").hide();
-           detials.show();
-        });
-         */
+    $("#add").click(function () {
+       var username = $("#username");
+       var phone = $("#phone");
+       var address = $("#address");
 
-        $("#add").click(function () {
-           var username = $("#username");
-           var phone = $("#phone");
-           var address = $("#address");
+       var u = "/api/receiver_detail/add_detail/" + "{{ current_user.phone_number }}" + "/" + username.val() + "/" + address.val() + "/" + phone.val();
+       $.getJSON(u,function (data) {
+           alert("Add details: " + data.message);
+       });
+    });
 
-           var u = "/api/receiver_detail/add_detail/" + "{{ current_user.phone_number }}" + "/" + username.val() + "/" + address.val() + "/" + phone.val();
-           $.getJSON(u,function (data) {
-               alert("Add details: " + data.message);
-           });
-        });
-
-        function fetch() {
-            url = "/api/receiver_detail/get_details/" + "{{ current_user.phone_number }}";
-            detials.html("");
-            $.getJSON(url, function (data) {
-                    // console.log(data);
-                    var html_conten = "";
-                    // make the table headers
-                    html_conten += "<div class=\"container\">";
-                    html_conten += "<table class=\"table\" border=\"0\" style=\"border-collapse:collapse;\" cellspacing=\"0\" cellpadding=\"0\">\n" +
-                        "        <tbody>";
-                    html_conten += "<thead>\n" +
-                            "            <th>Choose</th>\n" +
-                        "            <th>Name</th>\n" +
-                        "            <th>Phone</th>\n" +
-                        "            <th>Adddress</th>\n" +
-                        "        </thead>";
-
-
-                    // make the details
-                    for (var i = 0; i < data.details.length; i++) {
-                        html_conten += "<tr>\n" +
-                                "                <td><input type=\"radio\" name=\"radioname\" value=" + data.details[i].id +
-                                "                   style=\"text-align: left;\">" +
-                                "                <td>" + data.details[i].receiver_name + "</td>\n" +
-                                "                <td>" + data.details[i].phone_number + "</td>\n" +
-                                "                <td>" + data.details[i].receiver_address + " </td>\n" +
-                                "            </tr>";
-                    }
-
-                    html_conten += "</tbody>\n" +
-                        "    </table>";
-                    html_conten += "</div>";
-                    html_conten += "<button type=\"button\" class=\"btn btn-primary btn-lg\" id=\"pay\" onclick=\"checkPay()\" style=\"margin-left: 36%;margin-top: 0%\">Pay</button>";
-                    html_conten += "<button type=\"button\" class=\"btn btn-primary btn-lg\" id=\"pay\" onclick=\"deleteAddress()\" style=\"margin-left: 36%;margin-top: 0%\">Delete</button>";
-
-                    detials.append(html_conten);
-            });
-        }
-
-        function checkPay() {
-            // get the select id
-            var value = $("input:radio[name=\"radioname\"]:checked").val();
-
-            if (value === "") {
-                alert("Please at least choose a address!");
-                return;
+    function fetch() {
+        url = "/api/receiver_detail/get_details/" + "{{ current_user.phone_number }}";
+        $("#details").html("");
+        $.getJSON(url, function (data) {
+            for (i = 0; i < data.details.length; i++) {
+                addRecordNode(data.details[i]);
             }
+        });
+    }
 
-            // console.log(value);
-            var url = "/api/receiver_detail/set_detail/" + "{{ current_user.phone_number }}" + "/" + value;
-            $.getJSON(url, function (data) {
-                if (data.message === "success") {
-                    window.location.assign("/pay");
-                }
-            });
+    function addRecordNode(data) {
+
+        var cardWrap2 = document.createElement("div");
+        cardWrap2.className += "row card cartCard";
+
+
+        var cardWrap1 = document.createElement("div");
+        cardWrap1.className += "card-horizontal";
+        cardWrap1.style.height = "200px";
+
+        var cardSelect = document.createElement("input");
+        cardSelect.type = "radio";
+        cardSelect.name = "radioname";
+        cardSelect.value = data.id;
+        cardSelect.style.fontSize = "50px";
+        cardSelect.style.width = "200px";
+        cardSelect.style.height = "60px";
+        cardSelect.style.marginTop = "40px";
+
+
+        var cardBody = document.createElement("div");
+        cardBody.className += "cart-card-body";
+        cardBody.style.paddingTop = "20px";
+
+        var cardTitle = document.createElement("h4");
+        cardTitle.className += "card-title";
+        cardTitle.innerText = data.receiver_name + "  " + data.phone_number;
+
+
+        var cardText = document.createElement("p");
+        cardText.className += "card-text";
+        cardText.style.marginTop = "30px";
+        cardText.innerText = "地址： " + data.receiver_address;
+
+
+        cardBody.appendChild(cardTitle);
+        cardBody.appendChild(cardText);
+        cardWrap1.appendChild(cardSelect);
+        cardWrap1.appendChild(cardBody);
+        cardWrap2.appendChild(cardWrap1);
+        document.getElementById("details").appendChild(cardWrap2);
+    }
+
+    {#function fetch() {#}
+    {#    url = "/api/receiver_detail/get_details/" + "{{ current_user.phone_number }}";#}
+    {#    detials.html("");#}
+    {#    $.getJSON(url, function (data) {#}
+    {#            // console.log(data);#}
+    {#            var html_conten = "";#}
+    {#            // make the table headers#}
+    {#            html_conten += "<div class=\"container\">";#}
+    {#            html_conten += "<table class=\"table\" border=\"0\" style=\"border-collapse:collapse;\" cellspacing=\"0\" cellpadding=\"0\">\n" +#}
+    {#                "        <tbody>";#}
+    {#            html_conten += "<thead>\n" +#}
+    {#                    "            <th>Choose</th>\n" +#}
+    {#                "            <th>Name</th>\n" +#}
+    {#                "            <th>Phone</th>\n" +#}
+    {#                "            <th>Adddress</th>\n" +#}
+    {#                "        </thead>";#}
+    {##}
+    {##}
+    {#            // make the details#}
+    {#            for (var i = 0; i < data.details.length; i++) {#}
+    {#                html_conten += "<tr>\n" +#}
+    {#                        "                <td><input type=\"radio\" name=\"radioname\" value=" + data.details[i].id +#}
+    {#                        "                   style=\"text-align: left;\">" +#}
+    {#                        "                <td>" + data.details[i].receiver_name + "</td>\n" +#}
+    {#                        "                <td>" + data.details[i].phone_number + "</td>\n" +#}
+    {#                        "                <td>" + data.details[i].receiver_address + " </td>\n" +#}
+    {#                        "            </tr>";#}
+    {#            }#}
+    {##}
+    {#            html_conten += "</tbody>\n" +#}
+    {#                "    </table>";#}
+    {#            html_conten += "</div>";#}
+    {#            html_conten += "<button type=\"button\" class=\"btn btn-primary btn-lg\" id=\"pay\" onclick=\"checkPay()\" style=\"margin-left: 36%;margin-top: 0%\">Pay</button>";#}
+    {#            html_conten += "<button type=\"button\" class=\"btn btn-primary btn-lg\" id=\"pay\" onclick=\"deleteAddress()\" style=\"margin-left: 36%;margin-top: 0%\">Delete</button>";#}
+    {##}
+    {#            detials.append(html_conten);#}
+    {#    });#}
+    {#}#}
+
+    function checkPay() {
+        // get the select id
+        var value = $("input:radio[name=\"radioname\"]:checked").val();
+        if (value === "") {
+            alert("Please at least choose a address!");
+            return;
         }
 
-        function deleteAddress() {
-            var value = $("input:radio[name=\"radioname\"]:checked").val();
-
-            if (value === "") {
-                alert("Please at least choose a address!");
-                return;
+        // console.log(value);
+        var url = "/api/receiver_detail/set_detail/" + "{{ current_user.phone_number }}" + "/" + value;
+        $.getJSON(url, function (data) {
+            if (data.message === "success") {
+                window.location.assign("/pay");
             }
+        });
+    }
 
-            var url = "/api/receiver_detail/delete_detail/" + value;
-            $.getJSON(url, function (data) {
-                if (data.message === "success") {
-                    fetch();
-                    alert("Delete success");
-                }
-            });
+    function deleteAddress() {
+        var value = $("input:radio[name=\"radioname\"]:checked").val();
+
+        if (value === "") {
+            alert("Please at least choose a address!");
+            return;
         }
 
-    </script>
+        var url = "/api/receiver_detail/delete_detail/" + value;
+        $.getJSON(url, function (data) {
+            if (data.message === "success") {
+                fetch();
+                alert("Delete success");
+            }
+        });
+    }
+
+</script>
 
 
 </html>
