@@ -86,6 +86,9 @@
        $.getJSON(u,function (data) {
            window.location.assign("/pay");
        });
+        $("#chooseAdd").show();
+        fetch();
+        $("#addNew").hide();
     });
 
     function fetch() {
@@ -212,6 +215,9 @@
                 fetch();
             }
         });
+        $("#chooseAdd").show();
+        fetch();
+        $("#addNew").hide();
     }
 
 </script>
