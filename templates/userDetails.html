@@ -111,9 +111,12 @@
 
         function checkPay() {
             // get the select id
+            // var value = -1;
             var value = $("input:radio[name=\"radioname\"]:checked").val();
 
-            if (value === "") {
+            // console.log(value);
+            // return;
+            if (value === undefined) {
                 alert("Please at least choose a address!");
                 return;
             }
