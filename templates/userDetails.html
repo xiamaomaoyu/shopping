@@ -90,6 +90,7 @@
        var u = "/api/receiver_detail/add_detail/" + "{{ current_user.phone_number }}" + "/" + username.val() + "/" + address.val() + "/" + phone.val();
        $.getJSON(u,function (data) {
            alert("Add details: " + data.message);
+           window.location.assign("/pay");
        });
     });
 
