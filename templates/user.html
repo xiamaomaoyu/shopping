@@ -75,7 +75,7 @@
         <p> 收货地址 </p>
     </div>
 
-    <div class="divButton">
+    <div class="divButton" onclick="toQRCode()">
         <i class="far fa-qrcode"  style="width: 100%; margin: 5% 0; font-size: 50px"></i>
         <p> 推广二维码 </p>
     </div>
@@ -134,6 +134,11 @@
 
     function goToAddress() {
         window.location.assign("/user/address/controller/");
+    }
+
+    function toQRCode() {
+        url = "/qrcode";
+        window.location.assign(url);
     }
 </script>
 
