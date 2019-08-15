@@ -269,8 +269,9 @@
                     location.reload();
                 })
             };
-
-
+		cardDelete.style.zIndex = "5";
+		cardDeleteWrap.style.zIndex = "5";
+		cardDelete.backgroundColor = "white";
             var cardTitle = document.createElement("h4");
             cardTitle.className += "card-title";
             cardTitle.innerText = recordData.item_name;
