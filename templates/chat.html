@@ -52,7 +52,7 @@
         var image_base64 = "";
         var msg_num = 0;
         var id = Math.random().toString(36).substring(7);
-        var socket = io.connect('http://' + document.domain + ':' + '5000');
+        var socket = io.connect('http://v.veveup.com' + ':' + '5000');
         var input = $("#user_input");
         socket.on(id, function( msg ) {
             var info = unescape(msg.user_message);
