@@ -81,8 +81,11 @@
 
        var u = "/api/receiver_detail/add_detail/" + "{{ current_user.phone_number }}" + "/" + username.val() + "/" + address.val() + "/" + phone.val();
        $.getJSON(u,function (data) {
+           fetch();
+            $("#chooseAdd").show();
+            $("#addNew").hide();
        });
-        window.location.reload();
+
     });
 
     function fetch() {
@@ -170,9 +173,10 @@
         $.getJSON(url, function (data) {
             if (data.message === "success") {
                 fetch();
+                $("#chooseAdd").show();
+                $("#addNew").hide();
             }
         });
-        window.location.reload();
 
     }
 
