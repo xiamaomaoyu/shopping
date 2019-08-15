@@ -19,8 +19,15 @@
 </head>
 
 <body>
+    <nav class=" " style="height: 200px; background-color: coral">
+        <div style="text-align: center; width: 100%; position: absolute;">
+            <i class="navbar-brand cartTitle" style="text-align: center; width: 100%;"> 收银台 </i>
+        </div>
+    </nav>
+    <div style="text-align: center; margin-top: 5%;">
+            <div id="paypal-button-container"></div>
+    </div>
     <!-- Set up a container element for the button -->
-    <div id="paypal-button-container"></div>
 
     <!-- Include the PayPal JavaScript SDK -->
     <script src="https://www.paypal.com/sdk/js?client-id=AcTnNV4o9p_QDNfGkjSG6YsYJpAbrNYXJ-8C_yfoXMGtqJPi88691tWv9WVpr8DpE-fnOjM8CTCj18us&currency=AUD"></script>
@@ -46,7 +53,6 @@
             window.location.assign('/');
         });
         */
-        // TODO get the overall price
         // Render the PayPal button into #paypal-button-container
         paypal.Buttons({
 
@@ -71,6 +77,7 @@
                         console.log(data);
                     });
                     alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                    window.location.assign('/');
                 });
             }
 

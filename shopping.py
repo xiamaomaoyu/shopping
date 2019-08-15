@@ -2,8 +2,6 @@ from flask import Flask, render_template,jsonify, redirect, url_for, request
 from flask_login import LoginManager,login_user, current_user, login_required, logout_user, UserMixin, login_manager
 from src.user import get_user
 from src.db_hdl import query_db
-
-from datetime import  datetime
 from api import api
 
 app = Flask(__name__)
@@ -74,7 +72,6 @@ def mycart():
 
 
 @app.route('/chat')
-@login_required
 def mychat():
     return render_template("chat.html", user=current_user.get_id())
 
