@@ -50,6 +50,21 @@
 
 <script>
     function toHome() {
+        if ($("#password").val().length < 8 ) {
+            alert("The password length should more than 8");
+            return;
+        } else {
+            var p = $("#password").val();
+            if (!p.match(/\d+/)) {
+                alert("The password should contain number");
+                return;
+            }
+
+            if (p.match(/[a-z]/) === null && p.match(/[A-Z]/) === null) {
+                alert("The password should contain char");
+                return;
+            }
+        }
         $.ajax({
                 type: 'post',
                 url:  "/api/login/update_info",

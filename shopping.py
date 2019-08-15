@@ -52,8 +52,10 @@ def staff():
 
 
 @app.route('/logout', methods=["POST", "GET"])
-@login_required
+#@login_required
 def logout():
+    if current_user.is_anonymous:
+        return redirect(url_for("login"))
     logout_user()
     return redirect(url_for("login"))
 
@@ -64,7 +66,7 @@ def index():
 
 
 @app.route('/cart')
-@login_required
+#@login_required
 def mycart():
     if current_user.is_anonymous == True:
         return redirect(url_for("login"))
@@ -82,7 +84,7 @@ def item(id):
 
 
 @app.route('/user')
-@login_required
+#@login_required
 def user():
     if current_user.is_anonymous == True:
         return redirect(url_for("login"))
@@ -108,14 +110,18 @@ def webSearch(keyword=None):
 
 
 @app.route('/address/')
-@login_required
+#@login_required
 def address():
+    if current_user.is_anonymous == True:
+        return redirect(url_for("login"))
     return render_template("userDetails.html")
 
 
 @app.route('/pay/')
-@login_required
+#@login_required
 def pay():
+    if current_user.is_anonymous == True:
+        return redirect(url_for("login"))
     return render_template("payapl_demo.html",user=current_user)
 
 
