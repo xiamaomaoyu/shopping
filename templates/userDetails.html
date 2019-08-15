@@ -26,10 +26,7 @@
 </head>
 <body>
 
-    <nav class=" " style="height: 200px; background-color: coral">
-        <div style="text-align: right; width: 100%; position: absolute; z-index: 5;" >
-            <button id="add_new" style=" background-color: coral; border:none; border-radius: 0; margin: 6%; color:white; font-size: 35px; "> 添加新地址 </button>
-        </div>
+    <nav class="navbar justify-content-between" style="background-color: coral">
         <div style="text-align: center; width: 100%; position: absolute;">
             <i class="navbar-brand cartTitle" style="text-align: center; width: 100%;"> 确认订单 </i>
         </div>
@@ -38,8 +35,10 @@
 
     <div id="chooseAdd">
         <div id="details"></div>
-        <div style="text-align: right;">
-           <button type="button" class="btn " id=\"pay\" onclick="checkPay()" style="background-color: coral; color: white; margin: 5% 0  0 0; font-size: 50px; padding: 20px 50px;">付款</button>"
+        <div style="text-align: right; display: inline-flex;">
+           <button type="button" class="btn " id=\"pay\" onclick="checkPay()" style="background-color: coral; color: white; margin: 0 0  0 0; font-size: 50px; padding: 20px 50px;">付款</button>
+            <button id="add_new" style="background-color: coral; color: white; margin:0 0  0 0; font-size: 50px; padding: 20px 50px;"> 添加新地址 </button>
+
         </div>
     </div>
 
