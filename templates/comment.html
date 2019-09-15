@@ -22,15 +22,20 @@
             <a class="navbar-brand cartTitle" href="{{ url_for("user") }}"> <i class="far fa-chevron-left"></i> </a>
             <p class="cartTitle"> 添加评论 </p>
         </nav>
+        <div style="width: 100%; padding: 5%; text-align: center;">
+            <div style="width:100%; margin-bottom: 50px;">
+                <p style="font-size:50px">亲，对我们的服务满意吗~</p>
+                <div id="star1" style="width:100%; text-align: center;"></div>
+                <div id="result1"></div>
+            </div>
+            <textarea id="comment" style="width: 80%; height: 400px; padding: 10px 0 10px 35px; border-radius: 0; font-size: 30px;" placeholder="宝贝还满意吗" required>  </textarea><br>
 
-        <div style="width:400px;margin:10px auto;">
-            <p style="font-size:20px">请给出你的评分(5分制)：</p>
-            <div id="star1"></div>
-            <div id="result1"></div>
         </div>
 
-        <p style="margin: 10px 0 5px 50px; font-size: 40px; color: #4c4c4c;">评论：</p>
-        <textarea id="comment" style="width: 50%; height: 100px; padding: 10px 0 10px 35px; border-radius: 0; font-size: 40px;" placeholder="详细地址" required>  </textarea><br>
+        <div style="width: 100%; padding: 0 5%; text-align: right;">
+            <button id="submit" class="checkoutBotton">提交</button>
+        </div>
+
 
         <!-- bottom bar -->
         <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: white; text-align: right;"
@@ -45,7 +50,6 @@
             </div>
         </nav>
 
-        <button id="submit" class="checkoutBotton">提交</button>
 
     </body>
 
@@ -65,7 +69,8 @@
                 path: "../static/img",
                 starOff: 'star-off-big.png',
                 starOn: 'star-on-big.png',
-                size: 24,
+                size: 26,
+                width: window.screen.width,
                 start: 3,
                 showHalf: true,
                 //target: result,
@@ -84,7 +89,6 @@
             var url = '/api/set_order_comment/' + "{{ order_id }}";
 
             $.getJSON(url, {"comment": comment.val(),"rating":rating}, function (data, status) {
-                alert("评论成功");
                 toUser();
             });
         });
