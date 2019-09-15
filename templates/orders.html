@@ -126,7 +126,40 @@
         function unpiad() {
             var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "unpaid";
             $.getJSON(url, function (data) {
-                console.log(data);
+                for (var i = 0; i < data.orders.length; i ++) {
+                    console.log(data.orders[i]);
+                }
+
+                var html = "";
+
+                for (i  = 0; i < data.orders.length; i ++) {
+                    var orders = data.orders[i];
+                    html += "<div class=\"card cartCard\" style=\"margin-top: 2%;\">";
+                    html += "<div class=\"row orderTitleWrap\">\n" +
+                        "                                <span style=\"float: left;\">\n" +
+                        "                                    <p style=\"color: #333333;\" class=\"card-text\">";
+                    html += orders.order_id + "</p>\n" +
+                        "                                </span>\n" +
+                        "                                <span style=\" float: right; \">\n" +
+                        "                                    <p class=\"card-text\" style=\"color: coral\">";
+                    html += "代付款" + "</p>\n" +
+                        "                                </span>\n" +
+                        "                            </div>";
+
+                    html += "<div class=\"row card-horizontal\">";
+                    html +="<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" +"\">\n";
+                    html += "<div class=\"card-body\">\n" +
+                        "                                    <h4 class=\"card-title\">";
+                    html += orders.item;
+                    html += "</h4>\n" +
+                        "                                    <p class=\"card-text\"> 规格：" + orders.item_price_type;
+
+                    html += "</p>\n" +
+                        "                                    <h2 style=\"color: coral; font-size: 40px; margin-top: 15%\"> " + orders.price;
+
+                }
+
+                html += ""
             });
         }
         // getOrders();
