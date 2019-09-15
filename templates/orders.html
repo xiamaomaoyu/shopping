@@ -31,9 +31,15 @@
             <li class="fiveTabs"><a data-toggle="tab" href="#tab3">待收货</a></li>
             <li class="fiveTabs"><a data-toggle="tab" href="#tab4">待评价</a></li>
             <li class="fiveTabs"><a data-toggle="tab" href="#tab5">退款中</a></li>
-
         </ul>
+        <div id="noticeWrapper" class="addToCartNoticeWrapper" style="display: none;"> <!-- Fixed element that spans the viewport -->
+          <div id="messageSellerNotice" class="addToCartNotice" style="display: none;">
+              <i style="font-size: 80px; color: orange" class="far fa-check"></i>
+              <br><br>
+              <p style="color: white">您的提醒已经发给卖家啦，谢谢您的耐心等待~</p>
+          </div> <!-- your actual centered element -->
 
+        </div>
         <div class="tab-content">
             <div id="tab1" class="tab-pane fade in active">
                 <div class="container" style="padding: 0; padding-bottom: 20%; margin: 0;">
@@ -366,7 +372,8 @@
 
         // TODO 修改alert
         function alertUser(order_id) {
-            alert("您的订单ID: " + order_id + " 我们已提醒卖家尽快发货");
+            $('#noticeWrapper').show(1).delay(1000).hide(1);
+            $('#messageSellerNotice').show(1).delay(1000).hide(1);
         }
 
         function makeComment(order_id) {
