@@ -13,9 +13,9 @@ def add_order(phone_number):
     cart_records = DB.query_db("select * from cart_records where phone_number=?", (phone_number,))
     for record in cart_records:
         DB.query_db(
-            "insert into orders(order_id, phone_number, item, item_price_type, quantity, receiver_name, receiver_address, receiver_phone, order_time) values (?, ?, ?, ?, ?, ?, ?, ?, ?)",
+            "insert into orders(order_id, phone_number, item, item_price_type, quantity, receiver_name, receiver_address, receiver_phone, order_time, status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (max_id + 1, phone_number, record['item'], record['item_price_type'], record['quantity'],
-            receiver_detail['receiver_name'], receiver_detail['receiver_address'], receiver_detail['receiver_phone'], datetime.datetime.now().strftime("%Y-%m-%d %H:%M")))
+            receiver_detail['receiver_name'], receiver_detail['receiver_address'], receiver_detail['receiver_phone'], datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), "unpaid"))
 
 
 def get_orders():
@@ -48,3 +48,23 @@ def get_order_by_phone(phone_number):
         _order['price'] = int(_order['quantity']) * int(DB.query_db("select price from item_price where item=? and price_type=?", (item_id, _order["item_price_type"]))[0]['price'])
         result += [_order]
     return result
+
+
+def get_order_by_phone_status(phone_number, status):
+    result = []
+    orders = DB.query_db("select * from orders where phone_number=? and status=?", (phone_number, status))
+    for order in orders:
+        item_name = DB.query_db("select name from item where id=?", (order['item'],))
+        _order = {}
+        for row in order:
+            _order[row] = order[row]
+        item_id = _order['item']
+
+        _order['item'] = item_name[0]['name']
+        _order['price'] = int(_order['quantity']) * int(DB.query_db("select price from item_price where item=? and price_type=?", (item_id, _order["item_price_type"]))[0]['price'])
+        result += [_order]
+    return result
+
+
+def set_order_status(order_id, status):
+    DB.query_db("update orders set status=? where order_id=?", (order_id, status))

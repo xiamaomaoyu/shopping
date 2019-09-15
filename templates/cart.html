@@ -351,6 +351,13 @@
         });
 
         $("#checkoutButton").click(function () {
+            // save the order
+            var save_url = '/api/save_order/' + "{{ current_user.phone_number }}";
+
+            $.getJSON(save_url, function (data) {
+                console.log(data);
+            });
+
            if (nums !== 0) {
                url = "/address";
                window.location.assign(url);
