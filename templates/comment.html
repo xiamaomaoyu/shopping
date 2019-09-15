@@ -50,7 +50,8 @@
     </body>
 
     <script type="text/javascript">
-        rat('star1','result1',0);
+        rat('star1','result1',1);
+        ;
         var rating = 0;
         function rat(star,result,m){
 
@@ -73,16 +74,18 @@
                     //第一种方式：直接取值
                     // alert('你的评分是'+score*m+'分');
                     rating = score * m;
+                    // console.log(rating);
                 }
             });
         }
 
         $("#submit").click(function () {
             var comment = $("#comment");
-            var url = "{{ order_id }}";
+            var url = '/api/set_order_comment/' + "{{ order_id }}";
 
             $.getJSON(url, {"comment": comment.val(),"rating":rating}, function (data, status) {
-                console.log(data);
+                alert("评论成功");
+                toUser();
             });
         });
     </script>
