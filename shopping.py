@@ -146,6 +146,10 @@ def addressController():
 def qrcode():
     return render_template("qrCode.html")
 
+@app.route('/tracking')
+def tracking():
+    return render_template("tracking.html")
+
 if __name__ == '__main__':
     app.run(port=80,host='0.0.0.0', debug=True)
 
