@@ -231,10 +231,6 @@
         function addRecordNode(recordData,i) {
             var cardWrap2 = document.createElement("div");
             cardWrap2.className += "row card cartCard";
-            cardWrap2.onclick = function toItem() {
-                url = "/item/"+recordData.item_id;
-                window.location.assign(url);
-            };
 
             var cardItemId = document.createElement("input");
             cardItemId.value = recordData.item_id;
@@ -249,6 +245,10 @@
             cardImage.style.width = "300px";
             cardImage.style.height = "300px";
             cardImage.alt += "Card image cap";
+            cardImage.onclick = function toItem() {
+                url = "/item/"+recordData.item_id;
+                window.location.assign(url);
+            };
 
             var cardBody = document.createElement("div");
             cardBody.className += "cart-card-body";
@@ -269,7 +269,9 @@
                     location.reload();
                 })
             };
-
+            cardDelete.style.zIndex = "5";
+            cardDeleteWrap.style.zIndex = "5";
+            cardDelete.backgroundColor = "white";
 
             var cardTitle = document.createElement("h4");
             cardTitle.className += "card-title";

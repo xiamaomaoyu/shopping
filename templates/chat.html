@@ -39,7 +39,7 @@
 </audio>
 
 <div class="navbar-fixed-bottom" style="background-color: coral;width:100%;  text-align: center;">
-    <input style=" font-size: 40px; width: 80%; padding: 2% 0; margin: 4% 0;" id="user_input">
+    <input style=" font-size: 40px; width: 80%; padding: 2% 40px; margin: 4% 0;" id="user_input">
     <i style="color:white; font-size: 70px; margin: 4% 0; margin-right: 5%;   float: right" class="far fa-paper-plane"  id="send_btn"></i>
 </div>
 
@@ -52,7 +52,7 @@
         var image_base64 = "";
         var msg_num = 0;
         var id = Math.random().toString(36).substring(7);
-        var socket = io.connect('http://' + document.domain + ':' + '5000');
+        var socket = io.connect('http://v.veveup.com' + ':' + '5000');
         var input = $("#user_input");
         socket.on(id, function( msg ) {
             var info = unescape(msg.user_message);

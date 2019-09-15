@@ -142,6 +142,9 @@ def search(keyword=None):
 def addressController():
     return render_template("addressPage.html")
 
+@app.route('/qrcode')
+def qrcode():
+    return render_template("qrCode.html")
 
 if __name__ == '__main__':
-    app.run(port=5100,host='0.0.0.0', debug=True)
+    app.run(port=80,host='0.0.0.0', debug=True)
