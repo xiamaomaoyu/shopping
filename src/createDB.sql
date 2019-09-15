@@ -37,6 +37,12 @@ CREATE TABLE IF NOT EXISTS "orders" (
     status TEXT
 );
 
+CREATE TABLE IF NOT EXISTS "feedbacks" (
+    order_id INTEGER,
+    comment TEXT,
+    rating INTEGER
+);
+
 CREATE TABLE IF NOT EXISTS "receiver_detail" (
     id INTEGER PRIMARY KEY,
     phone_number  TEXT references user(phone_number),

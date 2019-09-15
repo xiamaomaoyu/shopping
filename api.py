@@ -136,4 +136,14 @@ def set_order_status(order_id, status):
     return make_response(jsonify(message='success', orders=Order.set_order_status(order_id, status)), 200)
 
 
+@api.route('/api/get_order_comment/<order_id>',methods=['POST','GET'])
+def get_order_comment(order_id, status):
+    return make_response(jsonify(message='success', orders=Order.get_order_comment(order_id)), 200)
 
+
+@api.route('/api/set_order_comment/<order_id>',methods=['POST','GET'])
+def set_order_comment(order_id):
+    comment = request.args.get("comment")
+    rating = request.args.get("rating")
+
+    return make_response(jsonify(message='success', orders=Order.set_order_comment(order_id, comment, rating)), 200)
