@@ -127,4 +127,13 @@ def get_orders():
 def get_order_by_phone(phone_number):
     return make_response(jsonify(message='success', orders=Order.get_order_by_phone(phone_number)), 200)
 
+@api.route('/api/get_order/<phone_number>/<status>',methods=['POST','GET'])
+def get_order_by_phone_status(phone_number, status):
+    return make_response(jsonify(message='success', orders=Order.get_order_by_phone_status(phone_number, status)), 200)
+
+@api.route('/api/set_order_status/<order_id>/<status>',methods=['POST','GET'])
+def set_order_status(order_id, status):
+    return make_response(jsonify(message='success', orders=Order.set_order_status(order_id, status)), 200)
+
+
 
