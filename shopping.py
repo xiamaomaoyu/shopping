@@ -91,9 +91,9 @@ def user():
     return render_template("user.html",user=current_user)
 
 
-@app.route('/orders')
-def orders():
-    return render_template("orders.html")
+@app.route('/orders/<tab>')
+def orders(tab):
+    return render_template("orders.html",tab=tab)
 
 
 @app.route('/webHomepage')
@@ -158,4 +158,4 @@ def comment(order_id):
 
 
 if __name__ == '__main__':
-    app.run(port=5002,host='0.0.0.0', debug=True)
+    app.run(port=80,host='0.0.0.0', debug=True)

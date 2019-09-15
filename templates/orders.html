@@ -27,56 +27,17 @@
 <div class="container" style="padding-bottom: 20%;">
     <div class="container">
         <ul class="nav nav-tabs">
-            <li class="active fiveTabs"><a data-toggle="tab" href="#tab1">待付款</a></li>
-            <li class="fiveTabs"><a data-toggle="tab" href="#tab2">待发货</a></li>
-            <li class="fiveTabs"><a data-toggle="tab" href="#tab3">待收货</a></li>
-            <li class="fiveTabs"><a data-toggle="tab" href="#tab4">待评价</a></li>
-            <li class="fiveTabs"><a data-toggle="tab" href="#tab5">退款中</a></li>
+            <li class="fiveTabs" id="ltab1"><a data-toggle="tab" href="#tab1">待付款</a></li>
+            <li class="fiveTabs" id="ltab2"><a data-toggle="tab" href="#tab2">待发货</a></li>
+            <li class="fiveTabs" id="ltab3"><a data-toggle="tab" href="#tab3">待收货</a></li>
+            <li class="fiveTabs" id="ltab4"><a data-toggle="tab" href="#tab4">待评价</a></li>
+            <li class="fiveTabs" id="ltab5"><a data-toggle="tab" href="#tab5">退款中</a></li>
         </ul>
 
         <div class="tab-content">
-            <div id="tab1" class="tab-pane fade in active">
+            <div id="tab1" class="tab-pane fade">
                 <div class="container" style="padding: 0; padding-bottom: 20%; margin: 0;">
                     <div class="container-fluid" id="unpiad">
-
-{#                        <div class="card cartCard" style="margin-top: 2%;">#}
-{#                            <div class="row orderTitleWrap">#}
-{#                                <span style="float: left;">#}
-{#                                    <p style="color: #333333;" class="card-text"> 订单号：skdafjoiajweonf134ukefno9q28h3orihji</p>#}
-{#                                </span>#}
-{#                                <span style=" float: right; ">#}
-{#                                    <p class="card-text" style="color: coral"> 买家已付款 </p>#}
-{#                                </span>#}
-{#                            </div>#}
-{#                            <div class="row card-horizontal">#}
-{#                                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">#}
-{#                                <div class="card-body">#}
-{#                                    <h4 class="card-title">爱他美白金版婴幼儿奶粉4段 900g</h4>#}
-{#                                    <p class="card-text"> 规格： 三罐 包邮</p>#}
-{#                                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="row card-horizontal">#}
-{#                                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">#}
-{#                                <div class="card-body">#}
-{#                                    <h4 class="card-title">爱他美白金版婴幼儿奶粉4段 900g</h4>#}
-{#                                    <p class="card-text"> 规格： 三罐 包邮</p>#}
-{#                                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="row card-horizontal">#}
-{#                                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">#}
-{#                                <div class="card-body">#}
-{#                                    <h4 class="card-title">爱他美白金版婴幼儿奶粉4段 900g</h4>#}
-{#                                    <p class="card-text"> 规格： 三罐 包邮</p>#}
-{#                                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="row orderTitleWrap" style=" text-align: right;">#}
-{#                                    <p>共3件商品 合计：$315</p>#}
-{#                                    <button class="borderBotton">提醒发货</button>#}
-{#                            </div>#}
-{#                        </div>#}
 
                     </div>
                 </div>
@@ -105,15 +66,24 @@
                     </div>
                 </div>
             </div>
+
+            <div id="tab5" class="tab-pane fade">
+                <div class="container" style="padding: 0; padding-bottom: 20%; margin: 0;">
+                    <div class="container-fluid" id="uncommit">
+
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 </div>
-<div id="noticeWrapper" class="addToCartNoticeWrapper" style="display: none;"> <!-- Fixed element that spans the viewport -->
-  <div id="messageSellerNotice" class="addToCartNotice" style="display: none;">
-      <i style="font-size: 80px; color: orange" class="far fa-check"></i>
-      <br><br>
-      <p style="color: white">您的提醒已经发给卖家啦，谢谢您的耐心等待~</p>
-  </div> <!-- your actual centered element -->
+<div id="noticeWrapper" class="addToCartNoticeWrapper" style="display: none;">
+    <!-- Fixed element that spans the viewport -->
+    <div id="messageSellerNotice" class="addToCartNotice" style="display: none;">
+        <i style="font-size: 80px; color: orange" class="far fa-check"></i>
+        <br><br>
+        <p style="color: white">您的提醒已经发给卖家啦，谢谢您的耐心等待~</p>
+    </div> <!-- your actual centered element -->
 </div>
 <!-- bottom bar -->
 <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: white" role="navigation" >
@@ -126,77 +96,76 @@
         </ul>
     </div>
 </nav>
-
 <script>
-    unpiad();
-    unsent();
-    sent();
-    comment();
-    function unpiad() {
-        var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "unpaid";
-        $.getJSON(url, function (data) {
-            // console.log(data);
-            for (var i = 0; i < data.orders.length; i ++) {
-                console.log(data.orders[i]);
-                var index = 0;
-                var overallprice = 0;
-                var order_id = -1;
-                var html = "<div class=\"card cartCard\" style=\"margin-top: 2%;\">";
-                for (var j = 0; j < data.orders[i].length; j ++) {
-                    var orders = data.orders[i][j];
+        $("#"+ "l" +"{{ tab }}").removeClass("fiveTabs");
+        $("#"+ "l" + "{{ tab }}").addClass("active fiveTabs");
 
-                    if (index === 0) {
-                        html += "<div class=\"row orderTitleWrap\">\n" +
-                            "                                <span style=\"float: left;\">\n" +
-                            "                                    <p style=\"color: #333333;\" class=\"card-text\"> 订单号：" + orders.order_id + "</p>\n" +
-                            "                                </span>\n" +
-                            "                                <span style=\" float: right; \">\n" +
-                            "                                    <p class=\"card-text\" style=\"color: coral\"> 待付款 </p>\n" +
-                            "                                </span>\n" +
+        $("#" +"{{ tab }}").addClass("active in show");
+
+        unpiad();
+        unsent();
+        sent();
+        comment();
+        function unpiad() {
+            var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "unpaid";
+            $.getJSON(url, function (data) {
+                // console.log(data);
+                for (var i = 0; i < data.orders.length; i ++) {
+                    console.log(data.orders[i]);
+                    var index = 0;
+                    var overallprice = 0;
+                    var order_id = -1;
+                    var html = "<div class=\"card cartCard\" style=\"margin-top: 2%;\">";
+                    for (var j = 0; j < data.orders[i].length; j ++) {
+                        var orders = data.orders[i][j];
+                        if (index === 0) {
+                            html += "<div class=\"row orderTitleWrap\">\n" +
+                                "                                <span style=\"float: left;\">\n" +
+                                "                                    <p style=\"color: #333333;\" class=\"card-text\"> 订单号：" + orders.order_id + "</p>\n" +
+                                "                                </span>\n" +
+                                "                                <span style=\" float: right; \">\n" +
+                                "                                    <p class=\"card-text\" style=\"color: coral\"> 待付款 </p>\n" +
+                                "                                </span>\n" +
+                                "                            </div>";
+                            index = 1;
+                            order_id = orders.order_id;
+                        }
+                        html += "<div class=\"row card-horizontal\">";
+                        html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" +"\">\n";
+                        html += "<div class=\"card-body\">\n" +
+                            "                                    <h4 class=\"card-title\">" + orders.item;
+                        html += "</h4>\n" +
+                            "                                    <p class=\"card-text\"> 规格： " + orders.item_price_type;
+                        html += "</p>\n" +
+                            "                                    <h2 style=\"color: coral; font-size: 40px; margin-top: 15%\"> $" + orders.price;
+                        html += "</h2>\n" +
+                            "                                </div>\n" +
                             "                            </div>";
-                        index = 1;
-                        order_id = orders.order_id;
+                        overallprice += orders.price;
                     }
-
-                    html += "<div class=\"row card-horizontal\">";
-                    html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" +"\">\n";
-                    html += "<div class=\"card-body\">\n" +
-                        "                                    <h4 class=\"card-title\">" + orders.item;
-                    html += "</h4>\n" +
-                        "                                    <p class=\"card-text\"> 规格： " + orders.item_price_type;
+                    html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
+                        "                                    <p>共3件商品 合计：$" + overallprice;
                     html += "</p>\n" +
-                        "                                    <h2 style=\"color: coral; font-size: 40px; margin-top: 15%\"> $" + orders.price;
-                    html += "</h2>\n" +
-                        "                                </div>\n" +
-                        "                            </div>";
-                    overallprice += orders.price;
-
+                        "                                    <button class=\"borderBotton\" onclick=goPay(" +order_id +")" + ">付款";
+                    html += "</button>\n" +
+                        "                            </div>\n" +
+                        "                        </div>";
+                    $("#unpiad").append(html);
                 }
-
-                html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
-                    "                                    <p>共3件商品 合计：$" + overallprice;
-                html += "</p>\n" +
-                    "                                    <button class=\"borderBotton\" onclick=goPay(" +order_id +")" + ">付款";
-                html += "</button>\n" +
-                    "                            </div>\n" +
-                    "                        </div>";
-
-                $("#unpiad").append(html);
-            }
-        });
-    }
+            });
+        }
 
     function unsent() {
         var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "unsent";
         $.getJSON(url, function (data) {
             // console.log(data);
-            for (var i = 0; i < data.orders.length; i ++) {
+            for (var i = 0; i < data.orders.length; i++) {
                 console.log(data.orders[i]);
                 var index = 0;
                 var overallprice = 0;
                 var order_id = -1;
                 var html = "<div class=\"card cartCard\" style=\"margin-top: 2%;\">";
-                for (var j = 0; j < data.orders[i].length; j ++) {
+                for (var j = 0; j < data.orders[i].length; j++) {
                     var orders = data.orders[i][j];
 
                     if (index === 0) {
@@ -213,7 +182,7 @@
                     }
 
                     html += "<div class=\"row card-horizontal\">";
-                    html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" +"\">\n";
+                    html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" + "\">\n";
                     html += "<div class=\"card-body\">\n" +
                         "                                    <h4 class=\"card-title\">" + orders.item;
                     html += "</h4>\n" +
@@ -230,7 +199,7 @@
                 html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
                     "                                    <p>共3件商品 合计：$" + overallprice;
                 html += "</p>\n" +
-                    "                                    <button class=\"borderBotton\" onclick=alertUser(" +order_id +")" + ">提醒发货";
+                    "                                    <button class=\"borderBotton\" onclick=alertUser(" + order_id + ")" + ">提醒发货";
                 html += "</button>\n" +
                     "                            </div>\n" +
                     "                        </div>";
@@ -241,18 +210,17 @@
     }
 
 
-
     function sent() {
         var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "sent";
         $.getJSON(url, function (data) {
             // console.log(data);
-            for (var i = 0; i < data.orders.length; i ++) {
+            for (var i = 0; i < data.orders.length; i++) {
                 console.log(data.orders[i]);
                 var index = 0;
                 var overallprice = 0;
                 var order_id = -1;
                 var html = "<div class=\"card cartCard\" style=\"margin-top: 2%;\">";
-                for (var j = 0; j < data.orders[i].length; j ++) {
+                for (var j = 0; j < data.orders[i].length; j++) {
                     var orders = data.orders[i][j];
 
                     if (index === 0) {
@@ -269,7 +237,7 @@
                     }
 
                     html += "<div class=\"row card-horizontal\">";
-                    html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" +"\">\n";
+                    html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" + "\">\n";
                     html += "<div class=\"card-body\">\n" +
                         "                                    <h4 class=\"card-title\">" + orders.item;
                     html += "</h4>\n" +
@@ -286,8 +254,8 @@
                 html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
                     "                                    <p>共3件商品 合计：$" + overallprice;
                 html += "</p>\n" +
-                    "                                    <button class=\"borderBotton\" onclick=tracking(" +order_id +")" + ">查看物流";
-                html += "                                <button class=\"borderBotton\" onclick=getItems(" +order_id +")" + ">确认收货";
+                    "                                    <button class=\"borderBotton\" onclick=tracking(" + order_id + ")" + ">查看物流";
+                html += "                                <button class=\"borderBotton\" onclick=getItems(" + order_id + ")" + ">确认收货";
                 html += "</button></button>\n" +
                     "                            </div>\n" +
                     "                        </div>";
@@ -301,13 +269,13 @@
         var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "uncomment";
         $.getJSON(url, function (data) {
             // console.log(data);
-            for (var i = 0; i < data.orders.length; i ++) {
+            for (var i = 0; i < data.orders.length; i++) {
                 console.log(data.orders[i]);
                 var index = 0;
                 var overallprice = 0;
                 var order_id = -1;
                 var html = "<div class=\"card cartCard\" style=\"margin-top: 2%;\">";
-                for (var j = 0; j < data.orders[i].length; j ++) {
+                for (var j = 0; j < data.orders[i].length; j++) {
                     var orders = data.orders[i][j];
 
                     if (index === 0) {
@@ -324,7 +292,7 @@
                     }
 
                     html += "<div class=\"row card-horizontal\">";
-                    html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" +"\">\n";
+                    html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" + "\">\n";
                     html += "<div class=\"card-body\">\n" +
                         "                                    <h4 class=\"card-title\">" + orders.item;
                     html += "</h4>\n" +
@@ -337,57 +305,69 @@
                     overallprice += orders.price;
 
                 }
-            });
-        }
+
+                html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
+                    "                                    <p>共3件商品 合计：$" + overallprice;
+                html += "</p>\n" +
+                    "                                    <button class=\"borderBotton\" onclick=makeComment(" + order_id + ")" + ">去评论";
+                html += "</button>\n" +
+                    "                            </div>\n" +
+                    "                        </div>";
+
+                $("#uncommit").append(html);
+            }
+        });
+    }
 
 
-        // 确认收货
-        function getItems(order_id) {
-            var url = '/api/set_order_status/' + order_id + '/uncomment';
-            $.getJSON(url,function (data) {
-               if (data.message === "success") {
-                   makeComment(order_id);
-               }
-            });
-        }
+    // 确认收货
+    function getItems(order_id) {
+        var url = '/api/set_order_status/' + order_id + '/uncomment';
+        $.getJSON(url, function (data) {
+            if (data.message === "success") {
+                makeComment(order_id);
+            }
+        });
+    }
 
-        function tracking(order_id) {
-            window.location.assign("/tracking")
-        }
+    function tracking(order_id) {
+        window.location.assign("/tracking")
+    }
 
-        function goPay(order_id) {
-            window.location.assign("/pay/" + order_id + "/");
-        }
+    function goPay(order_id) {
+        window.location.assign("/pay/" + order_id + "/");
+    }
 
-        // TODO 修改alert
-        function alertUser(order_id) {
-            $('#noticeWrapper').show(1).delay(1000).hide(1);
-            $('#messageSellerNotice').show(1).delay(1000).hide(1);
-        }
+    // TODO 修改alert
+    function alertUser(order_id) {
+        $('#noticeWrapper').show(1).delay(1000).hide(1);
+        $('#messageSellerNotice').show(1).delay(1000).hide(1);
+    }
 
-        function makeComment(order_id) {
-            window.location.assign("/comment/" + order_id);
-        }
+    function makeComment(order_id) {
+        window.location.assign("/comment/" + order_id);
+    }
 
-        function toHome() {
-                url = "/";
-                window.location.assign(url);
-        }
+    function toHome() {
+        url = "/";
+        window.location.assign(url);
+    }
 
-        function toChat() {
-                url = "/chat";
-                window.location.assign(url);
-        }
+    function toChat() {
+        url = "/chat";
+        window.location.assign(url);
+    }
 
-        function toCart() {
-                url = "/cart";
-                window.location.assign(url);
-        }
+    function toCart() {
+        url = "/cart";
+        window.location.assign(url);
+    }
 
-        function toUser() {
-                url = "/user";
-                window.location.assign(url);
-        }
-    </script>
+    function toUser() {
+        url = "/user";
+        window.location.assign(url);
+    }
+</script>
+
 </body>
 </html>
