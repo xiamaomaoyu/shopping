@@ -16,6 +16,7 @@ def add_order(phone_number):
             "insert into orders(order_id, phone_number, item, item_price_type, quantity, receiver_name, receiver_address, receiver_phone, order_time, status) values (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)",
             (max_id + 1, phone_number, record['item'], record['item_price_type'], record['quantity'],
             receiver_detail['receiver_name'], receiver_detail['receiver_address'], receiver_detail['receiver_phone'], datetime.datetime.now().strftime("%Y-%m-%d %H:%M"), "unpaid"))
+    return max_id + 1
 
 
 def get_orders():

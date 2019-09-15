@@ -115,9 +115,9 @@ def set_detail(phone_number, detail_id):
 
 @api.route('/api/save_order/<phone_number>',methods=['POST','GET'])
 def save_order(phone_number):
-    Order.add_order(phone_number)
+    order_id = Order.add_order(phone_number)
     Cart.clear(phone_number)
-    return make_response(jsonify(message='success'), 200)
+    return make_response(jsonify(message='success', order_id = order_id), 200)
 
 @api.route('/api/get_orders',methods=['POST','GET'])
 def get_orders():
