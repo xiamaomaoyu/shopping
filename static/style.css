@@ -92,6 +92,17 @@
       width: 100%;
       border-radius: 20px;
   }
+
+  .orderTitleWrap{
+      margin: 2% 5%;
+
+  }
+  .left{
+      float: left;
+  }
+  .right{
+      float: right;
+  }
   .searchCard{
       margin: 1% 0 0 0;
       width: 100%;
@@ -172,6 +183,15 @@
     flex: 1 1 auto;
   }
 
+  .borderBotton{
+      background-color: transparent;
+      border-radius: 50px;
+      border: coral 1px solid;
+      color: coral;
+      margin: 20px 0;
+      padding: 20px 30px;
+      font: 35px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
+  }
   .checkoutBotton{
 
       background-color: coral;
