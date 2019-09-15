@@ -209,7 +209,7 @@
                             "                      <a>"+ "$" + overallprice + "</a>\n" +
                             "                  </div>\n" +
                             "                  <div class=\"col-sm-1\">\n" +
-                            "                      <button>" + o_status + "</button>\n" +
+                            "                      <div>" + o_status + "</div>\n" +
                             "                  </div>\n" +
                             "                  <div class=\"col-sm-3\">\n" +
                             "                      <p>下单时间：" + order_time + "</p>\n" +
@@ -221,34 +221,36 @@
                         }
 
                         htmls+= "                <div class=\"order-body-content row\" >\n" +
-                            "                  <div class=\"col-sm-1\">\n" +
-                            "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" +"\">\n" +
-                            "                  </div>\n" +
-                            "                  <div class=\"col-sm-2\">\n" +
-                            "                    <a>" + name + "</a>\n<br>" + "<a>" + orders.item_price_type + "</a>" +
-                            "                  </div>\n" +
-                            "                  <div class=\"col-sm-2\">\n" +
-                            "                    <p>" + "$" + price +"</p>\n" +
-                            "                    <p>"+ quantity +" 件</p>\n" +
-                            "                  </div>\n" +
-                            "                  <div class=\"col-sm-2\">\n" +
-                            "                    <p>价格： " + "$" + price + "</p>\n" +
-                            "\n" +
-                            "                  </div>\n" +
-                            "                  <div class=\"col-sm-1\">\n" +
-                            "                      <a> </a>\n" +
-                            "                  </div>\n" +
-                            "                  <div class=\"col-sm-3\">\n" +
-                            "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
-                            "                      <a>" + re_name +"</a> | <a>所有订单</a><br><br>\n" +
-                            "                      <p>" + re_name + " " + phone + "</p>\n" +
-                            "                      <p>" + address +"</p>\n" +
-                            "                  </div>\n" +
-                            "                  <div class=\"col-sm-1\">\n" +
-                            "\n" +
-                            "                  </div>\n" +
-                            "                </div>\n" +
-                            "            </div>";
+                        "                  <div class=\"col-sm-1\">\n" +
+                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" +"\">\n" +
+                        "                  </div>\n" +
+                        "                  <div class=\"col-sm-2\">\n" +
+                        "                    <a>" + name + "</a>\n<br>" + "<a>" + orders.item_price_type + "</a>" +
+                        "                  </div>\n" +
+                        "                  <div class=\"col-sm-2\">\n" +
+                        "                    <p>" + "$" + price +"</p>\n" +
+                        "                    <p>"+ quantity +" 件</p>\n" +
+                        "                  </div>\n" +
+                        "                  <div class=\"col-sm-2\">\n" +
+                        "                    <p>价格： " + "$" + price + "</p>\n" +
+                        "\n" +
+                        "                  </div>\n" +
+                        "                  <div class=\"col-sm-1\">\n" +
+                        "                      <a> </a>\n" +
+                        "                  </div>\n";
+                    if (j === 2) {
+                        htmls +="                  <div class=\"col-sm-3\">\n" +
+                        "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
+                        "                      <a>" + re_name +"</a> | <a>所有订单</a><br><br>\n" +
+                        "                      <p>" + re_name + " " + phone + "</p>\n" +
+                        "                      <p>" + address +"</p>\n" +
+                        "                  </div>\n";
+                    }
+                    htmls += "                  <div class=\"col-sm-1\">\n" +
+                        "\n" +
+                        "                  </div>\n" +
+                        "                </div>\n" +
+                        "            </div>";
                     }
                 }
 
@@ -308,7 +310,7 @@
                         "                      <a>"+ "$" + overallprice + "</a>\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-1\">\n" +
-                        "                      <button>" + "待付款" + "</button>\n" +
+                        "                      <div>" + "待付款" + "</div>\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-3\">\n" +
                         "                      <p>下单时间：" + order_time + "</p>\n" +
@@ -336,14 +338,16 @@
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-1\">\n" +
                         "                      <a> </a>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-3\">\n" +
+                        "                  </div>\n";
+                    if (j === 2) {
+                        htmls +="                  <div class=\"col-sm-3\">\n" +
                         "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
                         "                      <a>" + re_name +"</a> | <a>所有订单</a><br><br>\n" +
                         "                      <p>" + re_name + " " + phone + "</p>\n" +
                         "                      <p>" + address +"</p>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-1\">\n" +
+                        "                  </div>\n";
+                    }
+                    htmls += "                  <div class=\"col-sm-1\">\n" +
                         "\n" +
                         "                  </div>\n" +
                         "                </div>\n" +
@@ -409,6 +413,7 @@
                         "                      <a>"+ "$" + overallprice + "</a>\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-1\">\n" +
+                                "                      <div>未发货</div>\n" +
                         "                      <button onclick = makeSent(" + order_id + ")" + ">" + "发货" + "</button>\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-3\">\n" +
@@ -437,14 +442,16 @@
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-1\">\n" +
                         "                      <a> </a>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-3\">\n" +
+                        "                  </div>\n";
+                    if (j === 2) {
+                        htmls +="                  <div class=\"col-sm-3\">\n" +
                         "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
                         "                      <a>" + re_name +"</a> | <a>所有订单</a><br><br>\n" +
                         "                      <p>" + re_name + " " + phone + "</p>\n" +
                         "                      <p>" + address +"</p>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-1\">\n" +
+                        "                  </div>\n";
+                    }
+                    htmls += "                  <div class=\"col-sm-1\">\n" +
                         "\n" +
                         "                  </div>\n" +
                         "                </div>\n" +
@@ -510,7 +517,7 @@
                         "                      <a>"+ "$" + overallprice + "</a>\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-1\">\n" +
-                        "                      <button>已发货</button>\n" +
+                        "                      <div>已发货</div>\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-3\">\n" +
                         "                      <p>下单时间：" + order_time + "</p>\n" +
@@ -538,14 +545,16 @@
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-1\">\n" +
                         "                      <a> </a>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-3\">\n" +
+                        "                  </div>\n";
+                    if (j === 2) {
+                        htmls +="                  <div class=\"col-sm-3\">\n" +
                         "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
                         "                      <a>" + re_name +"</a> | <a>所有订单</a><br><br>\n" +
                         "                      <p>" + re_name + " " + phone + "</p>\n" +
                         "                      <p>" + address +"</p>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-1\">\n" +
+                        "                  </div>\n";
+                    }
+                    htmls += "                  <div class=\"col-sm-1\">\n" +
                         "\n" +
                         "                  </div>\n" +
                         "                </div>\n" +
@@ -611,7 +620,7 @@
                             "                      <a>" + "$" + price + "</a>\n" +
                             "                  </div>\n" +
                             "                  <div class=\"col-sm-1\">\n" +
-                            "                      <button>已评论</button>\n" +
+                            "                      <div>已评论</div>\n" +
                             "                  </div>\n" +
                             "                  <div class=\"col-sm-3\">\n" +
                             "                      <p>下单时间：" + order_time + "</p>\n" +
@@ -622,33 +631,33 @@
                                 "                </div>\n";
                     }
 
-                    htmls += "                <div class=\"order-body-content row\" >\n" +
+                    htmls+= "                <div class=\"order-body-content row\" >\n" +
                         "                  <div class=\"col-sm-1\">\n" +
-                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" + "\">\n" +
+                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" +"\">\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
-                        "                    <a>" + name + "</a>\n" +
+                        "                    <a>" + name + "</a>\n<br>" + "<a>" + orders.item_price_type + "</a>" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
-                        "                    <p>" + "$" + price + "</p>\n" +
-                        "                    <p>" + quantity + " 件</p>\n" +
+                        "                    <p>" + "$" + price +"</p>\n" +
+                        "                    <p>"+ quantity +" 件</p>\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
-                        "                    <p>评价： " + data.orders[i][0] + "/5" + " </p>\n" +
-                        "                    <p style=\"color: darkgreen\">评论：</p>\n" +
-                        "                    <p>" + data.orders[i][1] + "</p>" +
+                        "                    <p>价格： " + "$" + price + "</p>\n" +
                         "\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-1\">\n" +
                         "                      <a> </a>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-3\">\n" +
+                        "                  </div>\n";
+                    if (j === 2) {
+                        htmls +="                  <div class=\"col-sm-3\">\n" +
                         "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
-                        "                      <a>" + re_name + "</a> | <a>所有订单</a><br><br>\n" +
+                        "                      <a>" + re_name +"</a> | <a>所有订单</a><br><br>\n" +
                         "                      <p>" + re_name + " " + phone + "</p>\n" +
-                        "                      <p>" + address + "</p>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-1\">\n" +
+                        "                      <p>" + address +"</p>\n" +
+                        "                  </div>\n";
+                    }
+                    htmls += "                  <div class=\"col-sm-1\">\n" +
                         "\n" +
                         "                  </div>\n" +
                         "                </div>\n" +
