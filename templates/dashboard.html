@@ -257,7 +257,7 @@
 
     fetchOrders();
     function fetchOrders() {
-        var url = "/api/get_orders";
+        var url = "/api/get_all_orders";
         $.getJSON(url, function (data) {
             console.log(data);
             var htmls = "";
