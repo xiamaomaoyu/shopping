@@ -74,3 +74,11 @@ def get_order_by_phone_status(phone_number, status):
 
 def set_order_status(order_id, status):
     DB.query_db("update orders set status=? where order_id=?", (status, order_id))
+
+
+def set_order_comment(order_id, comment, rating):
+    set_order_status(order_id, "closed")
+    DB.query_db("INSERT INTO feedbacks(order_id, comment, rating) values (?, ?, ?)", (order_id, comment, rating))
+
+def get_order_comment(order_id):
+    return DB.query_db("select comment, rating from feedbacks where order_id=?", (order_id), one=True)
