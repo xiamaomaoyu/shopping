@@ -79,7 +79,10 @@
 
        var u = "/api/receiver_detail/add_detail/" + "{{ current_user.phone_number }}" + "/" + username.val() + "/" + address.val() + "/" + phone.val();
        $.getJSON(u,function (data) {
-           window.location.assign("/pay");
+           // window.location.assign("/pay");
+           $("#chooseAdd").show();
+            fetch();
+            $("#addNew").hide();
        });
     });
 
