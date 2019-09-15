@@ -103,8 +103,11 @@ def get_all_orders():
         if id in result:
             result[id].append(_order)
         else:
-            feedback = DB.query_db("select * from feedbacks where order_id = ?", (id, ), one=True)
-            result[id] = [feedback["rating"], feedback["comment"]]
+            feedback = DB.query_db("select * from feedbacks where order_id = ?", (id, ))
+            if len(feedback) != 0:
+                result[id] = [feedback[0]["rating"], feedback[0]["comment"]]
+            else:
+                result[id] = ["", ""]
             result[id].append(_order)
 
     return list(result.values())
