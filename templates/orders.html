@@ -27,18 +27,19 @@
 <div class="container" style="padding-bottom: 20%;">
     <div class="container">
         <ul class="nav nav-tabs">
-            <li class="active fiveTabs"><a data-toggle="tab" href="#tab1">待付款</a></li>
-            <li class="fiveTabs"><a data-toggle="tab" href="#tab2">待发货</a></li>
-            <li class="fiveTabs"><a data-toggle="tab" href="#tab3">待收货</a></li>
-            <li class="fiveTabs"><a data-toggle="tab" href="#tab4">待评价</a></li>
-            <li class="fiveTabs"><a data-toggle="tab" href="#tab5">退款中</a></li>
+            <li class="fiveTabs" id="ltab1"><a data-toggle="tab" href="#tab1">待付款</a></li>
+            <li class="fiveTabs" id="ltab2"><a data-toggle="tab" href="#tab2">待发货</a></li>
+            <li class="fiveTabs" id="ltab3"><a data-toggle="tab" href="#tab3">待收货</a></li>
+            <li class="fiveTabs" id="ltab4"><a data-toggle="tab" href="#tab4">待评价</a></li>
+            <li class="fiveTabs" id="ltab5"><a data-toggle="tab" href="#tab5">退款中</a></li>
         </ul>
 
         <div class="tab-content">
-            <div id="tab1" class="tab-pane fade in active">
+            <div id="tab1" class="tab-pane fade">
                 <div class="container" style="padding: 0; padding-bottom: 20%; margin: 0;">
                     <div class="container-fluid" id="unpiad">
 
+<<<<<<< HEAD
                         {#                        <div class="card cartCard" style="margin-top: 2%;">#}
                         {#                            <div class="row orderTitleWrap">#}
                         {#                                <span style="float: left;">#}
@@ -78,6 +79,8 @@
                         {#                            </div>#}
                         {#                        </div>#}
 
+=======
+>>>>>>> 6754025e34dc2861562afda0f0fdae54639dd3f3
                     </div>
                 </div>
             </div>
@@ -116,6 +119,7 @@
         <p style="color: white">您的提醒已经发给卖家啦，谢谢您的耐心等待~</p>
     </div> <!-- your actual centered element -->
 
+<<<<<<< HEAD
 </div>
 <!-- bottom bar -->
 <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: white" role="navigation">
@@ -128,6 +132,68 @@
         </ul>
     </div>
 </nav>
+=======
+    <!-- bottom bar -->
+    <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: white" role="navigation" >
+        <div class="container-fluid">
+            <ul class="nav navbar-nav localBottom">
+                <li class="active"><i onclick="toHome()" class="fal fa-home" ></i></li>
+                <li>               <i onclick="toChat()" class="fal fa-comment-dots"></i></li>
+                <li>               <i onclick="toCart()" class="fal fa-shopping-cart"></i></li>
+                <li>               <i onclick="toUser()" class="fal fa-user"> </i></li>
+            </ul>
+        </div>
+    </nav>
+
+    <script>
+        $("#"+ "l" +"{{ tab }}").removeClass("fiveTabs");
+        $("#"+ "l" + "{{ tab }}").addClass("active fiveTabs");
+
+        $("#" +"{{ tab }}").addClass("active in show");
+
+        unpiad();
+        unsent();
+        sent();
+        comment();
+        function unpiad() {
+            var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "unpaid";
+            $.getJSON(url, function (data) {
+                // console.log(data);
+                for (var i = 0; i < data.orders.length; i ++) {
+                    console.log(data.orders[i]);
+                    var index = 0;
+                    var overallprice = 0;
+                    var order_id = -1;
+                    var html = "<div class=\"card cartCard\" style=\"margin-top: 2%;\">";
+                    for (var j = 0; j < data.orders[i].length; j ++) {
+                        var orders = data.orders[i][j];
+
+                        if (index === 0) {
+                            html += "<div class=\"row orderTitleWrap\">\n" +
+                                "                                <span style=\"float: left;\">\n" +
+                                "                                    <p style=\"color: #333333;\" class=\"card-text\"> 订单号：" + orders.order_id + "</p>\n" +
+                                "                                </span>\n" +
+                                "                                <span style=\" float: right; \">\n" +
+                                "                                    <p class=\"card-text\" style=\"color: coral\"> 待付款 </p>\n" +
+                                "                                </span>\n" +
+                                "                            </div>";
+                            index = 1;
+                            order_id = orders.order_id;
+                        }
+
+                        html += "<div class=\"row card-horizontal\">";
+                        html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" +"\">\n";
+                        html += "<div class=\"card-body\">\n" +
+                            "                                    <h4 class=\"card-title\">" + orders.item;
+                        html += "</h4>\n" +
+                            "                                    <p class=\"card-text\"> 规格： " + orders.item_price_type;
+                        html += "</p>\n" +
+                            "                                    <h2 style=\"color: coral; font-size: 40px; margin-top: 15%\"> $" + orders.price;
+                        html += "</h2>\n" +
+                            "                                </div>\n" +
+                            "                            </div>";
+                        overallprice += orders.price;
+>>>>>>> 6754025e34dc2861562afda0f0fdae54639dd3f3
 
 <script>
     unpiad();

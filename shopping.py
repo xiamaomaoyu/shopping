@@ -91,9 +91,9 @@ def user():
     return render_template("user.html",user=current_user)
 
 
-@app.route('/orders')
-def orders():
-    return render_template("orders.html")
+@app.route('/orders/<tab>')
+def orders(tab):
+    return render_template("orders.html",tab=tab)
 
 
 @app.route('/webHomepage')
