@@ -27,7 +27,7 @@
     <div class="container">
         <ul class="nav nav-tabs">
             <li class="active fiveTabs"><a data-toggle="tab" href="#tab1">待付款</a></li>
-            <li class="active fiveTabs"><a data-toggle="tab" href="#tab2">待发货</a></li>
+            <li class="fiveTabs"><a data-toggle="tab" href="#tab2">待发货</a></li>
             <li class="fiveTabs"><a data-toggle="tab" href="#tab3">待收货</a></li>
             <li class="fiveTabs"><a data-toggle="tab" href="#tab4">待评价</a></li>
             <li class="fiveTabs"><a data-toggle="tab" href="#tab5">退款中</a></li>
@@ -39,44 +39,44 @@
                 <div class="container" style="padding: 0; padding-bottom: 20%; margin: 0;">
                     <div class="container-fluid" id="unpiad">
 
-                        <div class="card cartCard" style="margin-top: 2%;">
-                            <div class="row orderTitleWrap">
-                                <span style="float: left;">
-                                    <p style="color: #333333;" class="card-text"> 订单号：skdafjoiajweonf134ukefno9q28h3orihji</p>
-                                </span>
-                                <span style=" float: right; ">
-                                    <p class="card-text" style="color: coral"> 买家已付款 </p>
-                                </span>
-                            </div>
-                            <div class="row card-horizontal">
-                                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">
-                                <div class="card-body">
-                                    <h4 class="card-title">爱他美白金版婴幼儿奶粉4段 900g</h4>
-                                    <p class="card-text"> 规格： 三罐 包邮</p>
-                                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>
-                                </div>
-                            </div>
-                            <div class="row card-horizontal">
-                                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">
-                                <div class="card-body">
-                                    <h4 class="card-title">爱他美白金版婴幼儿奶粉4段 900g</h4>
-                                    <p class="card-text"> 规格： 三罐 包邮</p>
-                                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>
-                                </div>
-                            </div>
-                            <div class="row card-horizontal">
-                                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">
-                                <div class="card-body">
-                                    <h4 class="card-title">爱他美白金版婴幼儿奶粉4段 900g</h4>
-                                    <p class="card-text"> 规格： 三罐 包邮</p>
-                                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>
-                                </div>
-                            </div>
-                            <div class="row orderTitleWrap" style=" text-align: right;">
-                                    <p>共3件商品 合计：$315</p>
-                                    <button class="borderBotton">提醒发货</button>
-                            </div>
-                        </div>
+{#                        <div class="card cartCard" style="margin-top: 2%;">#}
+{#                            <div class="row orderTitleWrap">#}
+{#                                <span style="float: left;">#}
+{#                                    <p style="color: #333333;" class="card-text"> 订单号：skdafjoiajweonf134ukefno9q28h3orihji</p>#}
+{#                                </span>#}
+{#                                <span style=" float: right; ">#}
+{#                                    <p class="card-text" style="color: coral"> 买家已付款 </p>#}
+{#                                </span>#}
+{#                            </div>#}
+{#                            <div class="row card-horizontal">#}
+{#                                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">#}
+{#                                <div class="card-body">#}
+{#                                    <h4 class="card-title">爱他美白金版婴幼儿奶粉4段 900g</h4>#}
+{#                                    <p class="card-text"> 规格： 三罐 包邮</p>#}
+{#                                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="row card-horizontal">#}
+{#                                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">#}
+{#                                <div class="card-body">#}
+{#                                    <h4 class="card-title">爱他美白金版婴幼儿奶粉4段 900g</h4>#}
+{#                                    <p class="card-text"> 规格： 三罐 包邮</p>#}
+{#                                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="row card-horizontal">#}
+{#                                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">#}
+{#                                <div class="card-body">#}
+{#                                    <h4 class="card-title">爱他美白金版婴幼儿奶粉4段 900g</h4>#}
+{#                                    <p class="card-text"> 规格： 三罐 包邮</p>#}
+{#                                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>#}
+{#                                </div>#}
+{#                            </div>#}
+{#                            <div class="row orderTitleWrap" style=" text-align: right;">#}
+{#                                    <p>共3件商品 合计：$315</p>#}
+{#                                    <button class="borderBotton">提醒发货</button>#}
+{#                            </div>#}
+{#                        </div>#}
 
                     </div>
                 </div>
@@ -123,48 +123,256 @@
 
     <script>
         unpiad();
+        unsent();
+        sent();
+        comment();
         function unpiad() {
             var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "unpaid";
             $.getJSON(url, function (data) {
-                console.log(data);
-            });
-        }
-        // getOrders();
-        function getOrders() {
-            var url = "/api/get_order/" + "{{ current_user.phone_number }}";
-            $.getJSON(url, function (data) {
-                console.log(data);
-                var htmls = "";
+                // console.log(data);
                 for (var i = 0; i < data.orders.length; i ++) {
-                    var orders = data.orders[i];
+                    console.log(data.orders[i]);
+                    var index = 0;
+                    var overallprice = 0;
+                    var order_id = -1;
+                    var html = "<div class=\"card cartCard\" style=\"margin-top: 2%;\">";
+                    for (var j = 0; j < data.orders[i].length; j ++) {
+                        var orders = data.orders[i][j];
 
-                    var name = orders.item;
-                    var order_id = orders.order_id;
-                    var order_time = orders.order_time;
-                    var phone = orders.phone_number;
-                    var price = orders.price;
-                    var quantity = orders.quantity;
-                    var address = orders.receiver_address;
-                    var re_name = orders.receiver_name;
+                        if (index === 0) {
+                            html += "<div class=\"row orderTitleWrap\">\n" +
+                                "                                <span style=\"float: left;\">\n" +
+                                "                                    <p style=\"color: #333333;\" class=\"card-text\"> 订单号：" + orders.order_id + "</p>\n" +
+                                "                                </span>\n" +
+                                "                                <span style=\" float: right; \">\n" +
+                                "                                    <p class=\"card-text\" style=\"color: coral\"> 待付款 </p>\n" +
+                                "                                </span>\n" +
+                                "                            </div>";
+                            index = 1;
+                            order_id = orders.order_id;
+                        }
 
-                    htmls += "                        <div class=\"row card cartCard\">\n" +
-                        "                            <div class=\"card-horizontal\">\n" +
-                        "                                <img class=\"cartImage\" src=\"/static/img/itemImg/" + name + "/main.jpg" +"\">\n" +
-                        "                                <div class=\"card-body\">\n" +
-                        "                                    <h4 class=\"card-title\">" + name +"</h4>\n" +
-                        "                                    <p class=\"card-text\"> 规格： "+ orders.item_price_type +"</p>\n" +
-                        "                                    <h2 style=\"color: coral; font-size: 40px; margin-top: 15%\"> $105 </h2>\n" +
-                        "\n" +
-                        "                                </div>\n" +
+                        html += "<div class=\"row card-horizontal\">";
+                        html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" +"\">\n";
+                        html += "<div class=\"card-body\">\n" +
+                            "                                    <h4 class=\"card-title\">" + orders.item;
+                        html += "</h4>\n" +
+                            "                                    <p class=\"card-text\"> 规格： " + orders.item_price_type;
+                        html += "</p>\n" +
+                            "                                    <h2 style=\"color: coral; font-size: 40px; margin-top: 15%\"> $" + orders.price;
+                        html += "</h2>\n" +
+                            "                                </div>\n" +
+                            "                            </div>";
+                        overallprice += orders.price;
+
+                    }
+
+                    html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
+                        "                                    <p>共3件商品 合计：$" + overallprice;
+                    html += "</p>\n" +
+                        "                                    <button class=\"borderBotton\" onclick=goPay(" +order_id +")" + ">付款";
+                    html += "</button>\n" +
                         "                            </div>\n" +
-                        "                        </div>"
+                        "                        </div>";
+
+                    $("#unpiad").append(html);
                 }
-                $("#wait_orders").append(htmls);
-                //$("#waiting_back").append(htmls);
-                //$("#waiting_commit").append(htmls);
-                //$("#waiting_orders").append(htmls);
             });
         }
+
+        function unsent() {
+            var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "unsent";
+            $.getJSON(url, function (data) {
+                // console.log(data);
+                for (var i = 0; i < data.orders.length; i ++) {
+                    console.log(data.orders[i]);
+                    var index = 0;
+                    var overallprice = 0;
+                    var order_id = -1;
+                    var html = "<div class=\"card cartCard\" style=\"margin-top: 2%;\">";
+                    for (var j = 0; j < data.orders[i].length; j ++) {
+                        var orders = data.orders[i][j];
+
+                        if (index === 0) {
+                            html += "<div class=\"row orderTitleWrap\">\n" +
+                                "                                <span style=\"float: left;\">\n" +
+                                "                                    <p style=\"color: #333333;\" class=\"card-text\"> 订单号：" + orders.order_id + "</p>\n" +
+                                "                                </span>\n" +
+                                "                                <span style=\" float: right; \">\n" +
+                                "                                    <p class=\"card-text\" style=\"color: coral\"> 待发货 </p>\n" +
+                                "                                </span>\n" +
+                                "                            </div>";
+                            index = 1;
+                            order_id = orders.order_id;
+                        }
+
+                        html += "<div class=\"row card-horizontal\">";
+                        html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" +"\">\n";
+                        html += "<div class=\"card-body\">\n" +
+                            "                                    <h4 class=\"card-title\">" + orders.item;
+                        html += "</h4>\n" +
+                            "                                    <p class=\"card-text\"> 规格： " + orders.item_price_type;
+                        html += "</p>\n" +
+                            "                                    <h2 style=\"color: coral; font-size: 40px; margin-top: 15%\"> $" + orders.price;
+                        html += "</h2>\n" +
+                            "                                </div>\n" +
+                            "                            </div>";
+                        overallprice += orders.price;
+
+                    }
+
+                    html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
+                        "                                    <p>共3件商品 合计：$" + overallprice;
+                    html += "</p>\n" +
+                        "                                    <button class=\"borderBotton\" onclick=alertUser(" +order_id +")" + ">提醒发货";
+                    html += "</button>\n" +
+                        "                            </div>\n" +
+                        "                        </div>";
+
+                    $("#unsent").append(html);
+                }
+            });
+        }
+
+
+
+        function sent() {
+            var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "sent";
+            $.getJSON(url, function (data) {
+                // console.log(data);
+                for (var i = 0; i < data.orders.length; i ++) {
+                    console.log(data.orders[i]);
+                    var index = 0;
+                    var overallprice = 0;
+                    var order_id = -1;
+                    var html = "<div class=\"card cartCard\" style=\"margin-top: 2%;\">";
+                    for (var j = 0; j < data.orders[i].length; j ++) {
+                        var orders = data.orders[i][j];
+
+                        if (index === 0) {
+                            html += "<div class=\"row orderTitleWrap\">\n" +
+                                "                                <span style=\"float: left;\">\n" +
+                                "                                    <p style=\"color: #333333;\" class=\"card-text\"> 订单号：" + orders.order_id + "</p>\n" +
+                                "                                </span>\n" +
+                                "                                <span style=\" float: right; \">\n" +
+                                "                                    <p class=\"card-text\" style=\"color: coral\"> 已发货 </p>\n" +
+                                "                                </span>\n" +
+                                "                            </div>";
+                            index = 1;
+                            order_id = orders.order_id;
+                        }
+
+                        html += "<div class=\"row card-horizontal\">";
+                        html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" +"\">\n";
+                        html += "<div class=\"card-body\">\n" +
+                            "                                    <h4 class=\"card-title\">" + orders.item;
+                        html += "</h4>\n" +
+                            "                                    <p class=\"card-text\"> 规格： " + orders.item_price_type;
+                        html += "</p>\n" +
+                            "                                    <h2 style=\"color: coral; font-size: 40px; margin-top: 15%\"> $" + orders.price;
+                        html += "</h2>\n" +
+                            "                                </div>\n" +
+                            "                            </div>";
+                        overallprice += orders.price;
+
+                    }
+
+                    html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
+                        "                                    <p>共3件商品 合计：$" + overallprice;
+                    html += "</p>\n" +
+                        "                                    <button class=\"borderBotton\" onclick=tracking(" +order_id +")" + ">查看物流";
+                    html += "                                <button class=\"borderBotton\" onclick=getItems(" +order_id +")" + ">确认收货";
+                    html += "</button></button>\n" +
+                        "                            </div>\n" +
+                        "                        </div>";
+
+                    $("#unreceived").append(html);
+                }
+            });
+        }
+
+        function comment() {
+            var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "uncomment";
+            $.getJSON(url, function (data) {
+                // console.log(data);
+                for (var i = 0; i < data.orders.length; i ++) {
+                    console.log(data.orders[i]);
+                    var index = 0;
+                    var overallprice = 0;
+                    var order_id = -1;
+                    var html = "<div class=\"card cartCard\" style=\"margin-top: 2%;\">";
+                    for (var j = 0; j < data.orders[i].length; j ++) {
+                        var orders = data.orders[i][j];
+
+                        if (index === 0) {
+                            html += "<div class=\"row orderTitleWrap\">\n" +
+                                "                                <span style=\"float: left;\">\n" +
+                                "                                    <p style=\"color: #333333;\" class=\"card-text\"> 订单号：" + orders.order_id + "</p>\n" +
+                                "                                </span>\n" +
+                                "                                <span style=\" float: right; \">\n" +
+                                "                                    <p class=\"card-text\" style=\"color: coral\"> 待评价 </p>\n" +
+                                "                                </span>\n" +
+                                "                            </div>";
+                            index = 1;
+                            order_id = orders.order_id;
+                        }
+
+                        html += "<div class=\"row card-horizontal\">";
+                        html += "<img class=\"cartImage\" alt=\"Card image cap\" src=\"/static/img/itemImg/" + orders.item + "/main.jpg" +"\">\n";
+                        html += "<div class=\"card-body\">\n" +
+                            "                                    <h4 class=\"card-title\">" + orders.item;
+                        html += "</h4>\n" +
+                            "                                    <p class=\"card-text\"> 规格： " + orders.item_price_type;
+                        html += "</p>\n" +
+                            "                                    <h2 style=\"color: coral; font-size: 40px; margin-top: 15%\"> $" + orders.price;
+                        html += "</h2>\n" +
+                            "                                </div>\n" +
+                            "                            </div>";
+                        overallprice += orders.price;
+
+                    }
+
+                    html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
+                        "                                    <p>共3件商品 合计：$" + overallprice;
+                    html += "</p>\n" +
+                        "                                    <button class=\"borderBotton\" onclick=makeComment(" +order_id +")" + ">去评论";
+                    html += "</button>\n" +
+                        "                            </div>\n" +
+                        "                        </div>";
+
+                    $("#uncommit").append(html);
+                }
+            });
+        }
+
+
+        // 确认收货
+        function getItems(order_id) {
+            var url = '/api/set_order_status/' + order_id + '/uncomment';
+            $.getJSON(url,function (data) {
+               if (data.message === "success") {
+                   makeComment(order_id);
+               }
+            });
+        }
+
+        function tracking(order_id) {
+            alert("跟踪订单");
+        }
+
+        function goPay(order_id) {
+            window.location.assign("/pay/" + order_id + "/");
+        }
+
+        // TODO 修改alert
+        function alertUser(order_id) {
+            alert("您的订单ID: " + order_id + " 我们已提醒卖家尽快发货");
+        }
+
+        function makeComment(order_id) {
+            window.location.assign("/comment/" + order_id);
+        }
+
         function toHome() {
                 url = "/";
                 window.location.assign(url);
