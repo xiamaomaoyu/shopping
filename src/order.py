@@ -67,7 +67,7 @@ def get_order_by_phone_status(phone_number, status):
         if id in result:
             result[id].append(_order)
         else:
-            result[id] += [_order]
+            result[id] = [_order]
 
     return result
 
