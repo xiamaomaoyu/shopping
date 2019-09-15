@@ -80,5 +80,32 @@ def set_order_comment(order_id, comment, rating):
     set_order_status(order_id, "closed")
     DB.query_db("INSERT INTO feedbacks(order_id, comment, rating) values (?, ?, ?)", (order_id, comment, rating))
 
+
 def get_order_comment(order_id):
     return DB.query_db("select comment, rating from feedbacks where order_id=?", (order_id), one=True)
+
+
+def get_all_orders():
+    result = {}
+    orders = DB.query_db("select * from orders")
+    for order in orders:
+        item_name = DB.query_db("select name from item where id=?", (order['item'],))
+        _order = {}
+        for row in order:
+            _order[row] = order[row]
+        item_id = _order['item']
+
+        _order['item'] = item_name[0]['name']
+        _order['price'] = int(_order['quantity']) * int(
+            DB.query_db("select price from item_price where item=? and price_type=?",
+                        (item_id, _order["item_price_type"]))[0]['price'])
+        id = _order["order_id"]
+        if id in result:
+            result[id].append(_order)
+        else:
+            feedback = DB.query_db("select * from feedbacks where order_id = ?", id)
+            result[id] = [feedback["rating"], feedback["comment"]]
+            result[id].append(_order)
+
+    return list(result.values())
+

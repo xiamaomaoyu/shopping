@@ -147,3 +147,8 @@ def set_order_comment(order_id):
     rating = request.args.get("rating")
 
     return make_response(jsonify(message='success', orders=Order.set_order_comment(order_id, comment, rating)), 200)
+
+
+@api.route('/api/get_all_orders',methods=['POST','GET'])
+def get_all_orders():
+    return make_response(jsonify(message='success', orders=Order.get_all_orders()), 200)
