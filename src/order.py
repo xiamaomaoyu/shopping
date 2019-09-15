@@ -69,7 +69,7 @@ def get_order_by_phone_status(phone_number, status):
         else:
             result[id] = [_order]
 
-    return result.keys()
+    return list(result.values())
 
 
 def set_order_status(order_id, status):
