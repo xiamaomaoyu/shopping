@@ -27,6 +27,14 @@
     <div style="text-align: center; margin-top: 5%;">
             <div id="paypal-button-container"></div>
     </div>
+    <div id="noticeWrapper" class="addToCartNoticeWrapper" style="display: none;"> <!-- Fixed element that spans the viewport -->
+      <div id="paymentSuccessNotice" class="addToCartNotice" style="display: none;">
+          <i style="font-size: 80px; color: orange" class="far fa-check"></i>
+          <br><br>
+          <p style="color: white">付款成功！</p>
+      </div> <!-- your actual centered element -->
+
+    </div>
     <!-- Set up a container element for the button -->
 
     <!-- Include the PayPal JavaScript SDK -->
@@ -76,7 +84,8 @@
                     $.getJSON(url, function (data) {
                         console.log(data);
                     });
-                    alert('Transaction completed by ' + details.payer.name.given_name + '!');
+                    $('#noticeWrapper').show(1).delay(1000).hide(1);
+                    $('#paymentSuccessNotice').show(1).delay(1000).hide(1);
                     window.location.assign('/');
                 });
             }
