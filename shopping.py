@@ -146,12 +146,9 @@ def addressController():
 def qrcode():
     return render_template("qrCode.html")
 
+@app.route('/comment/<order_id>')
+def comment(order_id):
+    return render_template("comment.html",order_id=order_id)
+
 if __name__ == '__main__':
     app.run(port=80,host='0.0.0.0', debug=True)
-
-"""
-var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "unpaid";
-$.getJSON(url, function (data) {
-    console.log(data);
-});
-"""

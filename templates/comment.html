@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8">
+        <title>Title</title>
+        <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+        <link rel="stylesheet" href="/static/style.css">
+        <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+        <link href="/static/fontawesome-pro-5.8.1-web/css/all.css" rel="stylesheet">
+        <!--load all styles -->
+        <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+        <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+        <script src="http://www.jq22.com/jquery/jquery-1.10.2.js"></script>
+        <script src="../static/js/jquery.raty.js" type="text/javascript"></script>
+
+    </head>
+    <body>
+        <nav class="navbar justify-content-between" style="background-color: coral">
+            <a class="navbar-brand cartTitle" href="{{ url_for("user") }}"> <i class="far fa-chevron-left"></i> </a>
+            <p class="cartTitle"> 添加评论 </p>
+        </nav>
+
+        <div style="width:400px;margin:10px auto;">
+            <p style="font-size:20px">请给出你的评分(5分制)：</p>
+            <div id="star1"></div>
+            <div id="result1"></div>
+        </div>
+
+        <p style="margin: 10px 0 5px 50px; font-size: 40px; color: #4c4c4c;">评论：</p>
+        <textarea id="comment" style="width: 50%; height: 100px; padding: 10px 0 10px 35px; border-radius: 0; font-size: 40px;" placeholder="详细地址" required>  </textarea><br>
+
+        <!-- bottom bar -->
+        <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: white; text-align: right;"
+             role="navigation">
+            <div class="container-fluid">
+                <ul class="nav navbar-nav localBottom">
+                    <li class="active"><i onclick="toHome()" class="fal fa-home"></i></li>
+                    <li><i onclick="toChat()" class="fal fa-comment-dots"></i></li>
+                    <li><i onclick="toCart()" class="fal fa-shopping-cart"></i></li>
+                    <li><i onclick="toUser()" class="fal fa-user"> </i></li>
+                </ul>
+            </div>
+        </nav>
+
+        <button id="submit" class="checkoutBotton">提交</button>
+
+    </body>
+
+    <script type="text/javascript">
+        rat('star1','result1',0);
+        var rating = 0;
+        function rat(star,result,m){
+
+            star= '#' + star;
+            result= '#' + result;
+            $(result).hide();//将结果DIV隐藏
+
+            $(star).raty({
+                hints: ['1', '2', '3', '4', '5'],
+                number:5,
+                path: "../static/img",
+                starOff: 'star-off-big.png',
+                starOn: 'star-on-big.png',
+                size: 24,
+                start: 3,
+                showHalf: true,
+                //target: result,
+                //targetKeep : false,//targetKeep 属性设置为true，用户的选择值才会被保持在目标DIV中，否则只是鼠标悬停时有值，而鼠标离开后这个值就会消失
+                click: function (score, evt) {
+                    //第一种方式：直接取值
+                    // alert('你的评分是'+score*m+'分');
+                    rating = score * m;
+                }
+            });
+        }
+
+        $("#submit").click(function () {
+            var comment = $("#comment");
+            var url = "{{ order_id }}";
+
+            $.getJSON(url, {"comment": comment.val(),"rating":rating}, function (data, status) {
+                console.log(data);
+            });
+        });
+    </script>
+    <script>
+        function toHome() {
+            url = "/";
+            window.location.assign(url);
+        }
+
+        function toChat() {
+            url = "/chat";
+            window.location.assign(url);
+        }
+
+        function toCart() {
+            url = "/cart";
+            window.location.assign(url);
+        }
+
+        function toUser() {
+            url = "/user";
+            window.location.assign(url);
+        }
+    </script>
+</html>
