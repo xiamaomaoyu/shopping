@@ -337,69 +337,57 @@
                     overallprice += orders.price;
 
                 }
-
-                html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
-                    "                                    <p>共3件商品 合计：$" + overallprice;
-                html += "</p>\n" +
-                    "                                    <button class=\"borderBotton\" onclick=makeComment(" +order_id +")" + ">去评论";
-                html += "</button>\n" +
-                    "                            </div>\n" +
-                    "                        </div>";
-
-                $("#uncommit").append(html);
-            }
-        });
-    }
+            });
+        }
 
 
-    // 确认收货
-    function getItems(order_id) {
-        var url = '/api/set_order_status/' + order_id + '/uncomment';
-        $.getJSON(url,function (data) {
-           if (data.message === "success") {
-               makeComment(order_id);
-           }
-        });
-    }
+        // 确认收货
+        function getItems(order_id) {
+            var url = '/api/set_order_status/' + order_id + '/uncomment';
+            $.getJSON(url,function (data) {
+               if (data.message === "success") {
+                   makeComment(order_id);
+               }
+            });
+        }
 
-    function tracking(order_id) {
-        alert("跟踪订单");
-    }
+        function tracking(order_id) {
+            window.location.assign("/tracking")
+        }
 
-    function goPay(order_id) {
-        window.location.assign("/pay/" + order_id + "/");
-    }
+        function goPay(order_id) {
+            window.location.assign("/pay/" + order_id + "/");
+        }
 
-    // TODO 修改alert
-    function alertUser(order_id) {
-        $('#noticeWrapper').show(1).delay(1000).hide(1);
-        $('#messageSellerNotice').show(1).delay(1000).hide(1);
-    }
+        // TODO 修改alert
+        function alertUser(order_id) {
+            $('#noticeWrapper').show(1).delay(1000).hide(1);
+            $('#messageSellerNotice').show(1).delay(1000).hide(1);
+        }
 
-    function makeComment(order_id) {
-        window.location.assign("/comment/" + order_id);
-    }
+        function makeComment(order_id) {
+            window.location.assign("/comment/" + order_id);
+        }
 
-    function toHome() {
-            url = "/";
-            window.location.assign(url);
-    }
+        function toHome() {
+                url = "/";
+                window.location.assign(url);
+        }
 
-    function toChat() {
-            url = "/chat";
-            window.location.assign(url);
-    }
+        function toChat() {
+                url = "/chat";
+                window.location.assign(url);
+        }
 
-    function toCart() {
-            url = "/cart";
-            window.location.assign(url);
-    }
+        function toCart() {
+                url = "/cart";
+                window.location.assign(url);
+        }
 
-    function toUser() {
-            url = "/user";
-            window.location.assign(url);
-    }
-</script>
-
+        function toUser() {
+                url = "/user";
+                window.location.assign(url);
+        }
+    </script>
 </body>
 </html>
