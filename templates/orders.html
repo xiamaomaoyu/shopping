@@ -26,11 +26,11 @@
 <div class="container" style="padding-bottom: 20%;">
     <div class="container">
         <ul class="nav nav-tabs">
-            <li class="active fiveTabs"><a data-toggle="tab" href="#tab1">待付款</a></li>
-            <li class="fiveTabs"><a data-toggle="tab" href="#tab2">待发货</a></li>
-            <li class="fiveTabs"><a data-toggle="tab" href="#tab3">待收货</a></li>
-            <li class="fiveTabs"><a data-toggle="tab" href="#tab4">待评价</a></li>
-            <li class="fiveTabs"><a data-toggle="tab" href="#tab5">退款中</a></li>
+            <li class="fiveTabs" id="ltab1"><a data-toggle="tab" href="#tab1">待付款</a></li>
+            <li class="fiveTabs" id="ltab2"><a data-toggle="tab" href="#tab2">待发货</a></li>
+            <li class="fiveTabs" id="ltab3"><a data-toggle="tab" href="#tab3">待收货</a></li>
+            <li class="fiveTabs" id="ltab4"><a data-toggle="tab" href="#tab4">待评价</a></li>
+            <li class="fiveTabs" id="ltab5"><a data-toggle="tab" href="#tab5">退款中</a></li>
         </ul>
         <div id="noticeWrapper" class="addToCartNoticeWrapper" style="display: none;"> <!-- Fixed element that spans the viewport -->
           <div id="messageSellerNotice" class="addToCartNotice" style="display: none;">
@@ -41,48 +41,9 @@
 
         </div>
         <div class="tab-content">
-            <div id="tab1" class="tab-pane fade in active">
+            <div id="tab1" class="tab-pane fade">
                 <div class="container" style="padding: 0; padding-bottom: 20%; margin: 0;">
                     <div class="container-fluid" id="unpiad">
-
-{#                        <div class="card cartCard" style="margin-top: 2%;">#}
-{#                            <div class="row orderTitleWrap">#}
-{#                                <span style="float: left;">#}
-{#                                    <p style="color: #333333;" class="card-text"> 订单号：skdafjoiajweonf134ukefno9q28h3orihji</p>#}
-{#                                </span>#}
-{#                                <span style=" float: right; ">#}
-{#                                    <p class="card-text" style="color: coral"> 买家已付款 </p>#}
-{#                                </span>#}
-{#                            </div>#}
-{#                            <div class="row card-horizontal">#}
-{#                                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">#}
-{#                                <div class="card-body">#}
-{#                                    <h4 class="card-title">爱他美白金版婴幼儿奶粉4段 900g</h4>#}
-{#                                    <p class="card-text"> 规格： 三罐 包邮</p>#}
-{#                                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="row card-horizontal">#}
-{#                                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">#}
-{#                                <div class="card-body">#}
-{#                                    <h4 class="card-title">爱他美白金版婴幼儿奶粉4段 900g</h4>#}
-{#                                    <p class="card-text"> 规格： 三罐 包邮</p>#}
-{#                                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="row card-horizontal">#}
-{#                                <img class="cartImage" src="http://via.placeholder.com/300x300" alt="Card image cap">#}
-{#                                <div class="card-body">#}
-{#                                    <h4 class="card-title">爱他美白金版婴幼儿奶粉4段 900g</h4>#}
-{#                                    <p class="card-text"> 规格： 三罐 包邮</p>#}
-{#                                    <h2 style="color: coral; font-size: 40px; margin-top: 15%"> $105 </h2>#}
-{#                                </div>#}
-{#                            </div>#}
-{#                            <div class="row orderTitleWrap" style=" text-align: right;">#}
-{#                                    <p>共3件商品 合计：$315</p>#}
-{#                                    <button class="borderBotton">提醒发货</button>#}
-{#                            </div>#}
-{#                        </div>#}
 
                     </div>
                 </div>
@@ -128,6 +89,11 @@
     </nav>
 
     <script>
+        $("#"+ "l" +"{{ tab }}").removeClass("fiveTabs");
+        $("#"+ "l" + "{{ tab }}").addClass("active fiveTabs");
+
+        $("#" +"{{ tab }}").addClass("active in show");
+
         unpiad();
         unsent();
         sent();
