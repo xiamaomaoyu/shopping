@@ -33,7 +33,13 @@ CREATE TABLE IF NOT EXISTS "orders" (
     receiver_name TEXT,
     receiver_address TEXT,
     receiver_phone TEXT,
-    order_time TEXT
+    order_time TEXT,
+    delivery_id INTEGER REFERENCES delivery(delivery_id)
+);
+
+CREATE TABLE IF NOT EXISTS "delivery" (
+    delivery_id INTEGER PRIMARY KEY ,
+    locations TEXT
 );
 
 CREATE TABLE IF NOT EXISTS "receiver_detail" (
