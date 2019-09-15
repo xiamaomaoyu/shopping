@@ -65,36 +65,13 @@
             <h1 style="font-size: 30px;">订单</h1>
             <a  href="#">详细使用说明</a>
         </div>
-        <div class="tabBody order-search-wrap">
-            <input >
-            <button>搜索</button>
-        </div>
         <div class="tabBody">
-            <div class="order-filter-shortCuts">
-                <a class="active">全部类型</a> |
-                <a >普通订单</a> |
-                <a >拼团订单</a> |
-                <a >虚拟商品</a> |
-                <a >直接支付</a> |
-                <a >代付订单</a> |
-                <a >扫码点餐</a>
-            </div>
             <div class="order-filter-shortCuts">
                 <a class="active">全部状态</a> |
                 <a >待付款</a> |
-                <a >支付中</a> |
-                <a >待付尾款</a> |
                 <a >待发货</a> |
                 <a >已发货</a> |
-                <a >部分发货</a> |
-                <a >交易成功</a> |
-                <a >线下支付</a> |
-                <a >申请退款</a> |
-                <a >退款成功</a> |
-                <a >主动关闭</a> |
-                <a >自动关闭</a> |
-                <a >商家关闭</a> |
-                <a >待成团</a>
+                <a >交易成功</a>
             </div>
         </div>
         <div class="tabBody ">
@@ -282,7 +259,7 @@
     function fetchOrders() {
         var url = "/api/get_orders";
         $.getJSON(url, function (data) {
-            // console.log(data);
+            console.log(data);
             var htmls = "";
 
             for (var i = 0; i < data.orders.length; i ++) {
