@@ -24,19 +24,24 @@
         </nav>
         <div style="width: 100%; padding: 5%; text-align: center;">
             <div style="width:100%; margin-bottom: 50px;">
-                <p style="font-size:50px">亲，对我们的服务满意吗~</p>
+                <p style="font-size:50px">亲，对我们的宝贝满意吗~</p>
                 <div id="star1" style="width:100%; text-align: center;"></div>
                 <div id="result1"></div>
             </div>
-            <textarea id="comment" style="width: 80%; height: 400px; padding: 10px 0 10px 35px; border-radius: 0; font-size: 30px;" placeholder="宝贝还满意吗" required>  </textarea><br>
+            <textarea id="comment" style="width: 80%; height: 400px; padding: 10px 0 10px 35px; border-radius: 0; font-size: 30px;" placeholder="" required>  </textarea><br>
 
         </div>
-
         <div style="width: 100%; padding: 0 5%; text-align: right;">
             <button id="submit" class="checkoutBotton">提交</button>
         </div>
 
-
+        <div id="noticeWrapper" class="addToCartNoticeWrapper" style="display: none;"> <!-- Fixed element that spans the viewport -->
+          <div id="commentSuccessNotice" class="addToCartNotice" style="display: none;">
+              <i style="font-size: 80px; color: orange" class="far fa-check"></i>
+              <br><br>
+              <p style="color: white">评价成功！</p>
+            </div> <!-- your actual centered element -->
+        </div>
         <!-- bottom bar -->
         <nav class="navbar navbar-default navbar-fixed-bottom" style="background-color: white; text-align: right;"
              role="navigation">
@@ -89,7 +94,11 @@
             var url = '/api/set_order_comment/' + "{{ order_id }}";
 
             $.getJSON(url, {"comment": comment.val(),"rating":rating}, function (data, status) {
-                toUser();
+                $('#noticeWrapper').show(1).delay(1000).hide(1);
+                $('#commentSuccessNotice').show(1).delay(1000).hide(1);
+                setTimeout(function(){
+                    toUser();
+                }, 500);
             });
         });
     </script>
