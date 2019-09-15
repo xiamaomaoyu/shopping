@@ -52,7 +52,7 @@ def get_order_by_phone(phone_number):
 
 
 def get_order_by_phone_status(phone_number, status):
-    result = []
+    result = {}
     orders = DB.query_db("select * from orders where phone_number=? and status=?", (phone_number, status))
     for order in orders:
         item_name = DB.query_db("select name from item where id=?", (order['item'],))
@@ -63,9 +63,14 @@ def get_order_by_phone_status(phone_number, status):
 
         _order['item'] = item_name[0]['name']
         _order['price'] = int(_order['quantity']) * int(DB.query_db("select price from item_price where item=? and price_type=?", (item_id, _order["item_price_type"]))[0]['price'])
-        result += [_order]
+        id = _order["order_id"]
+        if id in result:
+            result[id].append(_order)
+        else:
+            result[id] += [_order]
+
     return result
 
 
 def set_order_status(order_id, status):
-    DB.query_db("update orders set status=? where order_id=?", (status,order_id))
+    DB.query_db("update orders set status=? where order_id=?", (status, order_id))
