@@ -68,4 +68,4 @@ def get_order_by_phone_status(phone_number, status):
 
 
 def set_order_status(order_id, status):
-    DB.query_db("update orders set status=? where order_id=?", (order_id, status))
+    DB.query_db("update orders set status=? where order_id=?", (status,order_id))

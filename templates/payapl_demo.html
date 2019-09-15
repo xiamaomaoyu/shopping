@@ -72,12 +72,12 @@
                 return actions.order.capture().then(function(details) {
                     // TODO after success, we need to send details to backend
                     // Show a success message to the buyer
-                    var url = '/api/save_order/' + "{{ current_user.phone_number }}";
+                    var url = '/api/set_order_status/' + "{{ order_id }}" + "/" + "unsent";
                     $.getJSON(url, function (data) {
                         console.log(data);
                     });
                     alert('Transaction completed by ' + details.payer.name.given_name + '!');
-                    window.location.assign('/');
+                    // window.location.assign('/');
                 });
             }
 

@@ -188,7 +188,13 @@
         var url = "/api/receiver_detail/set_detail/" + "{{ current_user.phone_number }}" + "/" + value;
         $.getJSON(url, function (data) {
             if (data.message === "success") {
-                window.location.assign("/pay");
+                 var save_url = '/api/save_order/' + "{{ current_user.phone_number }}";
+                var order_id = null;
+                $.getJSON(save_url, function (data) {
+                    order_id = data.order_id;
+                    // console.log(order_id);
+                    window.location.assign("/pay/" + order_id + "/");
+                });
             }
         });
     }

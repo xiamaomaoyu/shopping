@@ -117,12 +117,12 @@ def address():
     return render_template("userDetails.html")
 
 
-@app.route('/pay/')
+@app.route('/pay/<order_id>/')
 #@login_required
-def pay():
+def pay(order_id):
     if current_user.is_anonymous == True:
         return redirect(url_for("login"))
-    return render_template("payapl_demo.html",user=current_user)
+    return render_template("payapl_demo.html",user=current_user, order_id = order_id)
 
 
 @app.route('/dashboard')
@@ -148,3 +148,10 @@ def qrcode():
 
 if __name__ == '__main__':
     app.run(port=80,host='0.0.0.0', debug=True)
+
+"""
+var url = '/api/get_order/' + "{{ current_user.phone_number }}" + "/" + "unpaid";
+$.getJSON(url, function (data) {
+    console.log(data);
+});
+"""
