@@ -3,12 +3,25 @@ from flask_login import LoginManager,login_user, current_user, login_required, l
 from src.user import get_user
 from src.db_hdl import query_db
 from api import api
+import hashlib
 
 app = Flask(__name__)
 app.secret_key = 'development key'
 app.register_blueprint(api)
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+
+key = '5dde5b629eac4dc688c83f9d4396b4a4'
+m_number = '001007490'
+m = hashlib.md5()
+
+
+# 加密算法
+def getMD5(timestamp, nonce_str):
+    token = m_number + '&' + timestamp + '&' + nonce_str + '&' + key
+    m.update(token.encode('utf-8'))
+    return m.hexdigest()
 
 
 @login_manager.user_loader
@@ -110,19 +123,27 @@ def webSearch(keyword=None):
 
 
 @app.route('/address/')
-#@login_required
 def address():
-    if current_user.is_anonymous == True:
+    if current_user.is_anonymous:
         return redirect(url_for("login"))
     return render_template("userDetails.html")
 
 
 @app.route('/pay/<order_id>/')
-#@login_required
 def pay(order_id):
-    if current_user.is_anonymous == True:
+    if current_user.is_anonymous:
         return redirect(url_for("login"))
-    return render_template("payapl_demo.html",user=current_user, order_id = order_id)
+    return render_template("pay.html",user=current_user, order_id = order_id)
+
+
+@app.route('/gettoken')
+def getToken():
+    if current_user.is_anonymous:
+        return redirect(url_for("login"))
+    timestamp = request.args.get('timestamp')
+    nonce_str = request.args.get('nonce_str')
+    token = getMD5(timestamp, nonce_str)
+    return jsonify({'m_number': m_number, 'sign': token.upper()})
 
 
 @app.route('/dashboard')
@@ -150,6 +171,12 @@ def qrcode():
 @app.route('/tracking')
 def tracking():
     return render_template("tracking.html")
+
+
+@app.route('/pay/success/<order_id>/')
+def check_pay(order_id):
+    message = "Pay Success" + order_id
+    return message
 
 
 @app.route('/comment/<order_id>')

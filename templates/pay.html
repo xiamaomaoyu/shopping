@@ -1,0 +1,115 @@
+
+<!DOCTYPE html>
+
+<head>
+    <!-- Add meta tags for mobile and IE -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css">
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+    <link href="/static/fontawesome-pro-5.8.1-web/css/all.css" rel="stylesheet"> <!--load all styles -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+
+</head>
+
+<body>
+    <nav class=" " style="height: 200px; background-color: coral">
+        <div style="text-align: center; width: 100%; position: absolute;">
+            <i class="navbar-brand cartTitle" style="text-align: center; width: 100%;"> 收银台 </i>
+        </div>
+    </nav>
+    <div style="text-align: center; margin-top: 5%;">
+        <img src="{{ url_for('static',filename = 'img/zhifu.png') }}" id="zhifu" alt="">
+    </div>
+    
+    <div id="noticeWrapper" class="addToCartNoticeWrapper" style="display: none;"> <!-- Fixed element that spans the viewport -->
+      <div id="paymentSuccessNotice" class="addToCartNotice" style="display: none;">
+          <i style="font-size: 80px; color: orange" class="far fa-check"></i>
+          <br><br>
+          <p style="color: white">付款成功！</p>
+      </div> <!-- your actual centered element -->
+    </div>
+    <!-- Set up a container element for the button -->
+
+    <!-- Include the PayPal JavaScript SDK -->
+    <script src="https://www.paypal.com/sdk/js?client-id=AcTnNV4o9p_QDNfGkjSG6YsYJpAbrNYXJ-8C_yfoXMGtqJPi88691tWv9WVpr8DpE-fnOjM8CTCj18us&currency=AUD"></script>
+
+    <script>
+
+        var url = "/api/cart/get_records/" + "{{ current_user.phone_number }}";
+        var records;
+        var overallPrice = 0;
+        $.getJSON(url, function (data) {
+            records = data;
+            var i = 0;
+            for (i = 0; i < records.length; i++) {
+                // addRecordNode(records[i],i);
+                overallPrice += records[i].price*records[i].quantity;
+            }
+        });
+
+        // when the zhifu image onclick, then we need go to zhifu
+        $("#zhifu").on('click', function () {
+            let timestamp = get_timestamp();
+            let nonce_str = get_random(15);
+            
+            $.get ('/gettoken', {'timestamp': timestamp, 'nonce_str': nonce_str}, function(data){
+                let m_number = data.m_number;
+                let sign = data.sign;
+                go_pay(m_number, timestamp, nonce_str, sign);
+            });
+        });
+        
+        function go_pay(m_number, timestamp, nonce_str, sign) {
+
+            let order_id = {{ order_id }};
+            let notify_url = '/api/set_order_status/' + "{{ order_id }}" + "/" + "unsent";
+            let redirect_url = '/pay/success/' + "{{ order_id }}";
+
+            url = 'https://www.omipay.com.cn/omipay/api/v2/MakeOnlineOrder';
+            url += '?order_name=' + 'Test';
+            url += '&currency=' + 'AUD';
+            url += '&amount='+ 1;
+            url += '&notify_url=' + notify_url;
+            url += '&redirect_url=' + redirect_url;
+            url += '&out_order_no=' + "{{ order_id }}";
+            url += '&direct_pay=' + 1;
+            url += '&show_pc_pay_url=' + 1;
+            url += '&m_number=' + m_number;
+            url += '&timestamp=' + timestamp;
+            url += '&nonce_str=' + nonce_str;
+            url += '&sign=' + sign;
+            url += '&type=' + 'web';
+
+            $.get(url, function(data) {
+                console.log(data);
+                url = data.pay_url;
+                location.href=url;
+            });
+        }
+        
+        
+        function get_timestamp() {
+            let date = new Date();
+            let now_utc =  Date.UTC(date.getUTCFullYear(), date.getUTCMonth(),
+            date.getUTCDate(),date.getUTCHours(), date.getUTCMinutes(), date.getUTCSeconds());
+            return new Date(date).getTime();
+        }
+
+        function get_random(length) {
+            let result = '';
+            let characters = 'ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz0123456789';
+            let charactersLength = characters.length;
+            for (let i = 0; i < length; i++ ) {
+              result += characters.charAt(Math.floor(Math.random() * charactersLength));
+            }
+            return result;
+        }
+    </script>
+</body>

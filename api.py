@@ -65,6 +65,7 @@ def login_update_info():
 
 @api.route('/api/cart/get_records/<phone_number>', methods=['POST','GET'])
 def get_records(phone_number):
+    print(Cart.get_records(phone_number))
     return jsonify(Cart.get_records(phone_number))
 
 @api.route('/api/cart/add_record',methods=['POST','GET'])
