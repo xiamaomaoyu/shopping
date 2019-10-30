@@ -42,8 +42,6 @@ def delete_item(phone_number, item_id, item_price_type):
 def get_cart(phone_number):
     records = execute_db("SELECT * FROM cart_records WHERE phone_number=?;",
                phone_number)
-    for record in records:
-        print(record)
     return
 
 

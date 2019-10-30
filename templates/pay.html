@@ -25,7 +25,11 @@
         </div>
     </nav>
     <div style="text-align: center; margin-top: 5%;">
-        <img src="{{ url_for('static',filename = 'img/zhifu.png') }}" id="zhifu" alt="">
+        <img style="width: 60%" src="{{ url_for('static',filename = 'img/zhifu.png') }}" id="zhifu" alt="">
+    </div>
+
+    <div style="text-align: center; margin-top: 5%;">
+        <img style="width: 60%" src="{{ url_for('static',filename = 'img/weixin.png') }}" id="weixin" alt="">
     </div>
     
     <div id="noticeWrapper" class="addToCartNoticeWrapper" style="display: none;"> <!-- Fixed element that spans the viewport -->
@@ -36,9 +40,6 @@
       </div> <!-- your actual centered element -->
     </div>
     <!-- Set up a container element for the button -->
-
-    <!-- Include the PayPal JavaScript SDK -->
-    <script src="https://www.paypal.com/sdk/js?client-id=AcTnNV4o9p_QDNfGkjSG6YsYJpAbrNYXJ-8C_yfoXMGtqJPi88691tWv9WVpr8DpE-fnOjM8CTCj18us&currency=AUD"></script>
 
     <script>
 
@@ -62,11 +63,26 @@
             $.get ('/gettoken', {'timestamp': timestamp, 'nonce_str': nonce_str}, function(data){
                 let m_number = data.m_number;
                 let sign = data.sign;
-                go_pay(m_number, timestamp, nonce_str, sign);
+                zhifubao(m_number, timestamp, nonce_str, sign);
             });
         });
-        
-        function go_pay(m_number, timestamp, nonce_str, sign) {
+
+
+
+        // when the zhifu image onclick, then we need go to zhifu
+        $("#weixin").on('click', function () {
+            let timestamp = get_timestamp();
+            let nonce_str = get_random(15);
+
+            $.get ('/gettoken', {'timestamp': timestamp, 'nonce_str': nonce_str}, function(data){
+                let m_number = data.m_number;
+                let sign = data.sign;
+                weixin(m_number, timestamp, nonce_str, sign);
+            });
+        });
+
+        // ali pay
+        function zhifubao(m_number, timestamp, nonce_str, sign) {
 
             let order_id = {{ order_id }};
             let notify_url = '/api/set_order_status/' + "{{ order_id }}" + "/" + "unsent";
@@ -85,7 +101,36 @@
             url += '&timestamp=' + timestamp;
             url += '&nonce_str=' + nonce_str;
             url += '&sign=' + sign;
-            url += '&type=' + 'web';
+            url += '&type=' + 'wap';
+
+            $.get(url, function(data) {
+                // console.log(data);
+                url = data.pay_url;
+                location.href=url;
+            });
+        }
+
+
+        // weixin pay
+        function weixin(m_number, timestamp, nonce_str, sign) {
+
+            let order_id = {{ order_id }};
+            let notify_url = '/api/set_order_status/' + "{{ order_id }}" + "/" + "unsent";
+            let redirect_url = '/pay/success/' + "{{ order_id }}";
+
+            url = 'https://www.omipay.com.cn/omipay/api/v2/MakeJSAPIOrder';
+            url += '?order_name=' + 'Test';
+            url += '&currency=' + 'AUD';
+            url += '&amount='+ 1;
+            url += '&notify_url=' + notify_url;
+            url += '&redirect_url=' + redirect_url;
+            url += '&out_order_no=' + "{{ order_id }}";
+            url += '&direct_pay=' + 1;
+            url += '&show_pc_pay_url=' + 1;
+            url += '&m_number=' + m_number;
+            url += '&timestamp=' + timestamp;
+            url += '&nonce_str=' + nonce_str;
+            url += '&sign=' + sign;
 
             $.get(url, function(data) {
                 console.log(data);

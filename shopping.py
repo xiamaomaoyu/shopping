@@ -37,7 +37,9 @@ def login():
         if request.form['type'] == "password":
             phone_number = request.form['phone_number']
             password = request.form['password']
-            row = query_db("SELECT password FROM user WHERE phone_number=? ;",(phone_number,),one=True)
+            row = query_db("SELECT password FROM user WHERE phone_number=?;",(phone_number,),one=True)
+            if row is None:
+                return render_template("login.html")
             if password == row['password']:
                 login_user(get_user(phone_number))
                 return redirect(url_for("index"))
@@ -185,4 +187,4 @@ def comment(order_id):
 
 
 if __name__ == '__main__':
-    app.run(port=80,host='0.0.0.0',debug=True)
+    app.run(port=80,host='0.0.0.0')
