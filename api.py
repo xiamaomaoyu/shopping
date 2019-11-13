@@ -219,3 +219,18 @@ def delivery_history(order_id):
     if history is None:
         return make_response(jsonify(message='error'), 400)
     return make_response(jsonify({"res": history}), 200)
+
+
+@api.route('/api/make_delivery/<order_id>', methods=['POST','GET'])
+def add_delivery(order_id):
+    """
+    admin make the delivery
+    :param order_id:
+    :return:
+    """
+    res = Order.make_delivery(order_id)
+
+    if res is False:
+        return make_response(jsonify(message='Already send'), 400)
+
+    return make_response(jsonify(message='success'), 200)

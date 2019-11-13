@@ -668,9 +668,10 @@
 
     // 发货
     function makeSent(order_id) {
-        var url = '/api/set_order_status/' + order_id + '/sent';
+        var url = '/api/make_delivery/' + order_id;
             $.getJSON(url,function (data) {
                if (data.message === "success") {
+                   alert('发货成功');
                    getUnsent();
                }
             });

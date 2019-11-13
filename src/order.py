@@ -253,24 +253,37 @@ def check_pay(order_id):
 
         DB.query_db("UPDATE orders SET status = 'unsent' WHERE order_id = '%s'" % order_id)
         # get all the items of this order
-        items = []
-        for o in order:
-            item = DB.query_db("SELECT * FROM item WHERE id = '%s'" % o['item'])
-            item[0]['quantity'] = o['quantity']
-            items.append(item[0])
-
-        stock = get_stock(order[0]['receiver_name'], order[0]['receiver_address'], order[0]['receiver_phone'],
-                          'nothing', items)
-        transport = Transport(timeout=10)
-        wsdl = 'http://www.zhonghuan.com.au:8085/API/cxf/au/recordservice?wsdl'
-        client = zeep.Client(wsdl=wsdl, transport=transport)
-        result = client.service.getRecord(stock)
-        result = eval(str(result))
-        if result['msgtype'] == '200':
-            delivery_id = result['chrfydh']
-            DB.query_db("UPDATE orders SET delivery_no = '%s',status='sent' WHERE order_id = '%s'" % (delivery_id, order_id))
-        return True
     return False
+
+
+def make_delivery(order_id):
+    """
+    发货。。。
+    :param order_id:
+    :return:
+    """
+    order = DB.query_db("SELECT * FROM orders WHERE order_id = '%s'" % order_id)
+    check = DB.query_db("SELECT * FROM orders WHERE order_id='%s'" % order_id)
+    if check[0]['status'] == 'sent':
+        return False
+
+    items = []
+    for o in order:
+        item = DB.query_db("SELECT * FROM item WHERE id = '%s'" % o['item'])
+        item[0]['quantity'] = o['quantity']
+        items.append(item[0])
+
+    stock = get_stock(order[0]['receiver_name'], order[0]['receiver_address'], order[0]['receiver_phone'],
+                      'nothing', items)
+    transport = Transport(timeout=10)
+    wsdl = 'http://www.zhonghuan.com.au:8085/API/cxf/au/recordservice?wsdl'
+    client = zeep.Client(wsdl=wsdl, transport=transport)
+    result = client.service.getRecord(stock)
+    result = eval(str(result))
+    if result['msgtype'] == '200':
+        delivery_id = result['chrfydh']
+        DB.query_db("UPDATE orders SET delivery_no = '%s',status='sent' WHERE order_id = '%s'" % (delivery_id, order_id))
+    return True
 
 
 def check_delivery_id(order_id):
