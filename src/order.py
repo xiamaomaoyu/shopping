@@ -247,7 +247,8 @@ def check_pay(order_id):
     if res['result_code'] == 'PAID':
         # set the order status unsent, and then make the delivery
         check = DB.query_db("SELECT * FROM orders WHERE order_id='%s'" % order_id)
-        if check[0]['status'] == 'sent' or check[0]['delivery_no'] != '':
+        print(check)
+        if check[0]['status'] == 'sent':
             return False
         DB.query_db("UPDATE orders SET status = 'unsent' WHERE order_id = '%s'" % order_id)
         # get all the items of this order
