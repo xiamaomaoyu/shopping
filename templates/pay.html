@@ -87,7 +87,7 @@
         function zhifubao(m_number, timestamp, nonce_str, sign) {
             // console.log(overallPrice);
             // Math.floor(overallPrice*100)
-            let order_id = {{ order_id }};
+            let order_id = get_random(20);
             let notify_url = 'http://www.littlegend.com/api/pay_status/' + "{{ order_id }}";
             let redirect_url = 'http://www.littlegend.com/';
             let pc_or_phone = detect_phone();
@@ -135,7 +135,7 @@
         // weixin pay
         function weixin(m_number, timestamp, nonce_str, sign) {
 
-            let order_id = {{ order_id }};
+            let order_id = get_random(20);
             let notify_url = 'http://www.littlegend.com/api/pay_status/' + "{{ order_id }}";
             let redirect_url = 'http://www.littlegend.com/';
 
