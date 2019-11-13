@@ -25,10 +25,11 @@
 <div style=" margin-top:-5px; padding: 5% 10%; border:none; background-image: url(/static/img/coral_curve.png); background-size: 100% 100%;">
     <div style="padding: 5%; background-color: white;" >
         <div style="width: 100%; height: 150px;  text-align: center; border-bottom: #989898 2px dashed;">
-            <h2 style="font-size:40px; width: 100%; text-align: center; color: #555555"> 订单：jdswenfijn4652iwjnf</h2>
-            <h2 style="font-size:40px; width: 100%; text-align: center; color: #555555"> 物流单号：T3Ns3L58IUkd134fr</askdfnj2o></h2>
+            <h2 style="font-size:40px; width: 100%; text-align: center; color: #555555"> 订单：{{ order_id }}</h2>
+            <h2 style="font-size:40px; width: 100%; text-align: center; color: #555555" id="d_id"></h2>
         </div>
-        <div style="padding: 10% 5%;">
+        <div style="padding: 10% 5%;" id="history">
+            <!--
             <div class="row" >
                 <div class="col-sm-2">
                     <img style="width: 100px;" src="../static/img/tracking_dot.png">
@@ -76,11 +77,46 @@
 
                 </div>
             </div>
+            -->
         </div>
     </div>
 </div>
 
 <script>
+
+    /**
+     * Get the history according to id
+     */
+    function get_history() {
+        let order_id = {{ order_id }};
+        let url = '/api/delivery_history/' + order_id;
+        $.getJSON(url, function (data) {
+            let history = data.res.back;
+            let delivery_id = history.fydh;
+            $("#d_id").val("物流单号：" + delivery_id);
+
+            let tracks = history.Logisticsback;
+            let content = "";
+            for (let i = 0; i < tracks.length; i ++) {
+                let info = tracks[i];
+                content += "<div class=\"row\" >\n" +
+                    "                <div class=\"col-sm-2\">\n" +
+                    "                    <img style=\"width: 100px;\" src=\"../static/img/tracking_dot.png\">\n" +
+                    "                </div>\n" +
+                    "                <div class=\"col-sm-9\">\n" +
+                    "                    <p class=\"card-text\" >" + info.ztai + "</p>\n" +
+                    "                    <p class=\"card-text\" >" + info.time +  "</p>\n" +
+                    "                </div>\n" +
+                    "            </div>"
+            }
+
+            $("#history").html(content);
+
+        });
+    }
+
+    get_history();
+
     function toHome() {
         url = "/orders";
         window.location.assign(url);

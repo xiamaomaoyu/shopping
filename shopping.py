@@ -26,6 +26,9 @@ def getMD5(timestamp, nonce_str):
 
 @login_manager.user_loader
 def load_user(id):
+    user = get_user(id)
+    if user is None:
+        return redirect(url_for('login'))
     return get_user(id)
 
 
@@ -38,6 +41,8 @@ def login():
             phone_number = request.form['phone_number']
             password = request.form['password']
             row = query_db("SELECT password FROM user WHERE phone_number=? ;",(phone_number,),one=True)
+            if row is None:
+                return redirect(url_for('login'))
             if password == row['password']:
                 login_user(get_user(phone_number))
                 return redirect(url_for("index"))
@@ -46,6 +51,8 @@ def login():
             phone_number = request.form['phone_number']
             verfication_code = request.form['verification_code']
             row = query_db("SELECT verification_code,nick_name FROM user WHERE phone_number=? ;",(phone_number,),one=True)
+            if row is None:
+                return redirect(url_for('login'))
             if verfication_code == row['verification_code']:
                 if row["nick_name"] == "NEWUSER":
                     login_user(get_user(phone_number))
@@ -168,9 +175,9 @@ def qrcode():
     return render_template("qrCode.html")
 
 
-@app.route('/tracking')
-def tracking():
-    return render_template("tracking.html")
+@app.route('/tracking/<order_id>')
+def tracking(order_id):
+    return render_template("tracking.html", order_id=order_id)
 
 
 @app.route('/pay/success/<order_id>/')

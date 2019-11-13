@@ -34,7 +34,9 @@ CREATE TABLE IF NOT EXISTS "orders" (
     receiver_address TEXT,
     receiver_phone TEXT,
     order_time TEXT,
-    status TEXT
+    status TEXT,
+    order_no TEXT,
+    delivery_no TEXT
 );
 
 CREATE TABLE IF NOT EXISTS "feedbacks" (

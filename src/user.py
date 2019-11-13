@@ -4,10 +4,11 @@ from src.db_hdl import *
 class User(UserMixin):
 
     def __init__(self, form):
-        self.phone_number = form["phone_number"]
-        self.verification_code = form["verification_code"]
-        self.password = form["password"]
-        self.nick_name = form["nick_name"]
+        if form is not None:
+            self.phone_number = form["phone_number"]
+            self.verification_code = form["verification_code"]
+            self.password = form["password"]
+            self.nick_name = form["nick_name"]
 
     def get_id(self):
         return self.phone_number

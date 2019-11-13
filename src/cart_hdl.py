@@ -25,7 +25,7 @@ def get_records(phone_number):
     return records_list
 
 def add_record(phone_number, item_id, item_price_type, quantity):
-    execute_db("INSERT INTO cart_records(phone_number, item, item_price_type, quantity) VALUES (?,?,?,?);",(phone_number,item_id,item_price_type,quantity))
+    query_db("INSERT INTO cart_records(phone_number, item, item_price_type, quantity) VALUES (?,?,?,?);",(phone_number,item_id,item_price_type,quantity))
     return
 
 def updata_quantity(phone_number, item_id, item_price_type, quantity):
