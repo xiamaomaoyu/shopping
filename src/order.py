@@ -1,4 +1,5 @@
 import src.db_hdl as DB
+import json
 import datetime
 import hashlib
 import requests
@@ -247,8 +248,9 @@ def check_pay(order_id):
     if res['result_code'] == 'PAID':
         # set the order status unsent, and then make the delivery
         check = DB.query_db("SELECT * FROM orders WHERE order_id='%s'" % order_id)
-        if check[0]['status'] == 'sent' or check[0]['delivery_no'] != '':
+        if check[0]['status'] == 'sent':
             return False
+
         DB.query_db("UPDATE orders SET status = 'unsent' WHERE order_id = '%s'" % order_id)
         # get all the items of this order
         items = []
@@ -263,12 +265,10 @@ def check_pay(order_id):
         wsdl = 'http://www.zhonghuan.com.au:8085/API/cxf/au/recordservice?wsdl'
         client = zeep.Client(wsdl=wsdl, transport=transport)
         result = client.service.getRecord(stock)
-        print(result)
+        result = json.loads(result)
         if result['msgtype'] == '200':
             delivery_id = result['chrfydh']
-            print(delivery_id)
             DB.query_db("UPDATE orders SET delivery_no = '%s' AND status='sent' WHERE order_id = '%s'" % (delivery_id, order_id))
-
         return True
     return False
 
