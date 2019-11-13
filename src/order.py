@@ -265,7 +265,7 @@ def check_pay(order_id):
         wsdl = 'http://www.zhonghuan.com.au:8085/API/cxf/au/recordservice?wsdl'
         client = zeep.Client(wsdl=wsdl, transport=transport)
         result = client.service.getRecord(stock)
-        result = json.loads(result)
+        result = eval(str(result))
         if result['msgtype'] == '200':
             delivery_id = result['chrfydh']
             DB.query_db("UPDATE orders SET delivery_no = '%s' AND status='sent' WHERE order_id = '%s'" % (delivery_id, order_id))
