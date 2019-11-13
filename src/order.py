@@ -191,9 +191,9 @@ def get_stock(receiver, address, phone, command, items):
     stock += "<chrsjr>%s</chrsjr>" % receiver
     stock += "<chrsjrdz>%s</chrsjrdz>" % address
     stock += "<chrsjrdh>%s</chrsjrdh>" % phone
-    stock += "<chrjjr>lsy</chrjjr>"
-    stock += "<chrjjrdh>0413164212</chrjjrdh>"
-    stock += "<chrsfzhm>411627199808126417</chrsfzhm>"
+    stock += "<chrjjr>小传奇跨境商城</chrjjr>"
+    stock += "<chrjjrdh>0449969879</chrjjrdh>"
+    stock += "<chrsfzhm></chrsfzhm>"
     stock += "<chrbz>%s</chrbz>" % command
     stock += "<ydhwxxlist>"
 

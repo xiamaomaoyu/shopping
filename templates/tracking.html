@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>登录</title>
+    <title>物流信息</title>
     <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
     <link rel="stylesheet" href="/static/style.css?v=1asdf22aiasdkjnkkaejflanvijpjoiasdfowqsf790">
     <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
@@ -91,13 +91,14 @@
         let order_id = {{ order_id }};
         let url = '/api/delivery_history/' + order_id;
         $.getJSON(url, function (data) {
-            let history = data.res.back;
+            data = JSON.parse(data.res);
+            let history = data.back;
             let delivery_id = history.fydh;
-            $("#d_id").val("物流单号：" + delivery_id);
+            $("#d_id").html("物流单号：" + delivery_id);
 
-            let tracks = history.Logisticsback;
-            let content = "";
-            for (let i = 0; i < tracks.length; i ++) {
+            var tracks = jQuery.makeArray(history.Logisticsback);
+            var content = "";
+            for (var i = 0; i < tracks.length; i ++) {
                 let info = tracks[i];
                 content += "<div class=\"row\" >\n" +
                     "                <div class=\"col-sm-2\">\n" +
