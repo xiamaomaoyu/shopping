@@ -119,7 +119,7 @@
                 }
 
                 let pay_id = data.order_no;
-                let url = '/api/add_pay_no/' + pay_id + '/' + order_id;
+                let url = '/api/add_pay_no/' + pay_id + '/' + "{{ order_id }}";
                 let pay_url = data.pay_url;
 
                 $.getJSON(url, function (data) {
@@ -164,7 +164,7 @@
                 }
 
                 let pay_id = data.order_no;
-                let url = '/api/add_pay_no/' + pay_id + '/' + order_id;
+                let url = '/api/add_pay_no/' + pay_id + '/' + "{{ order_id }}";
                 let pay_url = data.pay_url;
                 $.getJSON(url, function (data) {
                     if (data.message === "success") {
