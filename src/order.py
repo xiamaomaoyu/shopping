@@ -268,7 +268,7 @@ def check_pay(order_id):
         result = eval(str(result))
         if result['msgtype'] == '200':
             delivery_id = result['chrfydh']
-            DB.query_db("UPDATE orders SET delivery_no = '%s' AND status='sent' WHERE order_id = '%s'" % (delivery_id, order_id))
+            DB.query_db("UPDATE orders SET delivery_no = '%s',status='sent' WHERE order_id = '%s'" % (delivery_id, order_id))
         return True
     return False
 

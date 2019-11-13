@@ -219,5 +219,5 @@ def delivery_history(order_id):
     # if can not get the history then abort error
     if history is None:
         return make_response(jsonify(message='error'), 400)
-
+    print(history)
     return make_response(jsonify({"res": history}), 200)
