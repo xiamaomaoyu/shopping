@@ -205,6 +205,7 @@ def pay_status(order_id):
     :return:
     """
     Order.check_pay(order_id)
+    return make_response(jsonify(message='success'),200)
 
 
 @api.route('/api/delivery_history/<order_id>', methods=['POST','GET'])
