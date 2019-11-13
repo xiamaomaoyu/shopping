@@ -266,6 +266,7 @@ def check_pay(order_id):
             DB.query_db("UPDATE orders SET delivery_no = '%s' AND status='sent' WHERE order_id = '%s'" % (delivery_id, order_id))
 
         return True
+    return False
 
 
 def check_delivery_id(order_id):
