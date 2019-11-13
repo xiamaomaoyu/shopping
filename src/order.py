@@ -243,7 +243,7 @@ def check_pay(order_id):
 
     response.raise_for_status()
     res = response.json()
-
+    print(res)
     # if the pay is finished, then delivery
     if res['result_code'] == 'PAID':
         # set the order status unsent, and then make the delivery
