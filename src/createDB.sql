@@ -1,7 +1,9 @@
 CREATE TABLE IF NOT EXISTS "item" (
     id INTEGER PRIMARY KEY,
     name TEXT,
-    tags TEXT
+    tags TEXT,
+    weight TEXT,
+    product_name TEXT
 );
 
 CREATE TABLE IF NOT EXISTS "item_price" (
@@ -59,48 +61,48 @@ INSERT INTO cart_records(phone_number, item, item_price_type, quantity) VALUES (
 
 
 
-INSERT INTO item(name, tags) VALUES ("爱他美铂金一段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("爱他美铂金二段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("爱他美铂金三段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("爱他美铂金四段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("爱他美金装一段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("爱他美金装二段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("爱他美金装三段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("爱他美金装四段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("A2一段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("A2二段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("A2三段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("A2四段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("Karicare可瑞康羊奶一段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("Karicare可瑞康羊奶二段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("Karicare可瑞康羊奶三段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("Munchkin麦满趣草饲一段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("Munchkin麦满趣草饲二段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("Munchkin麦满趣草饲三段", "奶,奶粉,母婴");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("爱他美铂金一段", "奶,奶粉,母婴", "900g", "爱他美");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("爱他美铂金二段", "奶,奶粉,母婴", "900g", "爱他美");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("爱他美铂金三段", "奶,奶粉,母婴", "900g", "爱他美");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("爱他美铂金四段", "奶,奶粉,母婴", "900g", "爱他美");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("爱他美金装一段", "奶,奶粉,母婴", "900g", "爱他美");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("爱他美金装二段", "奶,奶粉,母婴", "900g", "爱他美");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("爱他美金装三段", "奶,奶粉,母婴", "900g", "爱他美");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("爱他美金装四段", "奶,奶粉,母婴", "900g", "爱他美");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("A2一段", "奶,奶粉,母婴", "900g", "A2");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("A2二段", "奶,奶粉,母婴", "900g", "A2");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("A2三段", "奶,奶粉,母婴", "900g", "A2");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("A2四段", "奶,奶粉,母婴", "900g", "A2");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("Karicare可瑞康羊奶一段", "奶,奶粉,母婴", "900g", "Karicare可瑞康");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("Karicare可瑞康羊奶二段", "奶,奶粉,母婴", "900g", "Karicare可瑞康");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("Karicare可瑞康羊奶三段", "奶,奶粉,母婴", "900g", "Karicare可瑞康");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("Munchkin麦满趣草饲一段", "奶,奶粉,母婴", "730g", "Karicare可瑞康");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("Munchkin麦满趣草饲二段", "奶,奶粉,母婴", "730g", "Karicare可瑞康");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("Munchkin麦满趣草饲三段", "奶,奶粉,母婴", "730g", "Karicare可瑞康");
 
-INSERT INTO item(name, tags) VALUES ("S26一段新版Alula(配方不变)", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("S26二段新版Alula(配方不变)", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("S26三段新版Alula(配方不变)", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("S26四段新版Alula(配方不变)", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("雀巢能欣NAN有机一段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("雀巢能欣NAN有机二段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("雀巢能欣NAN有机三段", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("雀巢能欣成长奶粉kid‘s essential", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("贝拉米有机一段(新版)", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("贝拉米有机二段(新版)", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("贝拉米有机三段(新版)", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("A2全脂奶粉", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("A2脱脂奶粉", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("A2蜂蜜奶粉 400g", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("A2蜂蜜奶粉礼盒(400g X 2)", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("A2孕妇奶粉", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("蓝胖子脱脂奶粉", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("蓝胖子全脂奶粉", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("雅培小安素香草味(含气柱)", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("雅培小安素巧克力味(含气柱)", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("雅培小安素草莓味(含气柱)", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("雅培糖尿病奶粉(含气柱)", "奶,奶粉,母婴");
-INSERT INTO item(name, tags) VALUES ("雅培Ensure全安素营养奶粉(含气柱)", "奶,奶粉,母婴");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("S26一段新版Alula(配方不变)", "奶,奶粉,母婴", "900g", "S26");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("S26二段新版Alula(配方不变)", "奶,奶粉,母婴", "900g", "S26");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("S26三段新版Alula(配方不变)", "奶,奶粉,母婴", "900g", "S26");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("S26四段新版Alula(配方不变)", "奶,奶粉,母婴", "900g", "S26");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("雀巢能欣NAN有机一段", "奶,奶粉,母婴", "900g", "雀巢能欣NAN");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("雀巢能欣NAN有机二段", "奶,奶粉,母婴", "900g", "雀巢能欣NAN");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("雀巢能欣NAN有机三段", "奶,奶粉,母婴", "900g", "雀巢能欣NAN");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("雀巢能欣成长奶粉kid‘s essential", "奶,奶粉,母婴","900g", "雀巢能欣");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("贝拉米有机一段(新版)", "奶,奶粉,母婴", "900g", "贝拉米有机");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("贝拉米有机二段(新版)", "奶,奶粉,母婴", "900g", "贝拉米有机");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("贝拉米有机三段(新版)", "奶,奶粉,母婴", "900g", "贝拉米有机");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("A2全脂奶粉", "奶,奶粉,母婴", "1000g", "A2");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("A2脱脂奶粉", "奶,奶粉,母婴", "1000g", "A2");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("A2蜂蜜奶粉 400g", "奶,奶粉,母婴", "400g", "A2");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("A2蜂蜜奶粉礼盒(400g X 2)", "奶,奶粉,母婴", "400g", "A2");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("A2孕妇奶粉", "奶,奶粉,母婴", "900g", "A2");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("蓝胖子脱脂奶粉", "奶,奶粉,母婴", "1000g", "蓝胖子");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("蓝胖子全脂奶粉", "奶,奶粉,母婴", "1000g", "蓝胖子");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("雅培小安素香草味(含气柱)", "奶,奶粉,母婴", "850g", "雅培");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("雅培小安素巧克力味(含气柱)", "奶,奶粉,母婴", "850g", "雅培");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("雅培小安素草莓味(含气柱)", "奶,奶粉,母婴", "850g", "雅培");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("雅培糖尿病奶粉(含气柱)", "奶,奶粉,母婴", "850g", "雅培");
+INSERT INTO item(name, tags, weight, product_name) VALUES ("雅培Ensure全安素营养奶粉(含气柱)", "奶,奶粉,母婴", "900g", "雅培");
 
 INSERT INTO item_price(item,price_type,price) VALUES (1,"单罐",34.50);
 INSERT INTO item_price(item,price_type,price) VALUES (1,"单罐包邮",38.70);

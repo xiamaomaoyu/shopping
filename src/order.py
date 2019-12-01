@@ -183,9 +183,9 @@ def get_stock(receiver, address, phone, command, items):
     """
     stock = "<?xml version='1.0' encoding='UTF-8' standalone='no'?>"
     stock += "<ydjbxx>"
-    stock += "<chrusername>7799</chrusername>"
+    stock += "<chrusername>test</chrusername>"
     stock += "<chrstockcode>au</chrstockcode>"
-    stock += "<chrpassword>CT0622ct</chrpassword>"
+    stock += "<chrpassword>Test4567</chrpassword>"
     stock +="<chrjckrq>%s</chrjckrq>" % datetime.date.today()
     stock +="<chrzl>0</chrzl>"
     stock += "<chrsjr>%s</chrsjr>" % receiver
@@ -193,6 +193,7 @@ def get_stock(receiver, address, phone, command, items):
     stock += "<chrsjrdh>%s</chrsjrdh>" % phone
     stock += "<chrjjr>小传奇跨境商城</chrjjr>"
     stock += "<chrjjrdh>0449969879</chrjjrdh>"
+    stock += "<chrjjrdz>Warehouse 4/ 45 Davies Road Padstow</chrjjrdz>"
     stock += "<chrsfzhm></chrsfzhm>"
     stock += "<chrbz>%s</chrbz>" % command
     stock += "<ydhwxxlist>"
@@ -200,9 +201,9 @@ def get_stock(receiver, address, phone, command, items):
     for item in items:
         stock += "<ydhwxx>"
         stock += "<chrpm>%s</chrpm>" % item['name']
-        stock += "<chrpp>德运</chrpp>"
-        stock += "<chrggxh>900g</chrggxh>"
-        stock += "<chrjz>50.00</chrjz>"
+        stock += "<chrpp>%s</chrpp>" % item['product_name']
+        stock += "<chrggxh>%s</chrggxh>" % item['weight']
+        stock += "<chrjz>%s</chrjz>" % item['price']
         stock += "<chrjs>%s</chrjs>" % item['quantity']
         stock += "</ydhwxx>"
 
@@ -220,7 +221,7 @@ def check_pay(order_id):
     :param order_id:
     :return:
     """
-    order = DB.query_db("SELECT * FROM orders WHERE order_id = '%s'" % order_id)
+    order = DB.query_db("SELECT * FROM orders WHERE order_id = ?", (order_id,))
     pay_no = order[0]['order_no']
 
     if pay_no is None or pay_no == '':
@@ -247,11 +248,11 @@ def check_pay(order_id):
     # if the pay is finished, then delivery
     if res['result_code'] == 'PAID':
         # set the order status unsent, and then make the delivery
-        check = DB.query_db("SELECT * FROM orders WHERE order_id='%s'" % order_id)
+        check = DB.query_db("SELECT * FROM orders WHERE order_id=?", (order_id, ))
         if check[0]['status'] == 'sent':
             return False
 
-        DB.query_db("UPDATE orders SET status = 'unsent' WHERE order_id = '%s'" % order_id)
+        DB.query_db("UPDATE orders SET status = 'unsent' WHERE order_id = ?", (order_id, ))
         # get all the items of this order
     return False
 
@@ -262,19 +263,24 @@ def make_delivery(order_id):
     :param order_id:
     :return:
     """
-    order = DB.query_db("SELECT * FROM orders WHERE order_id = '%s'" % order_id)
-    check = DB.query_db("SELECT * FROM orders WHERE order_id='%s'" % order_id)
+    order = DB.query_db("SELECT * FROM orders WHERE order_id = ?", (order_id, ))
+    check = DB.query_db("SELECT * FROM orders WHERE order_id= ?", (order_id, ))
     if check[0]['status'] == 'sent':
         return False
 
     items = []
     for o in order:
-        item = DB.query_db("SELECT * FROM item WHERE id = '%s'" % o['item'])
+        item = DB.query_db("SELECT * FROM item WHERE id = ?", (o['item'], ))
+        price = DB.query_db("SELECT * FROM item_price WHERE item = ? AND price_type=?", (o['item'], o['item_price_type'], ))
+        item[0]['price'] = price[0]['price']
         item[0]['quantity'] = o['quantity']
         items.append(item[0])
 
     stock = get_stock(order[0]['receiver_name'], order[0]['receiver_address'], order[0]['receiver_phone'],
                       'nothing', items)
+
+    print(stock)
+    # return False
     transport = Transport(timeout=10)
     wsdl = 'http://www.zhonghuan.com.au:8085/API/cxf/au/recordservice?wsdl'
     client = zeep.Client(wsdl=wsdl, transport=transport)
@@ -282,7 +288,7 @@ def make_delivery(order_id):
     result = eval(str(result))
     if result['msgtype'] == '200':
         delivery_id = result['chrfydh']
-        DB.query_db("UPDATE orders SET delivery_no = '%s',status='sent' WHERE order_id = '%s'" % (delivery_id, order_id))
+        DB.query_db("UPDATE orders SET delivery_no = ?,status='sent' WHERE order_id = ?", (delivery_id, order_id, ))
     return True
 
 
@@ -292,7 +298,7 @@ def check_delivery_id(order_id):
     :param order_id: which need to be checked
     :return: delivery history json style
     """
-    order = DB.query_db("SELECT * FROM orders WHERE order_id='%s'" % order_id)
+    order = DB.query_db("SELECT * FROM orders WHERE order_id=?", (order_id, ))
     delivery_id  = order[0]['delivery_no']
 
     if delivery_id is None or delivery_id == '':
@@ -305,4 +311,3 @@ def check_delivery_id(order_id):
     o = xmltodict.parse(result)
     data = json.dumps(o, ensure_ascii=False).encode('utf8')
     return data.decode()
-
