@@ -183,9 +183,9 @@ def get_stock(receiver, address, phone, command, items):
     """
     stock = "<?xml version='1.0' encoding='UTF-8' standalone='no'?>"
     stock += "<ydjbxx>"
-    stock += "<chrusername>test</chrusername>"
+    stock += "<chrusername>7799</chrusername>"
     stock += "<chrstockcode>au</chrstockcode>"
-    stock += "<chrpassword>Test4567</chrpassword>"
+    stock += "<chrpassword>CT0622ct</chrpassword>"
     stock +="<chrjckrq>%s</chrjckrq>" % datetime.date.today()
     stock +="<chrzl>0</chrzl>"
     stock += "<chrsjr>%s</chrsjr>" % receiver

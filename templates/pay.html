@@ -95,7 +95,7 @@
             url = 'https://www.omipay.com.cn/omipay/api/v2/MakeOnlineOrder';
             url += '?order_name=' + 'Test';
             url += '&currency=' + 'AUD';
-            url += '&amount='+ 1;
+            url += '&amount='+ Math.floor(overallPrice*100);
             url += '&notify_url=' + notify_url;
             url += '&return_url=' + redirect_url;
             url += '&out_order_no=' + order_id;
