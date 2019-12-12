@@ -4,6 +4,7 @@ from src.user import get_user
 from src.db_hdl import query_db
 from api import api
 import hashlib
+from flask_cors import CORS
 
 app = Flask(__name__)
 app.secret_key = 'development key'
@@ -11,6 +12,7 @@ app.register_blueprint(api)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
+CORS(app)
 
 key = '5dde5b629eac4dc688c83f9d4396b4a4'
 m_number = '001007490'
@@ -194,4 +196,4 @@ def comment(order_id):
 
 
 if __name__ == '__main__':
-    app.run(port=80,host='0.0.0.0', debug=True)
+    app.run(port=5000, debug=True)
