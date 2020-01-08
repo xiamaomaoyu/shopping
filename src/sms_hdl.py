@@ -1,7 +1,7 @@
 import nexmo
 
 
-MY_NUMBER = "61488883990"
+MY_NUMBER = "LITTLEGEND"
 sms_client = nexmo.Client(key='7e1f7b82', secret='azy57VbJwb0XgPTs')
 
 def send_customer(phone_number, text):

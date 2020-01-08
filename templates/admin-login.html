@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>登录</title>
+    <link rel="stylesheet" href="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/style.css?v=1asdf22aiasdkjnkkaejflanvijpjoiasdfowqsf790">
+    <!--<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.8.1/css/all.css" integrity="sha384-50oBUHEmvpQ+1lW4y57PTFmhCaXp0ML5d60M1M7uH2+nqUivzIebhndOJK28anvf" crossorigin="anonymous"> -->
+    <link href="/static/fontawesome-pro-5.8.1-web/css/all.css" rel="stylesheet"> <!--load all styles -->
+    <script src="https://cdn.staticfile.org/jquery/2.1.1/jquery.min.js"></script>
+    <script src="https://cdn.staticfile.org/twitter-bootstrap/3.3.7/js/bootstrap.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</head>
+<body>
+<!-- top bar -->
+<nav class="navbar justify-content-between">
+    <a onclick="toHome()" class="navbar-brand cartTitle"> <i style="color: #555555" class="far fa-chevron-left"></i>
+    </a>
+    <p style="color: black; font-weight: bolder;" class="cartTitle"> 小传奇 </p>
+</nav>
+
+<div style=" height:230px; margin-top: 15%; margin-bottom: 30%;">
+    <img src="/static/img/LOGO-01.png"
+         style="width: 460px; height: 460px; position: absolute; left:0; right:0; margin-left: auto; margin-right: auto;">
+</div>
+
+<div>
+    <form method="post">
+        <input id="type" name="type" value="verification_code" hidden>
+        <div style="margin: 3% 8% 7% 8%; border-bottom: #555555 1px solid;">
+            <input name="admin_name"
+                   style="padding-left: 3%; text-align: left; background-color: transparent;  width: 69%; border: none; border-radius: 0;  font-size: 50px; "
+                   placeholder="账号">
+            <input name="password" type="password"
+                   style="padding-left: 3%; text-align: left; background-color: transparent;  width: 69%; border: none; border-radius: 0;  font-size: 50px; "
+                   placeholder="密码">
+        </div>
+
+
+        <div style="margin: 0 8%">
+            <button type="submit"
+                    style="width: 100%; margin: 3% 0 0 0; padding: 2% 1%;font-size: 50px; background-color: white; color:black; border: black 2px solid; ">
+                登录
+            </button>
+
+        </div>
+    </form>
+</div>
+
+</body>
+</html>

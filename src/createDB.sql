@@ -17,6 +17,12 @@ CREATE TABLE IF NOT EXISTS "user" (
     nick_name TEXT,
     receiver_detail INTEGER references receiver_detail(id)
 );
+
+CREATE TABLE IF NOT EXISTS "admin" (
+    admin_name  TEXT,
+    password TEXT
+);
+
 CREATE TABLE IF NOT EXISTS "cart_records" (
     phone_number  TEXT references user(phone_number),
     item  integer REFERENCES item(id),
@@ -57,7 +63,7 @@ INSERT INTO user(phone_number,verification_code, password, nick_name) VALUES ("4
 INSERT INTO cart_records(phone_number, item, item_price_type, quantity) VALUES ("450539776", 5, "单罐包邮", 4);
 INSERT INTO cart_records(phone_number, item, item_price_type, quantity) VALUES ("450539776", 8, "单罐包邮", 4);
 
-
+INSERT INTO admin(admin_name, password) VALUES ("admin", "xiaochuanqi00");
 
 INSERT INTO item(name, tags) VALUES ("爱他美铂金一段", "奶,奶粉,母婴");
 INSERT INTO item(name, tags) VALUES ("爱他美铂金二段", "奶,奶粉,母婴");
