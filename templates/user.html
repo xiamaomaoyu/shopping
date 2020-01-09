@@ -65,9 +65,9 @@
 
 <!-- other circles -->
 <div class="container" style="display: inline-block; padding: 5% 15px; margin-top: 3%; background-color: white">
-    <div class="divButton">
+    <div class="divButton" onclick="toUpdatePassword()">
         <i class="far fa-users-cog"  style="width: 100%; margin: 5% 0; font-size: 50px"></i>
-        <p> 个人资料 </p>
+        <p> 修改密码 </p>
     </div>
 
     <div class="divButton">
@@ -138,6 +138,10 @@
 
     function toQRCode() {
         url = "/qrcode";
+        window.location.assign(url);
+    }
+    function toUpdatePassword(){
+        url = "/update_password";
         window.location.assign(url);
     }
 </script>

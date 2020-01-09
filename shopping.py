@@ -31,6 +31,9 @@ def load_user(id):
         return redirect(url_for('login'))
     return get_user(id)
 
+@app.route('/update_password', methods=["POST", "GET"])
+def updatePassword():
+    return render_template("updatePassword.html")
 
 @app.route('/login', methods=["POST", "GET"])
 def login():
