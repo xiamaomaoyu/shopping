@@ -56,7 +56,7 @@ def login():
             # TODO: else respond username or password incorrect
         elif request.form['type'] == "verification_code":
             phone_number = request.form['phone_number']
-            if phone_number[0] == '0':
+            if len(phone_number) > 0 and phone_number[0] == '0':
                 phone_number = phone_number[1:]
             verfication_code = request.form['verification_code']
             row = query_db("SELECT verification_code,nick_name FROM user WHERE phone_number=? ;",(phone_number,),one=True)
@@ -220,4 +220,4 @@ def comment(order_id):
 
 
 if __name__ == '__main__':
-    app.run(port=80,host='0.0.0.0', debug=True)
+    app.run(port=80,host='0.0.0.0', debug=False)

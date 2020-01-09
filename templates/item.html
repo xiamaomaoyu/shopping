@@ -74,7 +74,7 @@
 
             document.getElementById("pricesWrap").appendChild(but);
         }
-        document.getElementById("priceContainer").style.top = window.screen.height-280 + "px";
+        //document.getElementById("priceContainer").style.top = (window.screen.height)*0.98 + "px";
 
         function addDetailImg(imgName) {
             path = "/static/img/discriptions/"+ itemdata.name +"/"+imgName;
@@ -106,7 +106,7 @@
 
 <!-- Selection -->
 <div id="priceContainer" class="container" style="margin-top: 5%; background-color: white; position: sticky; top: 0;">
-    <div id="pricesWrap" style="z-index: 5; position: sticky; top:0; ">
+    <div id="pricesWrap" style="z-index: 5;  ">
     </div>
 </div>
 <div class="container" style="margin-top: 0; background-color: white; ">
