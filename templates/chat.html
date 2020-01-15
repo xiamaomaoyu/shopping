@@ -43,16 +43,16 @@
     <i style="color:white; font-size: 70px; margin: 4% 0; margin-right: 5%;   float: right" class="far fa-paper-plane"  id="send_btn"></i>
 </div>
 
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/socket.io/1.7.3/socket.io.min.js"></script>
+<script src="../static/new_js/jquery.min.js"></script>
+<script src="../static/new_js/socket.io.min.js"></script>
 <script src="../static/notify.js"></script>
 
     <script>
 
         var image_base64 = "";
         var msg_num = 0;
-        var id = Math.random().toString(36).substring(7);
-        var socket = io.connect('http://v.veveup.com' + ':' + '5000');
+        var id = "{{ current_user.phone_number }}";
+        var socket = io.connect('http://127.0.0.1' + ':' + '5000');
         var input = $("#user_input");
         socket.on(id, function( msg ) {
             var info = unescape(msg.user_message);

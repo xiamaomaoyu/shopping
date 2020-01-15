@@ -1,5 +1,5 @@
 CREATE TABLE IF NOT EXISTS "item" (
-    id INTEGER PRIMARY KEY,
+    id INTEGER PRIMARY KEY autoincrement,
     name TEXT,
     tags TEXT,
     weight TEXT,
@@ -19,6 +19,17 @@ CREATE TABLE IF NOT EXISTS "user" (
     nick_name TEXT,
     receiver_detail INTEGER references receiver_detail(id)
 );
+
+
+CREATE TABLE IF NOT EXISTS staff (
+    username TEXT PRIMARY KEY ,
+    password TEXT,
+    token TEXT
+);
+
+
+INSERT INTO staff(username, password, token) VALUES ('admin', 'admin', '');
+
 CREATE TABLE IF NOT EXISTS "cart_records" (
     phone_number  TEXT references user(phone_number),
     item  integer REFERENCES item(id),

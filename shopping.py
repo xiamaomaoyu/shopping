@@ -1,10 +1,12 @@
 from flask import Flask, render_template,jsonify, redirect, url_for, request
-from flask_login import LoginManager,login_user, current_user, login_required, logout_user, UserMixin, login_manager
+from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from src.user import get_user
 from src.db_hdl import query_db
 from api import api
 import hashlib
 from flask_cors import CORS
+from flask import Flask, render_template
+from flask_socketio import SocketIO
 
 app = Flask(__name__)
 app.secret_key = 'development key'
@@ -13,6 +15,8 @@ login_manager = LoginManager()
 login_manager.init_app(app)
 
 CORS(app)
+
+socketio = SocketIO(app)
 
 key = '5dde5b629eac4dc688c83f9d4396b4a4'
 m_number = '001007490'
@@ -68,9 +72,9 @@ def login():
 # TODO: register
 
 
-@app.route('/staff/', methods=["POST", "GET"])
-def staff():
-    return render_template('staffChat.html')
+# @app.route('/staff/', methods=["POST", "GET"])
+# def staff():
+#     return render_template('staffChat.html')
 
 
 @app.route('/logout', methods=["POST", "GET"])
@@ -96,6 +100,7 @@ def mycart():
 
 
 @app.route('/chat')
+@login_required
 def mychat():
     return render_template("chat.html", user=current_user.get_id())
 
@@ -146,7 +151,7 @@ def pay(order_id):
 
 
 @app.route('/gettoken')
-def getToken():
+def get_token():
     if current_user.is_anonymous:
         return redirect(url_for("login"))
     timestamp = request.args.get('timestamp')
@@ -193,7 +198,22 @@ def check_pay(order_id):
 def comment(order_id):
     return render_template("comment.html",order_id=order_id)
 
+@socketio.on('user post')
+def handle_user_post(str, methods=['GET', 'POST']):
+    socketio.emit('staff', str)
+
+
+@socketio.on('staff post')
+def handle_staff_post(str,  methods=['GET', 'POST']):
+    user_id = str["user_id"]
+    socketio.emit(user_id, str)
+
+
+@socketio.on('leave')
+def handle_user_leave(str, methods=['GET', 'POST']):
+    socketio.emit('leave', str["user_id"])
 
 
 if __name__ == '__main__':
-    app.run(port=5000, debug=True)
+    socketio.run(app, port=5000, debug=True)
+    # app.run(port=5000, debug=True)

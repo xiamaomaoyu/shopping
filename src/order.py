@@ -161,10 +161,10 @@ def get_overall_price(order_id):
     :return:
     """
     overall_price = 0
-    orders = DB.query_db("SELECT * FROM orders WHERE order_id='%s'" % order_id)
+    orders = DB.query_db("SELECT * FROM orders WHERE order_id=?", (order_id, ))
 
     for order in orders:
-        price = DB.query_db("SELECT price FROM item_price WHERE item = '%s' AND price_type = '%s'" %
+        price = DB.query_db("SELECT price FROM item_price WHERE item = ? AND price_type = ?",
                             (order['item'], order['item_price_type']))
         overall_price += float(price[0]['price']) * order['quantity']
 
@@ -279,8 +279,6 @@ def make_delivery(order_id):
     stock = get_stock(order[0]['receiver_name'], order[0]['receiver_address'], order[0]['receiver_phone'],
                       'nothing', items)
 
-    print(stock)
-    # return False
     transport = Transport(timeout=10)
     wsdl = 'http://www.zhonghuan.com.au:8085/API/cxf/au/recordservice?wsdl'
     client = zeep.Client(wsdl=wsdl, transport=transport)
@@ -289,7 +287,8 @@ def make_delivery(order_id):
     if result['msgtype'] == '200':
         delivery_id = result['chrfydh']
         DB.query_db("UPDATE orders SET delivery_no = ?,status='sent' WHERE order_id = ?", (delivery_id, order_id, ))
-    return True
+        return delivery_id
+    return None
 
 
 def check_delivery_id(order_id):
