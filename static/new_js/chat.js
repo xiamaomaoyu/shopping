@@ -1,15 +1,18 @@
+
 var users = [];
 var current = "";
 var image_base64 = "";
 var input = $("#user_input");
+
+
 var socket = io.connect('http://127.0.0.1' + ':' + '5000');
 
-socket.on( 'staff', function( msg ) {
+socket.on('staff', function( msg ) {
     var user_id = msg.user_id;
     var info = unescape(msg.user_message);
     var img_64 = unescape(msg.user_image);
     // make notify
-    notifyMe(info);
+    // notifyMe(info);
 
     var onclick_id = "\'"+user_id+ "\'";
     var dt = new Date();
@@ -160,6 +163,7 @@ $("#send_btn").click(function () {
     if ((input.val() !== "" || image_base64 !== "") && current !== "") {
         send_msg(input.val());
     }
+    console.log('here');
 });
 
 function send_msg(message) {
@@ -259,63 +263,4 @@ function encodeImageToBase64(element) {
     };
     reader.readAsDataURL(file);
 
-}
-
-function view_play(element) {
-    if(element.paused){
-        element.play();
-    }else{
-        element.pause();
-    }
-}
-
-
-
-var showNotification =false;
-
-$(function(){
-    //只在当前页面失去焦点时提示消息
-    window.onblur = function () {
-        showNotification = true;
-    };
-    window.onfocus = function () {
-        showNotification = false;
-}});
-
-//消息提醒
-function check() {
-    // Let's check if the browser supports notifications
-    if (!("Notification" in window)) {
-        //alert("This browser does not support desktop notification");
-        return false;
-    }
-    if (Notification.permission !== "granted") {
-        Notification.requestPermission(function (permission) {
-            // Whatever the user answers, we make sure we store the information
-            if (!('permission' in Notification)) {
-                Notification.permission = permission;
-            }
-        });
-        return false;
-    }
-    return showNotification;
-}
-
-function notifyMe(receiveMessage) {
-    if (check()) {
-        var notification = new Notification('You get a new message', {
-            //body: "Hey there! You've been notified!",
-            body:receiveMessage
-        });
-
-        notification.onshow = function () {
-            $("#not")[0].play();
-        };
-
-        notification.onclick = function () {
-            window.focus();
-        };
-
-        setTimeout(notification.close.bind(notification), 5000);//auto clear notifications
-    }
 }

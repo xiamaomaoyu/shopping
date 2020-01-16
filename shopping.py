@@ -14,9 +14,10 @@ app.register_blueprint(api)
 login_manager = LoginManager()
 login_manager.init_app(app)
 
-CORS(app)
+socketio = SocketIO(app, cors_allowed_origins='*')
 
-socketio = SocketIO(app)
+CORS(app, resources={r"/*": {"origins": "*"}})
+
 
 key = '5dde5b629eac4dc688c83f9d4396b4a4'
 m_number = '001007490'
@@ -72,9 +73,9 @@ def login():
 # TODO: register
 
 
-# @app.route('/staff/', methods=["POST", "GET"])
-# def staff():
-#     return render_template('staffChat.html')
+@app.route('/staff/', methods=["POST", "GET"])
+def staff():
+    return render_template('staffChat.html')
 
 
 @app.route('/logout', methods=["POST", "GET"])
@@ -92,7 +93,7 @@ def index():
 
 
 @app.route('/cart')
-#@login_required
+@login_required
 def mycart():
     if current_user.is_anonymous == True:
         return redirect(url_for("login"))
@@ -100,7 +101,7 @@ def mycart():
 
 
 @app.route('/chat')
-@login_required
+# @login_required
 def mychat():
     return render_template("chat.html", user=current_user.get_id())
 
@@ -198,15 +199,17 @@ def check_pay(order_id):
 def comment(order_id):
     return render_template("comment.html",order_id=order_id)
 
+
 @socketio.on('user post')
-def handle_user_post(str, methods=['GET', 'POST']):
-    socketio.emit('staff', str)
+def handle_user_post(msg, methods=['GET', 'POST']):
+    socketio.emit('staff', msg)
 
 
 @socketio.on('staff post')
-def handle_staff_post(str,  methods=['GET', 'POST']):
-    user_id = str["user_id"]
-    socketio.emit(user_id, str)
+def handle_staff_post(msg,  methods=['GET', 'POST']):
+    # {'user_message': 'hello', 'user_image': '', 'user_id': '123'}
+    user_id = msg["user_id"]
+    socketio.emit(user_id, msg)
 
 
 @socketio.on('leave')

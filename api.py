@@ -596,9 +596,9 @@ def get_main_img():
         return make_response(jsonify(message='请先登陆'), 400)
 
     item_id = get_request_args('item_id')
-    items = query_db("SELECT * FROM item WHERE id=?", (item_id,), one=False)
+    items = query_db("SELECT * FROM item WHERE id=?", (item_id,), one=True)
 
-    path = "static/img/itemImg/" + items[0]['name'] + '/'
+    path = "static/img/itemImg/" + items['name'] + '/'
     img_list = []
     id = -1
     files = os.scandir(path)
@@ -610,7 +610,8 @@ def get_main_img():
                 'url': file_path,
                 'thumbUrl': file_path,
                 'status': 'done',
-                'name': file.name
+                'name': file.name,
+                'path': file_path
             }
             img_list.append(data)
             id -= 1
@@ -629,9 +630,9 @@ def get_detail_img():
         return make_response(jsonify(message='请先登陆'), 400)
 
     item_id = get_request_args('item_id')
-    items = query_db("SELECT * FROM item WHERE id=?", (item_id,), one=False)
+    items = query_db("SELECT * FROM item WHERE id=?", (item_id,), one=True)
 
-    path = "static/img/discriptions/" + items[0]['name'] + '/'
+    path = "static/img/discriptions/" + items['name'] + '/'
     img_list = []
     id = -1
     files = os.scandir(path)
@@ -643,7 +644,8 @@ def get_detail_img():
                 'url': file_path,
                 'thumbUrl': file_path,
                 'status': 'done',
-                'name': file.name
+                'name': file.name,
+                'path': file_path
             }
             img_list.append(data)
             id -= 1
@@ -653,6 +655,10 @@ def get_detail_img():
 
 @api.route('/api/get-detail-by-id', methods=['POST', 'GET'])
 def get_main_details():
+    """
+    获取物品详细信息
+    :return:
+    """
     token = get_header(request)
     if not check_user(token):
         return make_response(jsonify(message='请先登陆'), 400)
@@ -663,3 +669,110 @@ def get_main_details():
     items['types'] = types
 
     return make_response(jsonify(data=items), 200)
+
+
+@api.route('/api/delete-photo', methods=['POST', 'GET'])
+def delete_photo():
+    """
+    删除本地照片
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    # 判断文件是否存在，如果存在删除
+    file_path = get_request_args('file_path')
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
+    return make_response(jsonify(message='删除成功'), 200)
+
+
+@api.route('/api/update-item',  methods=['POST', 'GET'])
+def update_item():
+    """
+    更新商品信息
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    item_id = get_request_args('item_id')
+    item_name = get_request_args('name')
+    tags = get_request_args('tags')
+    weight = get_request_args('weight')
+    product_name = get_request_args('product_name')
+
+    main_img = get_request_file('mains', required=False)
+    detail_img = get_request_file('details', required=False)
+
+    query_db("UPDATE item SET name=?, tags=?, weight=?,product_name=? WHERE id=?",
+             (item_name, tags, weight, product_name, item_id))
+
+    if main_img is not None:
+        for mg in main_img:
+            if mg and check_allow(mg.filename):
+                target = "static/img/itemImg/%s" % item_name
+                if not os.path.isdir(target):
+                    os.mkdir(target)
+
+                filepath = target + "/main.jpg"
+                mg.save(filepath)
+
+    if detail_img is not None:
+        for dg in detail_img:
+            if dg and check_allow(dg.filename):
+                target = "static/img/discriptions/%s" % item_name
+                if not os.path.isdir(target):
+                    os.mkdir(target)
+
+                filepath = target + "/%s" % dg.filename
+                dg.save(filepath)
+
+    return make_response(jsonify(message='更新成功'), 200)
+
+
+@api.route('/api/get-all-item-id', methods=['POST', 'GET'])
+def get_all_item_id():
+    """
+    获取所有的item id来做autocomplete
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+    items = query_db("SELECT id FROM item")
+    id = []
+    for item in items:
+        id.append(str(item['id']))
+
+    return make_response(jsonify(id=id), 200)
+
+
+@api.route('/api/add-item-type', methods=['POST', 'GET'])
+def add_item_type():
+    """
+    添加商品的价格类型
+    比如三罐包邮等
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    item_id = get_request_args('item_id')
+    item_type = get_request_args('item_type')
+    item_price = get_request_args('item_price')
+
+    t = query_db("SELECT * FROM item_price WHERE item=? AND price_type=?",
+                 (item_id, item_type), one=True)
+
+    if t is not None:
+        return make_response(jsonify(message='类型已存在'), 200)
+
+    query_db("INSERT INTO item_price(item, price_type, price) VALUES (?,?,?)",
+             (item_id, item_type, item_price))
+
+    return make_response(jsonify(message='添加成功'), 200)
