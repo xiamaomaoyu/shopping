@@ -101,7 +101,7 @@ def mycart():
 
 
 @app.route('/chat')
-# @login_required
+@login_required
 def mychat():
     return render_template("chat.html", user=current_user.get_id())
 

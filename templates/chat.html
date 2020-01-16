@@ -51,8 +51,8 @@
 
         var image_base64 = "";
         var msg_num = 0;
-        var id = "123";
-        var socket = io.connect('http://127.0.0.1' + ':' + '5000');
+        var id = "{{ current_user.phone_number }}";
+        var socket = io.connect('http://' + document.domain + ':' + location.port);
         var input = $("#user_input");
         socket.on(id, function( msg ) {
             var info = unescape(msg.user_message);
