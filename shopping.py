@@ -1,15 +1,22 @@
-from flask import Flask, render_template,jsonify, redirect, url_for, request
-from flask_login import LoginManager,login_user, current_user, login_required, logout_user, UserMixin, login_manager
-from src.user import get_user, get_admin, Admin
+from flask import Flask, render_template,jsonify, redirect, url_for, request, session
+from flask_login import LoginManager,login_user, current_user, logout_user, login_required
+from src.user import get_user, Admin
 from src.db_hdl import query_db
 from api import api
 import hashlib
+from flask_cors import CORS
+from flask_socketio import SocketIO
+import datetime
 
 app = Flask(__name__)
 app.secret_key = 'development key'
 app.register_blueprint(api)
 login_manager = LoginManager()
 login_manager.init_app(app)
+
+socketio = SocketIO(app, cors_allowed_origins='*')
+
+CORS(app, resources={r"/*": {"origins": "*"}})
 
 
 key = '5dde5b629eac4dc688c83f9d4396b4a4'
@@ -111,7 +118,7 @@ def index():
 
 
 @app.route('/cart')
-#@login_required
+@login_required
 def mycart():
     if current_user.is_anonymous is True:
         return redirect(url_for("login"))
@@ -121,6 +128,7 @@ def mycart():
 
 
 @app.route('/chat')
+@login_required
 def mychat():
     if current_user.is_anonymous is True:
         return redirect(url_for("login"))
@@ -185,7 +193,7 @@ def pay(order_id):
 
 
 @app.route('/gettoken')
-def getToken():
+def get_token():
     if current_user.is_anonymous:
         return redirect(url_for("login"))
     timestamp = request.args.get('timestamp')
@@ -214,6 +222,7 @@ def search(keyword=None):
 def addressController():
     return render_template("addressPage.html")
 
+
 @app.route('/qrcode')
 def qrcode():
     return render_template("qrCode.html")
@@ -231,6 +240,15 @@ def check_pay(order_id):
     return message
 
 
+def check_time():
+    d_time1 = datetime.datetime.strptime(str(datetime.datetime.now().date()) + '8:00', '%Y-%m-%d%H:%M')
+    d_time2 = datetime.datetime.strptime(str(datetime.datetime.now().date()) + '18:00', '%Y-%m-%d%H:%M')
+    n_time = datetime.datetime.now()
+    if n_time > d_time1 and n_time < d_time2:
+        return True
+    return False
+
+
 @app.route('/comment/<order_id>')
 def comment(order_id):
     return render_template("comment.html",order_id=order_id)
@@ -239,5 +257,33 @@ def comment(order_id):
 def unauthorised_error(error):
     return redirect(url_for("login"))
 
+@socketio.on('user post')
+def handle_user_post(msg, methods=['GET', 'POST']):
+    if check_time() is False and session.get('online') is None:
+        handle_staff_post({
+            'user_message': '客服不在线请稍后联系（自动回复）',
+            'user_image': '',
+            'user_id': msg['user_id'],
+            'auto': 1
+        })
+        return
+    socketio.emit('staff', msg)
+
+
+@socketio.on('staff post')
+def handle_staff_post(msg,  methods=['GET', 'POST']):
+    # {'user_message': 'hello', 'user_image': '', 'user_id': '123'}
+    if msg['auto'] != 1:
+        session['online'] = True
+    user_id = msg["user_id"]
+    socketio.emit(user_id, msg)
+
+
+@socketio.on('leave')
+def handle_user_leave(str, methods=['GET', 'POST']):
+    socketio.emit('leave', str["user_id"])
+
+
 if __name__ == '__main__':
-    app.run(port=80,host='0.0.0.0', debug=True)
+    socketio.run(app, port=80, host='0.0.0.0', debug=True)
+
