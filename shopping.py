@@ -263,7 +263,8 @@ def handle_user_post(msg, methods=['GET', 'POST']):
         handle_staff_post({
             'user_message': '客服不在线请稍后联系（自动回复）',
             'user_image': '',
-            'user_id': msg['user_id']
+            'user_id': msg['user_id'],
+            'auto': 1
         })
         return
     socketio.emit('staff', msg)
@@ -272,6 +273,8 @@ def handle_user_post(msg, methods=['GET', 'POST']):
 @socketio.on('staff post')
 def handle_staff_post(msg,  methods=['GET', 'POST']):
     # {'user_message': 'hello', 'user_image': '', 'user_id': '123'}
+    if msg['auto'] != 1:
+        session['online'] = True
     user_id = msg["user_id"]
     socketio.emit(user_id, msg)
 

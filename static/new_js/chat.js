@@ -5,7 +5,7 @@ var image_base64 = "";
 var input = $("#user_input");
 
 
-var socket = io.connect('http://127.0.0.1' + ':' + '5000');
+var socket = io.connect('http://www.littlegend.com');
 
 socket.on('staff', function( msg ) {
     var user_id = msg.user_id;
