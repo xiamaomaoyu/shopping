@@ -17,13 +17,15 @@
 <!-- top bar -->
 
 
-<nav class="navbar justify-content-between" style="background-color: white; color:black; border-bottom: black 2px solid;">
-    <a onclick="toHome()" class="navbar-brand cartTitle"> <i style="color: black" class="fal fa-chevron-left"></i>
+<nav class="navbar justify-content-between"
+     style="background-color: white; color:black; border-bottom: black 2px solid;">
+    <a onclick="{% if current_user.get_type == "Admin" %}toDashboard(){% else %}toHome(){% endif %}"
+       class="navbar-brand cartTitle"> <i style="color: black" class="fal fa-chevron-left"></i>
     </a>
     <p style="color: black; font-weight: bolder;" class="cartTitle"> 小传奇商城 </p>
 </nav>
 <div style=" margin-top:-5px; padding: 5% 10%; border:none; background-color: white; background-size: 100% 100%;">
-    <div style="padding: 5%; background-color: white;" >
+    <div style="padding: 5%; background-color: white;">
         <div style="width: 100%; height: 150px;  text-align: center; border-bottom: #989898 2px dashed;">
             <h2 style="font-size:40px; width: 100%; text-align: center; color: #555555"> 订单：{{ order_id }}</h2>
             <h2 style="font-size:40px; width: 100%; text-align: center; color: #555555" id="d_id"></h2>
@@ -98,7 +100,7 @@
 
             var tracks = jQuery.makeArray(history.Logisticsback);
             var content = "";
-            for (var i = 0; i < tracks.length; i ++) {
+            for (var i = 0; i < tracks.length; i++) {
                 let info = tracks[i];
                 content += "<div class=\"row\" >\n" +
                     "                <div class=\"col-sm-2\">\n" +
@@ -106,7 +108,7 @@
                     "                </div>\n" +
                     "                <div class=\"col-sm-9\">\n" +
                     "                    <p class=\"card-text\" >" + info.ztai + "</p>\n" +
-                    "                    <p class=\"card-text\" >" + info.time +  "</p>\n" +
+                    "                    <p class=\"card-text\" >" + info.time + "</p>\n" +
                     "                </div>\n" +
                     "            </div>"
             }
@@ -122,8 +124,12 @@
         url = "/orders/tab3";
         window.location.assign(url);
     }
-</script>
 
+    function toDashboard() {
+        url = "/dashboard";
+        window.location.assign(url);
+    }
+</script>
 
 
 </body>

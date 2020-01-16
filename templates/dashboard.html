@@ -29,21 +29,22 @@
 
 
 <div id="mySidenav" class="sidenav" style="width: 200px;">
-    <a data-toggle="tab" class="button tabButton" href="#tab1"><i class="far fa-abacus"></i>    店铺概况</a>
-    <a data-toggle="tab" class="button tabButton" href="#tab2"><i class="far fa-store"></i>    店铺管理</a>
-    <a data-toggle="tab" class="button tabButton" href="#tab3"><i class="far fa-tags"></i>    商品管理</a>
-    <a data-toggle="tab" class="button tabButton" onclick="toggleOrderSubTabs()" href="#tab4"><i class="far fa-shopping-cart"></i>   订单管理</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab1"><i class="far fa-abacus"></i> 店铺概况</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab2"><i class="far fa-store"></i> 店铺管理</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab3"><i class="far fa-tags"></i> 商品管理</a>
+    <a data-toggle="tab" class="button tabButton" onclick="toggleOrderSubTabs()" href="#tab4"><i
+            class="far fa-shopping-cart"></i> 订单管理</a>
     <a id="subOrder1" data-toggle="tab" class="button subTabButton" style="display: none" href="#">拼团订单</a>
     <a id="subOrder2" data-toggle="tab" class="button subTabButton" style="display: none" href="#">批量发货</a>
     <a id="subOrder3" data-toggle="tab" class="button subTabButton" style="display: none" href="#">订单包裹</a>
-    <a data-toggle="tab" class="button tabButton" href="#tab5"><i class="far fa-lightbulb-on"></i>   营销中心</a>
-    <a data-toggle="tab" class="button tabButton" href="#tab6"><i class="far fa-users-crown"></i>   用户画像</a>
-    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-chart-bar"></i>   数据中心</a>
-    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-swords"></i>   其他功能</a>
-    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-alipay"></i>   更多选项</a>
-    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-balance-scale"></i>   收支状况</a>
-    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-ballot-check"></i>   待办事项</a>
-    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-clipboard-user"></i>   用户反馈</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab5"><i class="far fa-lightbulb-on"></i> 营销中心</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab6"><i class="far fa-users-crown"></i> 用户画像</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-chart-bar"></i> 数据中心</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-swords"></i> 其他功能</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-alipay"></i> 更多选项</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-balance-scale"></i> 收支状况</a>
+    <a data-toggle="tab" class="button tabButton" href="#tab7"><i class="far fa-ballot-check"></i> 待办事项</a>
+    <a data-toggle="tab" class="button tabButton" onclick="logout()"><i class="far fa-clipboard-user"></i> 登出</a>
 
 </div>
 
@@ -63,7 +64,7 @@
     <div id="tab4" class="tab-pane fade ">
         <div class="tabBody order-Header">
             <h1 style="font-size: 30px;">订单</h1>
-            <a  href="#">详细使用说明</a>
+            <a href="#">详细使用说明</a>
         </div>
         <div class="tabBody">
             <div class="order-filter-shortCuts">
@@ -78,12 +79,12 @@
         </div>
         <div class="tabBody" id="orders">
             <div class="order-body-content row">
-              <div class="col-sm-3">产品</div>
-              <div class="col-sm-2">售价/成本</div>
-              <div class="col-sm-2">合计</div>
-              <div class="col-sm-1">状态</div>
-              <div class="col-sm-3">收件人</div>
-              <div class="col-sm-1">渠道</div>
+                <div class="col-sm-3">产品</div>
+                <div class="col-sm-2">售价/成本</div>
+                <div class="col-sm-2">合计</div>
+                <div class="col-sm-1">状态</div>
+                <div class="col-sm-3">收件人</div>
+                <div class="col-sm-1">渠道</div>
             </div>
         </div>
 
@@ -109,6 +110,11 @@
     var sent = $("#sent");
     var comment = $("#comment");
     var all = $("#all");
+
+    function logout() {
+        url = "/logout";
+        window.location.assign(url);
+    }
 
     all.click(function () {
         removeActive();
@@ -147,8 +153,9 @@
         comment.removeClass("active");
         all.removeClass("active");
     }
+
     function toTracking(orderId) {
-        url = "/tracking/"+orderId;
+        url = "/tracking/" + orderId;
         window.location.assign(url);
     }
 
@@ -168,49 +175,49 @@
             // console.log(data);
             var htmls = "";
 
-            for (var i = 0; i < data.orders.length; i ++) {
+            for (var i = 0; i < data.orders.length; i++) {
                 var overallprice = 0;
-                for (var y = 2; y < data.orders[i].length; y ++) {
+                for (var y = 2; y < data.orders[i].length; y++) {
                     var or = data.orders[i][y];
                     overallprice += or.price;
                 }
-                for (var j = 2; j < data.orders[i].length; j ++) {
-                        var orders = data.orders[i][j];
-                        var name = orders.item;
-                        var order_id = orders.order_id;
-                        var order_time = orders.order_time;
-                        var phone = orders.phone_number;
-                        var price = orders.price;
-                        var quantity = orders.quantity;
-                        var address = orders.receiver_address;
-                        var re_name = orders.receiver_name;
-                        var o_status = "";
+                for (var j = 2; j < data.orders[i].length; j++) {
+                    var orders = data.orders[i][j];
+                    var name = orders.item;
+                    var order_id = orders.order_id;
+                    var order_time = orders.order_time;
+                    var phone = orders.phone_number;
+                    var price = orders.price;
+                    var quantity = orders.quantity;
+                    var address = orders.receiver_address;
+                    var re_name = orders.receiver_name;
+                    var o_status = "";
 
-                        if (orders.status === "unpaid") {
-                            o_status = "待付款";
-                        } else if (orders.status === "unsent") {
-                            o_status = "待发货";
-                        } else if (orders.status === "sent") {
-                            o_status = "已发货";
-                        } else if (orders.status === "uncomment") {
-                            o_status = "待评价";
-                        } else if (orders.status === "closed") {
-                            o_status = "交易结束"
-                        }
+                    if (orders.status === "unpaid") {
+                        o_status = "待付款";
+                    } else if (orders.status === "unsent") {
+                        o_status = "待发货";
+                    } else if (orders.status === "sent") {
+                        o_status = "已发货";
+                    } else if (orders.status === "uncomment") {
+                        o_status = "待评价";
+                    } else if (orders.status === "closed") {
+                        o_status = "交易结束"
+                    }
 
-                        if (j === 2) {
-                            htmls += "<div class=\"order-item\">\n" +
+                    if (j === 2) {
+                        htmls += "<div class=\"order-item\">\n" +
                             "                <div class=\"order-body-content row\" style=\"background-color: #f8f8f8\">\n" +
                             "                  <div class=\"col-sm-3\">\n" +
-                            "                      <p>订单号：" + order_id +"<button style=\"margin-left: 5px;\" onclick=\"toTracking("+ order_id +")\" >查看物流</button></p>\n" +
-                            "                      <p>交易号："+ order_id + "</p>\n" +
+                            "                      <p>订单号：" + order_id + "<button style=\"margin-left: 5px;\" onclick=\"toTracking(" + order_id + ")\" >查看物流</button></p>\n" +
+                            "                      <p>交易号：" + order_id + "</p>\n" +
                             "                      <p>交易类型： 普通交易 </p>\n" +
                             "                  </div>\n" +
                             "                  <div class=\"col-sm-2\">\n" +
                             "\n" +
                             "                  </div>\n" +
                             "                  <div class=\"col-sm-2\">\n" +
-                            "                      <a>"+ "$" + overallprice + "</a>\n" +
+                            "                      <a>" + "$" + overallprice + "</a>\n" +
                             "                  </div>\n" +
                             "                  <div class=\"col-sm-1\">\n" +
                             "                      <div>" + o_status + "</div>\n" +
@@ -222,18 +229,18 @@
                             "\n" +
                             "                  </div>\n" +
                             "                </div>\n";
-                        }
+                    }
 
-                        htmls+= "                <div class=\"order-body-content row\" >\n" +
+                    htmls += "                <div class=\"order-body-content row\" >\n" +
                         "                  <div class=\"col-sm-1\">\n" +
-                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" +"\">\n" +
+                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" + "\">\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
                         "                    <a>" + name + "</a>\n<br>" + "<a>" + orders.item_price_type + "</a>" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
-                        "                    <p>" + "$" + price +"</p>\n" +
-                        "                    <p>"+ quantity +" 件</p>\n" +
+                        "                    <p>" + "$" + price + "</p>\n" +
+                        "                    <p>" + quantity + " 件</p>\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
                         "                    <p>价格： " + "$" + price + "</p>\n" +
@@ -243,20 +250,20 @@
                         "                      <a> </a>\n" +
                         "                  </div>\n";
                     if (j === 2) {
-                        htmls +="                  <div class=\"col-sm-3\">\n" +
-                        "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
-                        "                      <a>" + re_name +"</a> | <a>所有订单</a><br><br>\n" +
-                        "                      <p>" + re_name + " " + phone + "</p>\n" +
-                        "                      <p>" + address +"</p>\n" +
-                        "                  </div>\n";
+                        htmls += "                  <div class=\"col-sm-3\">\n" +
+                            "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
+                            "                      <a>" + re_name + "</a> | <a>所有订单</a><br><br>\n" +
+                            "                      <p>" + re_name + " " + phone + "</p>\n" +
+                            "                      <p>" + address + "</p>\n" +
+                            "                  </div>\n";
                     }
                     htmls += "                  <div class=\"col-sm-1\">\n" +
                         "\n" +
                         "                  </div>\n" +
                         "                </div>\n" +
                         "            </div>";
-                    }
                 }
+            }
 
             $("#orders").append(htmls);
         });
@@ -275,16 +282,16 @@
         $.getJSON(url, function (data) {
 
             var htmls = "";
-            for (var i = 0; i < data.orders.length; i ++) {
+            for (var i = 0; i < data.orders.length; i++) {
                 var overallprice = 0;
-                for (var y = 2; y < data.orders[i].length; y ++) {
+                for (var y = 2; y < data.orders[i].length; y++) {
                     var or = data.orders[i][y];
                     if (or.status !== "unpaid") {
                         continue;
                     }
                     overallprice += or.price;
                 }
-                for (var j = 2; j < data.orders[i].length; j ++) {
+                for (var j = 2; j < data.orders[i].length; j++) {
                     var orders = data.orders[i][j];
                     var name = orders.item;
                     var order_id = orders.order_id;
@@ -301,40 +308,40 @@
 
                     if (j === 2) {
                         htmls += "<div class=\"order-item\">\n" +
-                        "                <div class=\"order-body-content row\" style=\"background-color: #f8f8f8\">\n" +
-                        "                  <div class=\"col-sm-3\">\n" +
-                        "                      <p>订单号：" + order_id +"</p>\n" +
-                        "                      <p>交易号："+ order_id + "</p>\n" +
-                        "                      <p>交易类型： 普通交易 </p>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-2\">\n" +
-                        "\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-2\">\n" +
-                        "                      <a>"+ "$" + overallprice + "</a>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-1\">\n" +
-                        "                      <div>" + "待付款" + "</div>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-3\">\n" +
-                        "                      <p>下单时间：" + order_time + "</p>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-1\">\n" +
-                        "\n" +
-                        "                  </div>\n" +
-                        "                </div>\n";
+                            "                <div class=\"order-body-content row\" style=\"background-color: #f8f8f8\">\n" +
+                            "                  <div class=\"col-sm-3\">\n" +
+                            "                      <p>订单号：" + order_id + "</p>\n" +
+                            "                      <p>交易号：" + order_id + "</p>\n" +
+                            "                      <p>交易类型： 普通交易 </p>\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-2\">\n" +
+                            "\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-2\">\n" +
+                            "                      <a>" + "$" + overallprice + "</a>\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-1\">\n" +
+                            "                      <div>" + "待付款" + "</div>\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-3\">\n" +
+                            "                      <p>下单时间：" + order_time + "</p>\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-1\">\n" +
+                            "\n" +
+                            "                  </div>\n" +
+                            "                </div>\n";
                     }
 
-                    htmls+= "                <div class=\"order-body-content row\" >\n" +
+                    htmls += "                <div class=\"order-body-content row\" >\n" +
                         "                  <div class=\"col-sm-1\">\n" +
-                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" +"\">\n" +
+                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" + "\">\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
                         "                    <a>" + name + "</a>\n<br>" + "<a>" + orders.item_price_type + "</a>" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
-                        "                    <p>" + "$" + price +"</p>\n" +
-                        "                    <p>"+ quantity +" 件</p>\n" +
+                        "                    <p>" + "$" + price + "</p>\n" +
+                        "                    <p>" + quantity + " 件</p>\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
                         "                    <p>价格： " + "$" + price + "</p>\n" +
@@ -344,12 +351,12 @@
                         "                      <a> </a>\n" +
                         "                  </div>\n";
                     if (j === 2) {
-                        htmls +="                  <div class=\"col-sm-3\">\n" +
-                        "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
-                        "                      <a>" + re_name +"</a> | <a>所有订单</a><br><br>\n" +
-                        "                      <p>" + re_name + " " + phone + "</p>\n" +
-                        "                      <p>" + address +"</p>\n" +
-                        "                  </div>\n";
+                        htmls += "                  <div class=\"col-sm-3\">\n" +
+                            "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
+                            "                      <a>" + re_name + "</a> | <a>所有订单</a><br><br>\n" +
+                            "                      <p>" + re_name + " " + phone + "</p>\n" +
+                            "                      <p>" + address + "</p>\n" +
+                            "                  </div>\n";
                     }
                     htmls += "                  <div class=\"col-sm-1\">\n" +
                         "\n" +
@@ -378,16 +385,16 @@
             // console.log(data);
             // unsent
             var htmls = "";
-            for (var i = 0; i < data.orders.length; i ++) {
+            for (var i = 0; i < data.orders.length; i++) {
                 var overallprice = 0;
-                for (var y = 2; y < data.orders[i].length; y ++) {
+                for (var y = 2; y < data.orders[i].length; y++) {
                     var or = data.orders[i][y];
                     if (or.status !== "unsent") {
                         continue;
                     }
                     overallprice += or.price;
                 }
-                for (var j = 2; j < data.orders[i].length; j ++) {
+                for (var j = 2; j < data.orders[i].length; j++) {
                     var orders = data.orders[i][j];
                     var name = orders.item;
                     var order_id = orders.order_id;
@@ -404,41 +411,41 @@
 
                     if (j === 2) {
                         htmls += "<div class=\"order-item\">\n" +
-                        "                <div class=\"order-body-content row\" style=\"background-color: #f8f8f8\">\n" +
-                        "                  <div class=\"col-sm-3\">\n" +
-                        "                      <p>订单号：" + order_id +"</p>\n" +
-                        "                      <p>交易号："+ order_id + "</p>\n" +
-                        "                      <p>交易类型： 普通交易 </p>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-2\">\n" +
-                        "\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-2\">\n" +
-                        "                      <a>"+ "$" + overallprice + "</a>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-1\">\n" +
-                                "                      <div>未发货</div>\n" +
-                        "                      <button onclick = makeSent(" + order_id + ")" + ">" + "发货" + "</button>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-3\">\n" +
-                        "                      <p>下单时间：" + order_time + "</p>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-1\">\n" +
-                        "\n" +
-                        "                  </div>\n" +
-                        "                </div>\n";
+                            "                <div class=\"order-body-content row\" style=\"background-color: #f8f8f8\">\n" +
+                            "                  <div class=\"col-sm-3\">\n" +
+                            "                      <p>订单号：" + order_id + "</p>\n" +
+                            "                      <p>交易号：" + order_id + "</p>\n" +
+                            "                      <p>交易类型： 普通交易 </p>\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-2\">\n" +
+                            "\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-2\">\n" +
+                            "                      <a>" + "$" + overallprice + "</a>\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-1\">\n" +
+                            "                      <div>未发货</div>\n" +
+                            "                      <button onclick = makeSent(" + order_id + ")" + ">" + "发货" + "</button>\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-3\">\n" +
+                            "                      <p>下单时间：" + order_time + "</p>\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-1\">\n" +
+                            "\n" +
+                            "                  </div>\n" +
+                            "                </div>\n";
                     }
 
-                    htmls+= "                <div class=\"order-body-content row\" >\n" +
+                    htmls += "                <div class=\"order-body-content row\" >\n" +
                         "                  <div class=\"col-sm-1\">\n" +
-                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" +"\">\n" +
+                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" + "\">\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
                         "                    <a>" + name + "</a>\n<br>" + "<a>" + orders.item_price_type + "</a>" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
-                        "                    <p>" + "$" + price +"</p>\n" +
-                        "                    <p>"+ quantity +" 件</p>\n" +
+                        "                    <p>" + "$" + price + "</p>\n" +
+                        "                    <p>" + quantity + " 件</p>\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
                         "                    <p>价格： " + "$" + price + "</p>\n" +
@@ -448,12 +455,12 @@
                         "                      <a> </a>\n" +
                         "                  </div>\n";
                     if (j === 2) {
-                        htmls +="                  <div class=\"col-sm-3\">\n" +
-                        "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
-                        "                      <a>" + re_name +"</a> | <a>所有订单</a><br><br>\n" +
-                        "                      <p>" + re_name + " " + phone + "</p>\n" +
-                        "                      <p>" + address +"</p>\n" +
-                        "                  </div>\n";
+                        htmls += "                  <div class=\"col-sm-3\">\n" +
+                            "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
+                            "                      <a>" + re_name + "</a> | <a>所有订单</a><br><br>\n" +
+                            "                      <p>" + re_name + " " + phone + "</p>\n" +
+                            "                      <p>" + address + "</p>\n" +
+                            "                  </div>\n";
                     }
                     htmls += "                  <div class=\"col-sm-1\">\n" +
                         "\n" +
@@ -482,16 +489,16 @@
             // console.log(data);
             // sent
             var htmls = "";
-            for (var i = 0; i < data.orders.length; i ++) {
+            for (var i = 0; i < data.orders.length; i++) {
                 var overallprice = 0;
-                for (var y = 2; y < data.orders[i].length; y ++) {
+                for (var y = 2; y < data.orders[i].length; y++) {
                     var or = data.orders[i][y];
                     if (or.status !== "sent") {
                         continue;
                     }
                     overallprice += or.price;
                 }
-                for (var j = 2; j < data.orders[i].length; j ++) {
+                for (var j = 2; j < data.orders[i].length; j++) {
                     var orders = data.orders[i][j];
                     var name = orders.item;
                     var order_id = orders.order_id;
@@ -508,40 +515,40 @@
 
                     if (j === 2) {
                         htmls += "<div class=\"order-item\">\n" +
-                        "                <div class=\"order-body-content row\" style=\"background-color: #f8f8f8\">\n" +
-                        "                  <div class=\"col-sm-3\">\n" +
-                        "                      <p>订单号：" + order_id +"</p>\n" +
-                        "                      <p>交易号："+ order_id + "</p>\n" +
-                        "                      <p>交易类型： 普通交易 </p>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-2\">\n" +
-                        "\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-2\">\n" +
-                        "                      <a>"+ "$" + overallprice + "</a>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-1\">\n" +
-                        "                      <div>已发货</div>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-3\">\n" +
-                        "                      <p>下单时间：" + order_time + "</p>\n" +
-                        "                  </div>\n" +
-                        "                  <div class=\"col-sm-1\">\n" +
-                        "\n" +
-                        "                  </div>\n" +
-                        "                </div>\n";
+                            "                <div class=\"order-body-content row\" style=\"background-color: #f8f8f8\">\n" +
+                            "                  <div class=\"col-sm-3\">\n" +
+                            "                      <p>订单号：" + order_id + "</p>\n" +
+                            "                      <p>交易号：" + order_id + "</p>\n" +
+                            "                      <p>交易类型： 普通交易 </p>\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-2\">\n" +
+                            "\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-2\">\n" +
+                            "                      <a>" + "$" + overallprice + "</a>\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-1\">\n" +
+                            "                      <div>已发货</div>\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-3\">\n" +
+                            "                      <p>下单时间：" + order_time + "</p>\n" +
+                            "                  </div>\n" +
+                            "                  <div class=\"col-sm-1\">\n" +
+                            "\n" +
+                            "                  </div>\n" +
+                            "                </div>\n";
                     }
 
-                    htmls+= "                <div class=\"order-body-content row\" >\n" +
+                    htmls += "                <div class=\"order-body-content row\" >\n" +
                         "                  <div class=\"col-sm-1\">\n" +
-                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" +"\">\n" +
+                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" + "\">\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
                         "                    <a>" + name + "</a>\n<br>" + "<a>" + orders.item_price_type + "</a>" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
-                        "                    <p>" + "$" + price +"</p>\n" +
-                        "                    <p>"+ quantity +" 件</p>\n" +
+                        "                    <p>" + "$" + price + "</p>\n" +
+                        "                    <p>" + quantity + " 件</p>\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
                         "                    <p>价格： " + "$" + price + "</p>\n" +
@@ -551,12 +558,12 @@
                         "                      <a> </a>\n" +
                         "                  </div>\n";
                     if (j === 2) {
-                        htmls +="                  <div class=\"col-sm-3\">\n" +
-                        "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
-                        "                      <a>" + re_name +"</a> | <a>所有订单</a><br><br>\n" +
-                        "                      <p>" + re_name + " " + phone + "</p>\n" +
-                        "                      <p>" + address +"</p>\n" +
-                        "                  </div>\n";
+                        htmls += "                  <div class=\"col-sm-3\">\n" +
+                            "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
+                            "                      <a>" + re_name + "</a> | <a>所有订单</a><br><br>\n" +
+                            "                      <p>" + re_name + " " + phone + "</p>\n" +
+                            "                      <p>" + address + "</p>\n" +
+                            "                  </div>\n";
                     }
                     htmls += "                  <div class=\"col-sm-1\">\n" +
                         "\n" +
@@ -585,7 +592,7 @@
             //closed
             var htmls = "";
 
-            for (var i = 0; i < data.orders.length; i ++) {
+            for (var i = 0; i < data.orders.length; i++) {
                 var overallprice = 0;
                 for (var y = 2; y < data.orders[i].length; y++) {
                     var or = data.orders[i][y];
@@ -632,19 +639,19 @@
                             "                  <div class=\"col-sm-1\">\n" +
                             "\n" +
                             "                  </div>\n" +
-                                "                </div>\n";
+                            "                </div>\n";
                     }
 
-                    htmls+= "                <div class=\"order-body-content row\" >\n" +
+                    htmls += "                <div class=\"order-body-content row\" >\n" +
                         "                  <div class=\"col-sm-1\">\n" +
-                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" +"\">\n" +
+                        "                    <img style=\"width:70px;height: 70px;\" src=\"/static/img/itemImg/" + name + "/main.jpg" + "\">\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
                         "                    <a>" + name + "</a>\n<br>" + "<a>" + orders.item_price_type + "</a>" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
-                        "                    <p>" + "$" + price +"</p>\n" +
-                        "                    <p>"+ quantity +" 件</p>\n" +
+                        "                    <p>" + "$" + price + "</p>\n" +
+                        "                    <p>" + quantity + " 件</p>\n" +
                         "                  </div>\n" +
                         "                  <div class=\"col-sm-2\">\n" +
                         "                    <p>价格： " + "$" + price + "</p>\n" +
@@ -652,12 +659,12 @@
                         "<p>评论：" + data.orders[i][1] + "</p>" +
                         "                  </div>\n";
                     if (j === 2) {
-                        htmls +="                  <div class=\"col-sm-3\">\n" +
-                        "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
-                        "                      <a>" + re_name +"</a> | <a>所有订单</a><br><br>\n" +
-                        "                      <p>" + re_name + " " + phone + "</p>\n" +
-                        "                      <p>" + address +"</p>\n" +
-                        "                  </div>\n";
+                        htmls += "                  <div class=\"col-sm-3\">\n" +
+                            "                      <img style=\"width: 40px; height: 40px;\" src=\"/static/img/pink.jpg\">\n" +
+                            "                      <a>" + re_name + "</a> | <a>所有订单</a><br><br>\n" +
+                            "                      <p>" + re_name + " " + phone + "</p>\n" +
+                            "                      <p>" + address + "</p>\n" +
+                            "                  </div>\n";
                     }
                     htmls += "                  <div class=\"col-sm-1\">\n" +
                         "\n" +
@@ -673,12 +680,12 @@
     // 发货
     function makeSent(order_id) {
         var url = '/api/make_delivery/' + order_id;
-            $.getJSON(url,function (data) {
-               if (data.message === "success") {
-                   alert('发货成功');
-                   getUnsent();
-               }
-            });
+        $.getJSON(url, function (data) {
+            if (data.message === "success") {
+                alert('发货成功');
+                getUnsent();
+            }
+        });
     }
 
 

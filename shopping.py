@@ -113,13 +113,19 @@ def index():
 @app.route('/cart')
 #@login_required
 def mycart():
-    if current_user.is_anonymous == True:
+    if current_user.is_anonymous is True:
         return redirect(url_for("login"))
+    elif current_user.get_type() == "Admin":
+        return redirect(url_for("dashboard"))
     return render_template("cart.html",user=current_user)
 
 
 @app.route('/chat')
 def mychat():
+    if current_user.is_anonymous is True:
+        return redirect(url_for("login"))
+    elif current_user.get_type() == "Admin":
+        return redirect(url_for("staff"))
     return render_template("chat.html", user=current_user.get_id())
 
 
@@ -131,13 +137,21 @@ def item(id):
 @app.route('/user')
 #@login_required
 def user():
-    if current_user.is_anonymous == True:
+    if current_user.is_anonymous is True:
         return redirect(url_for("login"))
+    elif current_user.get_type() == "Admin":
+        return redirect(url_for("dashboard"))
     return render_template("user.html",user=current_user)
 
 
 @app.route('/orders/<tab>')
 def orders(tab):
+    # TODO only owner of the order or admin can see it
+    if current_user.is_anonymous is True:
+        return redirect(url_for("login"))
+    elif current_user.get_type() == "Admin":
+        return redirect(url_for("dashboard"))
+
     return render_template("orders.html",tab=tab)
 
 
@@ -156,14 +170,16 @@ def webSearch(keyword=None):
 
 @app.route('/address/')
 def address():
-    if current_user.is_anonymous:
+    if current_user.is_anonymous is True:
         return redirect(url_for("login"))
+    elif current_user.get_type() == "Admin":
+        return redirect(url_for("dashboard"))
     return render_template("userDetails.html")
 
 
 @app.route('/pay/<order_id>/')
 def pay(order_id):
-    if current_user.is_anonymous:
+    if current_user.is_anonymous == True:
         return redirect(url_for("login"))
     return render_template("pay.html",user=current_user, order_id = order_id)
 
@@ -205,6 +221,7 @@ def qrcode():
 
 @app.route('/tracking/<order_id>')
 def tracking(order_id):
+    # TODO only owner of the order or admin can see it
     return render_template("tracking.html", order_id=order_id)
 
 
@@ -218,6 +235,9 @@ def check_pay(order_id):
 def comment(order_id):
     return render_template("comment.html",order_id=order_id)
 
+@app.errorhandler(401)
+def unauthorised_error(error):
+    return redirect(url_for("login"))
 
 if __name__ == '__main__':
-    app.run(port=80,host='0.0.0.0', debug=False)
+    app.run(port=80,host='0.0.0.0', debug=True)
