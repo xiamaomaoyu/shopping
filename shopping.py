@@ -1,12 +1,12 @@
-from flask import Flask, render_template,jsonify, redirect, url_for, request
+from flask import Flask, render_template,jsonify, redirect, url_for, request, session
 from flask_login import LoginManager,login_user, current_user, logout_user, login_required
 from src.user import get_user
 from src.db_hdl import query_db
 from api import api
 import hashlib
 from flask_cors import CORS
-from flask import Flask, render_template
 from flask_socketio import SocketIO
+import datetime
 
 app = Flask(__name__)
 app.secret_key = 'development key'
@@ -195,6 +195,15 @@ def check_pay(order_id):
     return message
 
 
+def check_time():
+    d_time1 = datetime.datetime.strptime(str(datetime.datetime.now().date()) + '8:00', '%Y-%m-%d%H:%M')
+    d_time2 = datetime.datetime.strptime(str(datetime.datetime.now().date()) + '18:00', '%Y-%m-%d%H:%M')
+    n_time = datetime.datetime.now()
+    if n_time > d_time1 and n_time < d_time2:
+        return True
+    return False
+
+
 @app.route('/comment/<order_id>')
 def comment(order_id):
     return render_template("comment.html",order_id=order_id)
@@ -202,6 +211,13 @@ def comment(order_id):
 
 @socketio.on('user post')
 def handle_user_post(msg, methods=['GET', 'POST']):
+    if check_time() is False and session.get('online') is None:
+        handle_staff_post({
+            'user_message': '客服不在线请稍后联系（自动回复）',
+            'user_image': '',
+            'user_id': msg['user_id']
+        })
+        return
     socketio.emit('staff', msg)
 
 
