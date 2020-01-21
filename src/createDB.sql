@@ -20,13 +20,11 @@ CREATE TABLE IF NOT EXISTS "user" (
     receiver_detail INTEGER references receiver_detail(id)
 );
 
-<<<<<<< HEAD
 CREATE TABLE IF NOT EXISTS "admin" (
     admin_name  TEXT,
     password TEXT
 );
 
-=======
 
 CREATE TABLE IF NOT EXISTS staff (
     username TEXT PRIMARY KEY ,
@@ -37,7 +35,6 @@ CREATE TABLE IF NOT EXISTS staff (
 
 INSERT INTO staff(username, password, token) VALUES ('admin', 'admin', '');
 
->>>>>>> b860aada0f34d02091e3737de4457b6b5817e0e7
 CREATE TABLE IF NOT EXISTS "cart_records" (
     phone_number  TEXT references user(phone_number),
     item  integer REFERENCES item(id),
