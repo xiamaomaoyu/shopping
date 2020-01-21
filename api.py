@@ -527,9 +527,9 @@ def add_item():
     添加新的商品
     :return:
     """
-    token = get_header(request)
-    if not check_user(token):
-        return make_response(jsonify(message='请先登陆'), 400)
+    # token = get_header(request)
+    # if not check_user(token):
+    #     return make_response(jsonify(message='请先登陆'), 400)
 
     item_name = get_request_args('name')
     item_price = get_request_args('price')
