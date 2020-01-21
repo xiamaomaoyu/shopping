@@ -263,6 +263,7 @@ def check_user(token):
     :param token: the token arg
     :return: the user's information from database
     """
+    return True
     user = query_db("SELECT * FROM staff WHERE token = ?", (token, ))
     if len(user) == 0:
         return False
@@ -527,9 +528,9 @@ def add_item():
     添加新的商品
     :return:
     """
-    # token = get_header(request)
-    # if not check_user(token):
-    #     return make_response(jsonify(message='请先登陆'), 400)
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
 
     item_name = get_request_args('name')
     item_price = get_request_args('price')
