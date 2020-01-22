@@ -37,6 +37,7 @@
     <h2 id="itemPrice" class="itemPrice"></h2>
     <h2 id="itemTitle" class="itemTitle"></h2>
     <input id="selectedItemType"  hidden>
+    <input id="isOnline"  hidden>
 </div>
 <script>
     var url = "/api/item/"+{{ id }};
@@ -45,6 +46,11 @@
         document.getElementById("itemPrice").innerText = "$"+itemdata.display_price;
         document.getElementById("itemImage").src = "/static/img/"+ itemdata.id +"/MainImg/main.jpg"
         document.getElementById("selectedItemType").value = "UNSELECTED";
+        document.getElementById("isOnline").value = itemdata.status;
+        if(itemdata.status != "online"){
+            document.getElementById("addToCart").style.backgroundColor = "grey";
+        }
+
         var i=0;
 
         for(i=0;i<itemdata.price_list.length;i++){
@@ -101,6 +107,11 @@
       <i style="font-size: 80px; color: orange" class="far fa-times"></i>
       <br><br>
       <p style="color: white">添加失败，请选择类别</p>
+  </div>
+  <div id="addToCartForbidden" class="addToCartNotice" style="display: none;">
+      <i style="font-size: 80px; color: orange" class="far fa-times"></i>
+      <br><br>
+      <p style="color: white">添加失败，商品已下架</p>
   </div>
 </div>
 
@@ -162,9 +173,15 @@
 
     function addItemToCart() {
         var type = document.getElementById("selectedItemType").value;
+        var status = document.getElementById("isOnline").value;
         if(type == "UNSELECTED"){
             $('#addToCartNoticeWrapper').show(1).delay(1000).hide(1);
             $('#addToCartError').show(1).delay(1000).hide(1);
+            return;
+        }
+        if(status != "online"){
+            $('#addToCartNoticeWrapper').show(1).delay(1000).hide(1);
+            $('#addToCartForbidden').show(1).delay(1000).hide(1);
             return;
         }
         {% if current_user.is_anonymous == True %}
