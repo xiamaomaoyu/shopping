@@ -663,7 +663,6 @@ def add_item():
     token = get_header(request)
     if not check_user(token):
         return make_response(jsonify(message='请先登陆'), 400)
-
     item_name = get_request_args('name')
     item_price = get_request_args('price')
     tags = get_request_args('tags')
@@ -719,7 +718,6 @@ def add_item():
     target += '/DetailImg'
     make_path(target)
     store_detail_img(target, detail_img)
-
     user = query_db("SELECT * FROM staff WHERE token = ?", (token,))
     username = user["username"]
     time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
@@ -887,55 +885,6 @@ def delete_photo():
     return make_response(jsonify(message='删除成功'), 200)
 
 
-<<<<<<< HEAD
-@api.route('/api/update-item',  methods=['POST', 'GET'])
-def update_item():
-    """
-    更新商品信息
-    :return:
-    """
-    token = get_header(request)
-    if not check_user(token):
-        return make_response(jsonify(message='请先登陆'), 400)
-    print("Passed")
-    item_id = get_request_args('item_id')
-    item_name = get_request_args('name')
-    tags = get_request_args('tags')
-    weight = get_request_args('weight')
-    product_name = get_request_args('product_name')
-
-    main_img = get_request_file('mains', required=False)
-    detail_img = get_request_file('details', required=False)
-
-    query_db("UPDATE item SET name=?, tags=?, weight=?,product_name=? WHERE id=?",
-             (item_name, tags, weight, product_name, item_id))
-
-    if main_img is not None:
-        for mg in main_img:
-            if mg and check_allow(mg.filename):
-                target = "static/img/itemImg/%s" % item_name
-                if not os.path.isdir(target):
-                    os.mkdir(target)
-
-                filepath = target + "/main.jpg"
-                mg.save(filepath)
-
-    if detail_img is not None:
-        print("here")
-        for dg in detail_img:
-            if dg and check_allow(dg.filename):
-                target = "static/img/discriptions/%s" % item_name
-                if not os.path.isdir(target):
-                    os.mkdir(target)
-
-                filepath = target + "/%s" % dg.filename
-                dg.save(filepath)
-
-    return make_response(jsonify(message='更新成功'), 200)
-
-
-=======
->>>>>>> refactor
 @api.route('/api/get-all-item-id', methods=['POST', 'GET'])
 def get_all_item_id():
     """
