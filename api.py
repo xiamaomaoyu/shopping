@@ -725,6 +725,7 @@ def update_item():
                 mg.save(filepath)
 
     if detail_img is not None:
+        print("here")
         for dg in detail_img:
             if dg and check_allow(dg.filename):
                 target = "static/img/discriptions/%s" % item_name
