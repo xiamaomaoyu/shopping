@@ -42,6 +42,8 @@ def item_by_id(id):
 
 @api.route('/api/login/send_verification_code/<phone_number>', methods=['POST','GET'])
 def send_verification_code(phone_number):
+    if phone_number[0] == '0':
+        phone_number = phone_number[1:]
     user = query_db("""
                     SELECT * FROM user WHERE phone_number="%s";
                 """ % (phone_number), ())

@@ -19,11 +19,11 @@
 
 <!-- top bar -->
 
-<nav class="navbar justify-content-inbetween" style="background-color: coral; top:0; width: 100%; position: relative; padding: 2% 3%; padding-bottom: 15%; ">
+<nav class="navbar justify-content-inbetween" style="background-color: white; color: black; border-bottom: black 2px solid; top:0; width: 100%; position: relative; padding: 2% 3%; padding-bottom: 15%; ">
         <a class="navbar-brand "> <img src="/static/img/yellow.png" style="width: 150px; height: 150px;"></i> </a>
         <p class="userGreeting"> {{ user.nick_name }} </p>
         <div style=" width: 100%;text-align: right;margin-bottom: 5%;">
-                <i style="font-size: 80px;  color: white" onclick="logout()" class="far fa-sign-out"></i>
+                <i style="font-size: 80px;  color: black" onclick="logout()" class="fal fa-sign-out"></i>
 
         </div>
         <p class="userLevel" style="margin-top: 2%;"> 会员等级：   1级   &nbsp;&nbsp; 剩余积分：50 </p>
@@ -65,9 +65,9 @@
 
 <!-- other circles -->
 <div class="container" style="display: inline-block; padding: 5% 15px; margin-top: 3%; background-color: white">
-    <div class="divButton">
+    <div class="divButton" onclick="toUpdatePassword()">
         <i class="far fa-users-cog"  style="width: 100%; margin: 5% 0; font-size: 50px"></i>
-        <p> 个人资料 </p>
+        <p> 修改密码 </p>
     </div>
 
     <div class="divButton">
@@ -138,6 +138,10 @@
 
     function toQRCode() {
         url = "/qrcode";
+        window.location.assign(url);
+    }
+    function toUpdatePassword(){
+        url = "/update_password";
         window.location.assign(url);
     }
 </script>

@@ -168,14 +168,14 @@
   }
 
   .cartTitle{
-      color: white;
+      color: black;
       font: 60px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
       float: left;
       margin: 5%;
   }
 
   .cartManage{
-      color:white; font-size: 50px; float: right; margin:5%;
+      color:black; font-size: 50px; float: right; margin:5%;
   }
 
   .card-horizontal {
@@ -194,10 +194,10 @@
   }
   .checkoutBotton{
 
-      background-color: coral;
+      background-color: white;
       border-radius: 50px;
-      border: none;
-      color: white;
+      border: black 2px solid;
+      color: black;
       margin: 2% 5%;
       padding: 3% 5%;
       font: 50px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
@@ -243,12 +243,12 @@
 
   .userLevel{
       font: 30px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
-      color: white;
+      color: black;
       float: right;
   }
 
   .userGreeting{
-      color: white;
+      color: black;
       font: 60px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
       float: left;
       margin: 5% 0;
@@ -302,10 +302,10 @@
 }
 
   .addToCart{
-      background-color: orange;
+      background-color: white;
       border-radius: 60px  0  0 60px;
-      border: none;
-      color: white;
+      border: black 2px solid;
+      color: black;
       margin: 2% -10px 2% 0;
       padding: 5% 10%;
       font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;
@@ -314,10 +314,10 @@
   }
 
   .purchaseNow{
-      background-color: coral;
+      background-color: white;
       border-radius:  0 60px 60px 0;
-      border: none;
-      color: white;
+      border: black 2px solid;
+      color: black;
       margin: 2% 0  2% -10px;
       padding: 5% 10%;
       font: 40px/1 Tahoma,Helvetica,Arial,"\5b8b\4f53",sans-serif;

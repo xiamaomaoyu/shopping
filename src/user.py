@@ -1,10 +1,11 @@
 from flask_login import UserMixin
 from src.db_hdl import *
 
+
 class User(UserMixin):
 
     def __init__(self, form):
-        if form is not None:
+        if isinstance(form, dict):
             self.phone_number = form["phone_number"]
             self.verification_code = form["verification_code"]
             self.password = form["password"]
@@ -13,10 +14,33 @@ class User(UserMixin):
     def get_id(self):
         return self.phone_number
 
+    def get_type(self):
+        return "User"
+
+
+class Admin(UserMixin):
+
+    def __init__(self, admin_name):
+        self.admin_name = admin_name
+
+    def get_id(self):
+        return self.admin_name
+
+    def get_type(self):
+        return "Admin"
+
+
+def get_admin(admin_name):
+    return Admin(admin_name)
+
 def get_user(phone_number):
-    return User(query_db("""
+    row = query_db("""
                 SELECT * FROM user WHERE phone_number="%s";
-            """ % (phone_number), (), one=True))
+            """ % (phone_number), (), one=True)
+    if row is None:
+        return Admin(phone_number)
+    else:
+        return User(row)
 
 def add_user(phone_number, password, nick_name):
     execute_db("""
