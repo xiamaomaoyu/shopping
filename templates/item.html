@@ -43,7 +43,7 @@
     $.getJSON(url, function (itemdata){
         document.getElementById("itemTitle").innerText = itemdata.name;
         document.getElementById("itemPrice").innerText = "$"+itemdata.display_price;
-        document.getElementById("itemImage").src = "/static/img/itemImg/"+itemdata.name+"/main.jpg";
+        document.getElementById("itemImage").src = "/static/img/"+ itemdata.id +"/MainImg/main.jpg"
         document.getElementById("selectedItemType").value = "UNSELECTED";
         var i=0;
 
@@ -77,7 +77,7 @@
         //document.getElementById("priceContainer").style.top = (window.screen.height)*0.98 + "px";
 
         function addDetailImg(imgName) {
-            path = "/static/img/discriptions/"+ itemdata.name +"/"+imgName;
+            path = "/static/img/"+ itemdata.id +"/DetailImg/" + imgName;
 
             theImg = document.createElement("img");
             theImg.className += "detailImg";

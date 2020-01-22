@@ -62,26 +62,14 @@
 
 <div class="container" style="padding: 0; margin: 0; " id="slding">
   <div id="myCarousel" class="carousel slide" data-ride="carousel" >
-    <!-- Indicators -->
-    <ol class="carousel-indicators">
-      <li data-target="#myCarousel" data-slide-to="0" class="active"></li>
-      <li data-target="#myCarousel" data-slide-to="1"></li>
-      <li data-target="#myCarousel" data-slide-to="2"></li>
-    </ol>
 
     <!-- Wrapper for slides -->
-    <div class="carousel-inner">
+    <div id="adsContainer" class="carousel-inner">
       <div class="item active">
-        <img src="/static/img/example3.jpg" alt="Los Angeles" style="width:100%;">
+        <img src="/static/img/ads/1.png" alt="小传奇商城" style="width:100%;">
       </div>
 
-      <div class="item">
-        <img src="/static/img/example2.jpg" alt="Chicago" style="width:100%;">
-      </div>
 
-      <div class="item">
-        <img src="/static/img/example1.jpg" alt="New york" style="width:100%;">
-      </div>
     </div>
 
     <!-- Left and right controls -->
@@ -158,7 +146,7 @@ function search() {
 
         var cardImage = document.createElement("img");
         cardImage.src="/static/img/milk1.jpg";
-        cardImage.src="/static/img/itemImg/"+ item_data.name +"/main.jpg"
+        cardImage.src="/static/img/"+ item_data.id +"/MainImg/main.jpg"
         cardImage.className += "card-img-top";
         var cardBody = document.createElement("div");
         cardBody.className += "card-body";
@@ -189,6 +177,22 @@ function search() {
         }
     });
 }
+function getAds() {
+    var ads;
+    var url = "/api/get-ads-for-html";
+    $.getJSON(url, function (data){
+        ads = data;
+        var i = 0;
+        for(i=0; i< ads.data.length; i++){
+            container = document.getElementById("adsContainer");
+            container.innerHTML += "      <div class=\"item \">\n" +
+                "        <img src=\""+ads.data[i]+"\" alt=\"小传奇商城\" style=\"width:100%;\">\n" +
+                "      </div>";
+        }
+    });
+}
+
+getAds();
 search();
 
 
