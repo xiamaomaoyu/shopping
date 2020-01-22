@@ -2,13 +2,14 @@ import src.db_hdl as DB
 import src.item as ITEM
 
 def all_item_name():
-    sql = "SELECT name FROM item;"
+    sql = "SELECT name FROM item WHERE status = \"online\";"
     result = DB.query_db(sql)
     res_list = DB.dic2List(result)
     return res_list
 
 def all_item():
-    forms = DB.query_db("SELECT * FROM item;")
+    forms = DB.query_db("SELECT * FROM item WHERE status = \"online\";")
+
     res_list = []
     for form in forms:
         res_list.append(ITEM.Item(form).json())
