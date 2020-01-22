@@ -577,26 +577,22 @@ def get_files_nums(path):
     for file in files:
         if check_allow(file.name):
             id += 1
-
     return id
 
 
 def store_main_img(path, files):
-    id = get_files_nums(path)
     for file in files:
         if file and check_allow(file.filename):
-            filepath = path + "/main%s.jpg" % id
+            filepath = path + "/main.jpg"
             file.save(filepath)
-            id += 1
+        break
 
 
 def store_detail_img(path, files):
-    id = get_files_nums(path)
     for file in files:
         if file and check_allow(file.filename):
-            filepath = path + "/detail%s.jpg" % id
+            filepath = path + "/%s" % file.filename
             file.save(filepath)
-            id += 1
 
 
 @api.route('/api/add-item', methods=['POST', 'GET'])
@@ -933,6 +929,18 @@ def forget_password():
 
 
 ######### 今天写的 #####
+@api.route('/api/get-ads-for-html', methods=['POST', 'GET'])
+def get_ads_html():
+    path = "static/img/ads/"
+    make_path(path)
+
+    data = []
+    files = os.scandir(path)
+    for file in files:
+        if check_allow(file.name):
+            data.append(path+file.name)
+
+    return make_response(jsonify(data=data), 200)
 
 
 @api.route('/api/get-ads', methods=['POST', 'GET'])
@@ -945,9 +953,8 @@ def get_ads():
     if not check_user(token):
         return make_response(jsonify(message='请先登陆'), 400)
 
-    path = "static/img/ads"
-    if not os.path.isdir(path):
-        os.mkdir(path)
+    path = "static/img/ads/"
+    make_path(path)
 
     data = []
     id = -1
@@ -991,9 +998,24 @@ def add_ads():
 
             path = path + "/%s" % ad.filename
             ad.save(path)
-            query_db("INSERT INTO ads (url) VALUES (?)", (path, ))
-
     return make_response(jsonify(message='广告添加成功'), 200)
+
+
+@api.route('/api/delete-adds', methods=['POST', 'GET'])
+def delete_ads():
+    """
+    删除广告
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    file_path = get_request_args('file_path')
+    if os.path.exists(file_path):
+        os.remove(file_path)
+
+    return make_response(jsonify(message='删除成功'), 200)
 
 
 @api.route('/api/change-status', methods=['POST', 'GET'])
@@ -1011,6 +1033,50 @@ def change_status():
     query_db("UPDATE item SET status=? WHERE id=?", (status, item_id))
 
     return make_response(jsonify(message='商品状态修改成功'), 200)
+
+
+@api.route('/api/copy-item', methods=['POST', 'GET'])
+def copy_item():
+    """
+    复制商品
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    item_id = get_request_args('item_id')
+    copied = query_db("SELECT * FROM item WHERE id=?", (item_id, ), one=True)
+    if copied is None:
+        return make_path(jsonify(message='商品不存在'), 200)
+
+    items = query_db("SELECT * FROM item")
+    if len(items) == 0:
+        id = 0
+    else:
+        item = items[len(items) - 1]
+        id = int(item['id']) + 1
+
+    query_db("INSERT INTO item(id, name, tags, weight, product_name, status, bar) VALUES (?,?,?,?,?,?,?)",
+             (id, copied['name'], copied['tags'], copied['weight'],
+              copied['product_name'], copied['status'], copied['bar'])
+             )
+
+    item_types = query_db("SELECT * FROM item_price WHERE item=?", (item_id, ))
+    for item_type in item_types:
+        query_db("INSERT INTO item_price(item, price_type, price) VALUES (?,?,?)",
+                 (id, item_type['price_type'], item_type['price']))
+
+    # copy 商品主照片
+    MainPath = 'static/img/%s/' % item_id
+    CopyPath = 'static/img/%s/' % id
+    make_path(CopyPath)
+    copytree(MainPath, CopyPath)
+
+    return make_response(jsonify(message='复制成功', copy_id=id), 200)
+
+
+
 
 ############################################## 数据分析 ###########################################
 
