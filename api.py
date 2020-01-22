@@ -1000,7 +1000,6 @@ def get_ads_html():
     for file in files:
         if check_allow(file.name):
             data.append(path+file.name)
-    print(data)
     return make_response(jsonify(data=data), 200)
 
 
