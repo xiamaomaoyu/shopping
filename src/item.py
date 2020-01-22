@@ -21,7 +21,7 @@ def get_discription_img_list(id):
     img_list = []
     files = os.scandir(path)
     for file in files:
-        if file.name.endswith("jpg") or file.name.endswith("png"):
+        if file.name.endswith("jpg") or file.name.endswith("png") or file.name.endswith("jpeg"):
             img_list.append(file.name)
 
     return img_list
