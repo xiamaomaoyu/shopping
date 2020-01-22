@@ -69,6 +69,15 @@ CREATE TABLE IF NOT EXISTS "receiver_detail" (
     receiver_phone TEXT
 );
 
+CREATE TABLE IF NOT EXISTS "system_log" (
+    id INTEGER PRIMARY KEY autoincrement,
+    username  TEXT,
+    action TEXT,
+    detail TEXT,
+    datetime TEXT
+);
+
+
 INSERT INTO user(phone_number,verification_code, password, nick_name) VALUES ('450539776', '123456','123','HaoMengMeng');
 
 INSERT INTO item(name, tags, weight, product_name, bar, status) VALUES ('爱他美铂金一段', '奶,奶粉,母婴', '900g', '爱他美', '123', 'online');

@@ -58,3 +58,5 @@ unused.txt
 */__pycache__/
 *__pycache__/
 __pycache__/
+
+static/img/*
