@@ -285,5 +285,5 @@ def handle_user_leave(str, methods=['GET', 'POST']):
 
 
 if __name__ == '__main__':
-    socketio.run(app, port=80, host='0.0.0.0', debug=True)
+    socketio.run(app, port=80, host='0.0.0.0')
 
