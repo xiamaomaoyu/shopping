@@ -1,31 +1,33 @@
-from flask import jsonify, Blueprint, request, make_response
-import src.search as search
-import src.item as item
-import src.receiver_detail as ReceiverDetail
-import src.order as Order
-from src.sms_hdl import send_customer
-import src.cart_hdl as Cart
-from src.user import *
 import random
-from utils.request_handling import *
 import shutil
+from datetime import datetime
+
+from flask import jsonify, Blueprint, make_response
+
+import src.cart_hdl as Cart
+import src.item as item
+import src.order as Order
+import src.receiver_detail as ReceiverDetail
+import src.search as search
+from src.sms_hdl import send_customer
+from src.user import *
+from utils.request_handling import *
+
+api = Blueprint('api', __name__)
 
 
-api = Blueprint('api',__name__)
-
-
-@api.route('/api/search/all_items',methods=['POST', 'GET'])
+@api.route('/api/search/all_items', methods=['POST', 'GET'])
 def all_items():
     return jsonify(search.all_item())
 
 
-@api.route('/api/search/all_item_names',methods=['POST', 'GET'])
+@api.route('/api/search/all_item_names', methods=['POST', 'GET'])
 def all_item_name():
     return jsonify(search.all_item_name())
 
 
-@api.route('/api/search/keyword/',methods=['POST', 'GET'])
-@api.route('/api/search/keyword/<keyword>',methods=['POST', 'GET'])
+@api.route('/api/search/keyword/', methods=['POST', 'GET'])
+@api.route('/api/search/keyword/<keyword>', methods=['POST', 'GET'])
 def items_by_keyword(keyword=None):
     if keyword:
         return jsonify(search.items_by_keyword(keyword))
@@ -33,12 +35,12 @@ def items_by_keyword(keyword=None):
         return all_items()
 
 
-@api.route('/api/item/<id>',methods=['POST', 'GET'])
+@api.route('/api/item/<id>', methods=['POST', 'GET'])
 def item_by_id(id):
     return jsonify(item.get_item_by_id(id).json())
 
 
-@api.route('/api/login/send_verification_code/<phone_number>', methods=['POST','GET'])
+@api.route('/api/login/send_verification_code/<phone_number>', methods=['POST', 'GET'])
 def send_verification_code(phone_number):
     if phone_number[0] == '0':
         phone_number = phone_number[1:]
@@ -46,84 +48,85 @@ def send_verification_code(phone_number):
                     SELECT * FROM user WHERE phone_number="%s";
                 """ % (phone_number), ())
     if len(user) == 0:
-        add_user(phone_number,"123","NEWUSER")
+        add_user(phone_number, "123", "NEWUSER")
 
     new_verification_code = str(random.randint(100000, 999999))
     execute_db("""
         UPDATE user SET verification_code=? WHERE phone_number = ?;
-    """, (new_verification_code,phone_number))
+    """, (new_verification_code, phone_number))
     message = "welcome, your verification code is：" + new_verification_code
     send_customer(phone_number=phone_number, text=message)
     return make_response(jsonify(message='success'), 200)
 
 
-@api.route('/api/login/update_info', methods=['POST','GET'])
+@api.route('/api/login/update_info', methods=['POST', 'GET'])
 def login_update_info():
     phone_number = request.form.get("phone_number")
     nickname = request.form.get("nickname")
     password = request.form.get("password")
-    update_nickname(phone_number,nickname)
-    update_password(phone_number,password)
+    update_nickname(phone_number, nickname)
+    update_password(phone_number, password)
 
     return make_response(jsonify(message='success'), 200)
 
 
-@api.route('/api/cart/get_records/<phone_number>', methods=['POST','GET'])
+@api.route('/api/cart/get_records/<phone_number>', methods=['POST', 'GET'])
 def get_records(phone_number):
     return jsonify(Cart.get_records(phone_number))
 
 
-@api.route('/api/cart/add_record', methods=['POST','GET'])
+@api.route('/api/cart/add_record', methods=['POST', 'GET'])
 def add_record():
     phone_number = request.form.get("phone_number")
     item_id = request.form.get("item_id")
     item_price_type = request.form.get("item_price_type")
     quantity = request.form.get("quantity")
-    Cart.add_record(phone_number,item_id,item_price_type,quantity)
+    Cart.add_record(phone_number, item_id, item_price_type, quantity)
     return make_response(jsonify(message='success'), 200)
 
 
-@api.route('/api/cart/update_quantity',methods=['POST','GET'])
+@api.route('/api/cart/update_quantity', methods=['POST', 'GET'])
 def update_quantity():
     phone_number = request.form.get("phone_number")
     item_id = request.form.get("item_id")
     item_price_type = request.form.get("item_price_type")
     quantity = request.form.get("quantity")
-    Cart.updata_quantity(phone_number,item_id,item_price_type,quantity)
+    Cart.updata_quantity(phone_number, item_id, item_price_type, quantity)
     return make_response(jsonify(message='success'), 200)
 
 
-@api.route('/api/cart/delete_item/<item_id>/<phone_number>/<item_price_type>',methods=['POST','GET'])
+@api.route('/api/cart/delete_item/<item_id>/<phone_number>/<item_price_type>', methods=['POST', 'GET'])
 def delete_item(item_id, phone_number, item_price_type):
-    Cart.delete_item(phone_number,item_id,item_price_type)
+    Cart.delete_item(phone_number, item_id, item_price_type)
     return make_response(jsonify(message='success'), 200)
 
 
-@api.route('/api/receiver_detail/get_details/<phone_number>',methods=['POST','GET'])
+@api.route('/api/receiver_detail/get_details/<phone_number>', methods=['POST', 'GET'])
 def get_details(phone_number):
     details = ReceiverDetail.get_receiver_details(phone_number)
     return make_response(jsonify(message='success', details=details), 200)
 
 
-@api.route('/api/receiver_detail/delete_detail/<detail_id>',methods=['POST','GET'])
+@api.route('/api/receiver_detail/delete_detail/<detail_id>', methods=['POST', 'GET'])
 def delete_details(detail_id):
     ReceiverDetail.delete_detail(detail_id)
     return make_response(jsonify(message='success'), 200)
 
 
-@api.route('/api/receiver_detail/add_detail/<phone_number>/<receiver_name>/<receiver_address>/<receiver_phone>',methods=['POST','GET'])
+@api.route('/api/receiver_detail/add_detail/<phone_number>/<receiver_name>/<receiver_address>/<receiver_phone>',
+           methods=['POST', 'GET'])
 def add_detail(phone_number, receiver_name, receiver_address, receiver_phone):
-    ReceiverDetail.add_receiver_details(phone_number, receiver_name,receiver_address,receiver_phone)
+    ReceiverDetail.add_receiver_details(phone_number, receiver_name, receiver_address, receiver_phone)
     return make_response(jsonify(message='success'), 200)
 
 
-@api.route('/api/receiver_detail/set_detail/<phone_number>/<detail_id>',methods=['POST','GET'])
+@api.route('/api/receiver_detail/set_detail/<phone_number>/<detail_id>', methods=['POST', 'GET'])
 def set_detail(phone_number, detail_id):
     ReceiverDetail.set_as_receiver(phone_number, detail_id)
     return make_response(jsonify(message='success'), 200)
 
 
-@api.route('/api/save_order/<phone_number>',methods=['POST','GET'])
+@api.route('/api/save_order/<phone_number>', methods=['POST', 'GET'])
 def save_order(phone_number):
     """
     When we save the order we should calculate the overall price.
@@ -136,32 +139,32 @@ def save_order(phone_number):
     return make_response(jsonify(message='success', order_id=order_id), 200)
 
 
-@api.route('/api/get_orders',methods=['POST','GET'])
+@api.route('/api/get_orders', methods=['POST', 'GET'])
 def get_orders():
     return make_response(jsonify(message='success', orders=Order.get_orders()), 200)
 
 
-@api.route('/api/get_order/<phone_number>',methods=['POST','GET'])
+@api.route('/api/get_order/<phone_number>', methods=['POST', 'GET'])
 def get_order_by_phone(phone_number):
     return make_response(jsonify(message='success', orders=Order.get_order_by_phone(phone_number)), 200)
 
 
-@api.route('/api/get_order/<phone_number>/<status>',methods=['POST','GET'])
+@api.route('/api/get_order/<phone_number>/<status>', methods=['POST', 'GET'])
 def get_order_by_phone_status(phone_number, status):
     return make_response(jsonify(message='success', orders=Order.get_order_by_phone_status(phone_number, status)), 200)
 
 
-@api.route('/api/set_order_status/<order_id>/<status>',methods=['POST','GET'])
+@api.route('/api/set_order_status/<order_id>/<status>', methods=['POST', 'GET'])
 def set_order_status(order_id, status):
     return make_response(jsonify(message='success', orders=Order.set_order_status(order_id, status)), 200)
 
 
-@api.route('/api/get_order_comment/<order_id>',methods=['POST','GET'])
+@api.route('/api/get_order_comment/<order_id>', methods=['POST', 'GET'])
 def get_order_comment(order_id, status):
     return make_response(jsonify(message='success', orders=Order.get_order_comment(order_id)), 200)
 
 
-@api.route('/api/set_order_comment/<order_id>',methods=['POST','GET'])
+@api.route('/api/set_order_comment/<order_id>', methods=['POST', 'GET'])
 def set_order_comment(order_id):
     comment = request.args.get("comment")
     rating = request.args.get("rating")
@@ -169,12 +172,12 @@ def set_order_comment(order_id):
     return make_response(jsonify(message='success', orders=Order.set_order_comment(order_id, comment, rating)), 200)
 
 
-@api.route('/api/get_all_orders',methods=['POST','GET'])
+@api.route('/api/get_all_orders', methods=['POST', 'GET'])
 def get_all_orders():
     return make_response(jsonify(message='success', orders=Order.get_all_orders()), 200)
 
 
-@api.route('/api/add_pay_no/<pay_id>/<order_id>', methods=['POST','GET'])
+@api.route('/api/add_pay_no/<pay_id>/<order_id>', methods=['POST', 'GET'])
 def set_pay_no(pay_id, order_id):
     """
     store the payment order id into orders table according to order id
@@ -186,7 +189,7 @@ def set_pay_no(pay_id, order_id):
     return make_response(jsonify(message="success"), 200)
 
 
-@api.route('/api/get_overall_price/<order_id>', methods=['POST','GET'])
+@api.route('/api/get_overall_price/<order_id>', methods=['POST', 'GET'])
 def overall_price(order_id):
     """
     get the overall price of this order id
@@ -197,7 +200,7 @@ def overall_price(order_id):
     return make_response(jsonify(overall_price=op), 200)
 
 
-@api.route('/api/pay_status/<order_id>', methods=['POST','GET'])
+@api.route('/api/pay_status/<order_id>', methods=['POST', 'GET'])
 def pay_status(order_id):
     """
     check whether pay success,
@@ -207,7 +210,7 @@ def pay_status(order_id):
     :return:
     """
     Order.check_pay(order_id)
-    return make_response(jsonify(message='success'),200)
+    return make_response(jsonify(message='success'), 200)
 
 
 # @api.route('/api/delivery_history/<order_id>', methods=['POST','GET'])
@@ -263,16 +266,59 @@ def check_user(token):
     :param token: the token arg
     :return: the user's information from database
     """
-    return True
     user = query_db("SELECT * FROM staff WHERE token = ?", (token, ))
+
     if len(user) == 0:
         return False
     return True
 
 
+def check_path():
+    """
+    监测static这些基本的path是否存在
+    :return:
+    """
+    path = 'static'
+    if not os.path.isdir(path):
+        os.mkdir(path)
+    path += '/img'
+    if not os.path.isdir(path):
+        os.mkdir(path)
+
+
+def make_path(path):
+    if not os.path.isdir(path):
+        os.mkdir(path)
+
+
+def copytree(src, dst, symlinks=False, ignore=None):
+    """
+    复制文件
+    :param src: from
+    :param dst: to
+    :param symlinks:
+    :param ignore:
+    :return:
+    """
+    if not os.path.exists(dst):
+        os.makedirs(dst)
+    for item in os.listdir(src):
+        s = os.path.join(src, item)
+        d = os.path.join(dst, item)
+        if os.path.isdir(s):
+            copytree(s, d, symlinks, ignore)
+        else:
+            if not os.path.exists(d) or os.stat(s).st_mtime - os.stat(d).st_mtime > 1:
+                shutil.copy2(s, d)
+
+
 # 登陆
-@api.route('/api/staff/login', methods=['POST','GET'])
+@api.route('/api/staff/login', methods=['POST', 'GET'])
 def login():
+    """
+    admin登陆
+    :return:
+    """
     username = get_request_args('username')
     password = get_request_args('password')
 
@@ -288,7 +334,7 @@ def login():
     return make_response(jsonify(token=token), 200)
 
 
-@api.route('/api/order/all', methods=['POST','GET'])
+@api.route('/api/order/all', methods=['POST', 'GET'])
 def all_order():
     """
     得到所有的订单
@@ -306,7 +352,7 @@ def all_order():
     return make_response(jsonify(data=orders))
 
 
-@api.route('/api/sub-order/all', methods=['POST','GET'])
+@api.route('/api/sub-order/all', methods=['POST', 'GET'])
 def sub_order():
     """
     得到相信订单信息
@@ -325,7 +371,7 @@ def sub_order():
     return make_response(jsonify(data=res), 200)
 
 
-@api.route('/api/check-delivery/<id>', methods=['POST','GET'])
+@api.route('/api/check-delivery/<id>', methods=['POST', 'GET'])
 def check_delivery(id):
     """
     物流查询
@@ -343,7 +389,7 @@ def check_delivery(id):
     return make_response(jsonify(res=res), 200)
 
 
-@api.route('/api/feedback', methods=['POST','GET'])
+@api.route('/api/feedback', methods=['POST', 'GET'])
 def feedback():
     token = get_header(request)
     if not check_user(token):
@@ -378,6 +424,18 @@ def change():
     query_db("UPDATE orders SET receiver_name=?, receiver_phone=?, receiver_address=? WHERE order_id=?",
              (receiver, phone, address, order_id))
 
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,))
+    username = user["username"]
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    info = {"收人": receiver,
+            "收货人电话": phone,
+            "收货地址": address,
+            "订单号": order_id}
+
+    query_db("INSERT INTO system_log(username, action, detail, datetime) VALUES (?,?,?,?)",
+             (username, "修改用户的收货信息", str(info), time))
+
     return make_response(jsonify(message='修改成功'), 200)
 
 
@@ -392,7 +450,16 @@ def delete():
         return make_response(jsonify(message='请先登陆'), 400)
 
     order_id = get_request_args('order_id')
-    query_db("DELETE FROM orders WHERE order_id = ?", (order_id, ))
+    query_db("DELETE FROM orders WHERE order_id = ?", (order_id,))
+
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,))
+    username = user["username"]
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    info = {"订单号": order_id}
+
+    query_db("INSERT INTO system_log(username, action, detail, datetime) VALUES (?,?,?,?)",
+             (username, "删除订单", str(info), time))
 
     return make_response(jsonify(message='删除成功'), 200)
 
@@ -406,12 +473,17 @@ def all_item():
     token = get_header(request)
     if not check_user(token):
         return make_response(jsonify(message='请先登陆'), 400)
-
+    status = {
+        'online': '上线',
+        'offline': '下线'
+    }
     items = query_db("SELECT * FROM item")
+    for item in items:
+        item['status'] = status[item['status']]
     return make_response(jsonify(data=items), 200)
 
 
-@api.route('/api/item-type/all',  methods=['POST', 'GET'])
+@api.route('/api/item-type/all', methods=['POST', 'GET'])
 def sub_items():
     """
     每个商品对应的价格类型以及价格
@@ -425,7 +497,7 @@ def sub_items():
     return make_response(jsonify(data=item_type), 200)
 
 
-@api.route('/api/make-delivery/<order_id>', methods=['POST','GET'])
+@api.route('/api/make-delivery/<order_id>', methods=['POST', 'GET'])
 def send_delivery(order_id):
     """
     发货
@@ -445,7 +517,7 @@ def send_delivery(order_id):
     return make_response(jsonify(message='success', res=res), 200)
 
 
-@api.route('/api/delete-item', methods=['POST','GET'])
+@api.route('/api/delete-item', methods=['POST', 'GET'])
 def delete_item_api():
     """
     删除商品(item)
@@ -459,8 +531,8 @@ def delete_item_api():
     item = query_db("SELECT * FROM item WHERE id=?", (item_id,), one=True)
     item_name = item['name']
 
-    query_db("DELETE FROM item WHERE id = ?", (item_id, ))
-    query_db("DELETE FROM item_price WHERE item=?", (item_id, ))
+    query_db("DELETE FROM item WHERE id = ?", (item_id,))
+    query_db("DELETE FROM item_price WHERE item=?", (item_id,))
 
     # 同时删除照片
     file_path = "static/img/itemImg/%s" % item_name
@@ -471,10 +543,21 @@ def delete_item_api():
     if os.path.isdir(file_path):
         shutil.rmtree(file_path)
 
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,))
+    username = user["username"]
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    info = {"商品ID": item_id,
+            "商品名": item_name}
+
+    query_db("INSERT INTO system_log(username, action, detail, datetime) VALUES (?,?,?,?)",
+             (username, "删除商品", str(info), time))
+
+
     return make_response(jsonify(message='删除商品成功'), 200)
 
 
-@api.route('/api/delete-item-type', methods=['POST','GET'])
+@api.route('/api/delete-item-type', methods=['POST', 'GET'])
 def delete_item_type():
     """
     删除item type和price
@@ -488,6 +571,16 @@ def delete_item_type():
     item_type = get_request_args('item_type')
     query_db("DELETE FROM item_price WHERE item = ? AND price_type = ?",
              (item_id, item_type))
+
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,))
+    username = user["username"]
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    info = {"商品ID": item_id,
+            "商品规格名": item_type}
+
+    query_db("INSERT INTO system_log(username, action, detail, datetime) VALUES (?,?,?,?)",
+             (username, "删除商品规格", str(info), time))
 
     return make_response(jsonify(message='删除成功'))
 
@@ -509,6 +602,17 @@ def change_item_type():
     query_db("UPDATE item_price SET price = ? WHERE item=? AND price_type=?",
              (item_price, item_id, item_type))
 
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,))
+    username = user["username"]
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    info = {"商品ID": item_id,
+            "商品规格名": item_type,
+            "价格": item_price}
+
+    query_db("INSERT INTO system_log(username, action, detail, datetime) VALUES (?,?,?,?)",
+             (username, "修改商品规格", str(info), time))
+
     return make_response(jsonify(message='修改成功'), 200)
 
 
@@ -519,7 +623,35 @@ allows = {'png', 'jpg', 'jpeg'}
 # check whether allow type
 def check_allow(file_name):
     return '.' in file_name and \
-            file_name.rsplit('.', 1)[1].lower() in allows
+           file_name.rsplit('.', 1)[1].lower() in allows
+
+
+def get_files_nums(path):
+    id = 0
+    files = os.scandir(path)
+    for file in files:
+        if check_allow(file.name):
+            id += 1
+
+    return id
+
+
+def store_main_img(path, files):
+    id = get_files_nums(path)
+    for file in files:
+        if file and check_allow(file.filename):
+            filepath = path + "/main%s.jpg" % id
+            file.save(filepath)
+            id += 1
+
+
+def store_detail_img(path, files):
+    id = get_files_nums(path)
+    for file in files:
+        if file and check_allow(file.filename):
+            filepath = path + "/detail%s.jpg" % id
+            file.save(filepath)
+            id += 1
 
 
 @api.route('/api/add-item', methods=['POST', 'GET'])
@@ -536,6 +668,8 @@ def add_item():
     item_price = get_request_args('price')
     tags = get_request_args('tags')
     weight = get_request_args('weight')
+    status = get_request_args('status')
+    bar = get_request_args('bar')
     product_name = get_request_args('product_name')
 
     # one: 单罐包邮, three: 三罐包邮, six 六罐包邮
@@ -546,11 +680,14 @@ def add_item():
     detail_img = get_request_file('detail_img')
 
     items = query_db("SELECT * FROM item")
-    item = items[len(items) - 1]
-    id = int(item['id']) + 1
+    if len(items) == 0:
+        id = 0
+    else:
+        item = items[len(items) - 1]
+        id = int(item['id']) + 1
 
-    query_db("INSERT INTO item(id, name, tags, weight, product_name) VALUES (?, ?,?,?,?)",
-             (id, item_name, tags, weight, product_name))
+    query_db("INSERT INTO item(id, name, tags, weight, product_name, status, bar) VALUES (?,?,?,?,?,?,?)",
+             (id, item_name, tags, weight, product_name, status, bar))
 
     query_db("INSERT INTO item_price(item, price_type, price) VALUES (?,?,?)",
              (id, '单罐', item_price))
@@ -567,25 +704,85 @@ def add_item():
         query_db("INSERT INTO item_price(item, price_type, price) VALUES (?,?,?)",
                  (id, '六罐包邮', six))
 
-    for mg in main_img:
-        if mg and check_allow(mg.filename):
-            target = "static/img/itemImg/%s" % item_name
-            if not os.path.isdir(target):
-                os.mkdir(target)
+    # 检查路径
+    check_path()
+    # 储存主页图片
+    target = 'static/img/%s' % id
+    make_path(target)
+    target += '/MainImg'
+    make_path(target)
+    store_main_img(target, main_img)
 
-            filepath = target + "/main.jpg"
-            mg.save(filepath)
+    # 储存详情图片
+    target = 'static/img/%s' % id
+    make_path(target)
+    target += '/DetailImg'
+    make_path(target)
+    store_detail_img(target, detail_img)
 
-    for dg in detail_img:
-        if dg and check_allow(dg.filename):
-            target = "static/img/discriptions/%s" % item_name
-            if not os.path.isdir(target):
-                os.mkdir(target)
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,))
+    username = user["username"]
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
 
-            filepath = target + "/%s" % dg.filename
-            dg.save(filepath)
+    info = {"商品名": item_name,
+            "商品重量": weight,
+            "产品名": product_name}
+
+    query_db("INSERT INTO system_log(username, action, detail, datetime) VALUES (?,?,?,?)",
+             (username, "创建商品", str(info), time))
 
     return make_response(jsonify(message='上传成功'), 200)
+
+
+@api.route('/api/update-item', methods=['POST', 'GET'])
+def update_item():
+    """
+    更新商品信息
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    item_id = get_request_args('item_id')
+    item_name = get_request_args('name')
+    tags = get_request_args('tags')
+    weight = get_request_args('weight')
+    product_name = get_request_args('product_name')
+
+    main_img = get_request_file('mains', required=False)
+    detail_img = get_request_file('details', required=False)
+
+    query_db("UPDATE item SET name=?, tags=?, weight=?,product_name=? WHERE id=?",
+             (item_name, tags, weight, product_name, item_id))
+
+    check_path()
+    if main_img is not None:
+        target = 'static/img/%s' % item_id
+        make_path(target)
+        target += '/MainImg'
+        make_path(target)
+        store_main_img(target, main_img)
+
+    if detail_img is not None:
+        target = 'static/img/%s' % item_id
+        make_path(target)
+        target += '/DetailImg'
+        make_path(target)
+        store_detail_img(target, detail_img)
+
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,))
+    username = user["username"]
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    info = {"商品名": item_name,
+            "商品重量": weight,
+            "产品名": product_name}
+
+    query_db("INSERT INTO system_log(username, action, detail, datetime) VALUES (?,?,?,?)",
+             (username, "修改商品", str(info), time))
+
+    return make_response(jsonify(message='更新成功'), 200)
 
 
 @api.route('/api/get-main-img', methods=['POST', 'GET'])
@@ -599,14 +796,13 @@ def get_main_img():
         return make_response(jsonify(message='请先登陆'), 400)
 
     item_id = get_request_args('item_id')
-    items = query_db("SELECT * FROM item WHERE id=?", (item_id,), one=True)
 
-    path = "static/img/itemImg/" + items['name'] + '/'
+    path = "static/img/%s/MainImg/" % item_id
     img_list = []
     id = -1
     files = os.scandir(path)
     for file in files:
-        if file.name.endswith("jpg") or file.name.endswith("png") or file.name.endswith("jpeg"):
+        if check_allow(file.name):
             file_path = path + file.name
             data = {
                 'uid': str(id),
@@ -633,9 +829,8 @@ def get_detail_img():
         return make_response(jsonify(message='请先登陆'), 400)
 
     item_id = get_request_args('item_id')
-    items = query_db("SELECT * FROM item WHERE id=?", (item_id,), one=True)
 
-    path = "static/img/discriptions/" + items['name'] + '/'
+    path = "static/img/%s/DetailImg/" % item_id
     img_list = []
     id = -1
     files = os.scandir(path)
@@ -692,6 +887,7 @@ def delete_photo():
     return make_response(jsonify(message='删除成功'), 200)
 
 
+<<<<<<< HEAD
 @api.route('/api/update-item',  methods=['POST', 'GET'])
 def update_item():
     """
@@ -738,6 +934,8 @@ def update_item():
     return make_response(jsonify(message='更新成功'), 200)
 
 
+=======
+>>>>>>> refactor
 @api.route('/api/get-all-item-id', methods=['POST', 'GET'])
 def get_all_item_id():
     """
@@ -779,4 +977,247 @@ def add_item_type():
     query_db("INSERT INTO item_price(item, price_type, price) VALUES (?,?,?)",
              (item_id, item_type, item_price))
 
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,))
+    username = user["username"]
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    info = {"商品ID": item_id, "规格": item_type, "价格": item_price}
+
+    query_db("INSERT INTO system_log(username, action, detail, datetime) VALUES (?,?,?,?)",
+             (username, "添加商品价格类型", str(info), time))
+
     return make_response(jsonify(message='添加成功'), 200)
+
+
+@api.route('/api/add-admin', methods=['POST', 'GET'])
+def add_admin():
+    """
+    添加新的admin账户
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    username = get_request_args('username')
+    password = get_request_args('password')
+    phone = get_request_args('phone')
+
+    user = query_db("SELECT * FROM staff WHERE username = ?", (username,), one=True)
+    if user is not None:
+        return make_response(jsonify(message='改用户名已被注册'), 404)
+
+    query_db("INSERT INTO staff(username, password, phone) VALUES (?, ?, ?)",
+             (username, password, phone))
+
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,))
+    username = user["username"]
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    info = {"账户名": username}
+
+    query_db("INSERT INTO system_log(username, action, detail, datetime) VALUES (?,?,?,?)",
+             (username, "添加管理员账户", str(info), time))
+
+    return make_response(jsonify(message='添加成功'), 200)
+
+
+@api.route('/api/confirm-password', methods=['POST', 'GET'])
+def confirm_password():
+    """
+    帮助管理员检测密码是否正确
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    password = get_request_args('password')
+    user = query_db("SELECT * FROM staff WHERE password=? AND token=?",
+                    (password, token), one=True)
+
+    if user is None:
+        return make_response(jsonify(message='密码不正确'), 400)
+    return make_response(jsonify(message='密码正确'), 200)
+
+
+@api.route('/api/change-password', methods=['POST', 'GET'])
+def change_password():
+    """
+    帮助管理员修改密码
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    password = get_request_args('password')
+    query_db("UPDATE staff SET password=? WHERE token=?", (password, token))
+
+    return make_response(jsonify(message='修改成功'), 200)
+
+
+@api.route('/api/forget-password', methods=['POST', 'GET'])
+def forget_password():
+    """
+    管理员忘记密码的时候
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    phone = get_request_args('phone')
+    user = query_db("SELECT * FROM staff WHERE phone=?", (phone,), one=True)
+    if user is None:
+        return make_response(jsonify(message='改用户不存在'), 400)
+
+    send_customer(phone, '你的原始密码：%s' % user['password'])
+    return make_response(jsonify(message='短信发送成功, 请注意查收'), 200)
+
+
+######### 今天写的 #####
+
+
+@api.route('/api/get-ads', methods=['POST', 'GET'])
+def get_ads():
+    """
+    获取主页广告信息
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    path = "static/img/ads"
+    if not os.path.isdir(path):
+        os.mkdir(path)
+
+    data = []
+    id = -1
+    files = os.scandir(path)
+    for file in files:
+        if check_allow(file.name):
+            file_path = path + file.name
+            d = {
+                'uid': id,
+                'url': file_path,
+                'thumbUrl': file_path,
+                'status': 'done',
+                'name': file.name,
+                'path': file_path
+            }
+            data.append(d)
+            id -= 1
+
+    return make_response(jsonify(data=data), 200)
+
+
+@api.route('/api/add-ads', methods=['POST', 'GET'])
+def add_ads():
+    """
+    添加主页广告
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    ads = get_request_file('ads')
+
+    for ad in ads:
+        if ad and check_allow(ad.filename):
+            # 先监测基础路径是否存在
+            check_path()
+            path = 'static/img/ads'
+            if not os.path.isdir(path):
+                os.mkdir(path)
+
+            path = path + "/%s" % ad.filename
+            ad.save(path)
+            query_db("INSERT INTO ads (url) VALUES (?)", (path,))
+
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,))
+    username = user["username"]
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    info = {}
+
+    query_db("INSERT INTO system_log(username, action, detail, datetime) VALUES (?,?,?,?,?,?,?)",
+             (username, "添加主页广告", str(info), time))
+
+    return make_response(jsonify(message='广告添加成功'), 200)
+
+
+@api.route('/api/change-status', methods=['POST', 'GET'])
+def change_status():
+    """
+    改变商品状态
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    item_id = get_request_args('item_id')
+    status = get_request_args('status')
+    query_db("UPDATE item SET status=? WHERE id=?", (status, item_id))
+
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,))
+    username = user["username"]
+    time = datetime.datetime.now().strftime('%Y-%m-%d %H:%M:%S')
+
+    info = {"商品ID": item_id, "状态": status}
+
+    query_db("INSERT INTO system_log(username, action, detail, datetime) VALUES (?,?,?,?,?,?,?)",
+             (username, "更改商品状态", str(info), time))
+
+    return make_response(jsonify(message='商品状态修改成功'), 200)
+
+
+############################################## 数据分析 ###########################################
+
+
+def math_date(date):
+    """
+    math the date with string
+    :param date:
+    :return:
+    """
+    return datetime.strptime(date, '%Y-%m-%d %H:%M').month
+
+
+@api.route('/api/get-order-number', methods=['POST', 'GET'])
+def get_order_number():
+    """
+    获取订单数量根据12个月份来分析
+    只分析交易完成或者待评价的订单
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    data = [0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0]
+    orders = query_db("SELECT * FROM orders WHERE status='uncomment' OR status='closed'")
+
+    for order in orders:
+        month = math_date(order['order_time'])
+        data[month - 1] += 1
+
+    return make_response(jsonify(data=data), 200)
+
+
+@api.route('/api/get-log', methods=['POST', 'GET'])
+def get_log():
+    """
+    获取log信息
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    log = query_db("SELECT * FROM system_log")
+
+    return make_response(jsonify(message='获取log成功'), 200)
