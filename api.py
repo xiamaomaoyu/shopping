@@ -701,7 +701,7 @@ def update_item():
     token = get_header(request)
     if not check_user(token):
         return make_response(jsonify(message='请先登陆'), 400)
-
+    print("Passed")
     item_id = get_request_args('item_id')
     item_name = get_request_args('name')
     tags = get_request_args('tags')
