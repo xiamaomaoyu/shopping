@@ -10,7 +10,6 @@ import random
 from utils.request_handling import *
 import shutil
 from datetime import datetime
-from PIL import Image
 
 
 api = Blueprint('api',__name__)
@@ -862,6 +861,7 @@ def delete_photo():
     return make_response(jsonify(message='删除成功'), 200)
 
 
+
 @api.route('/api/get-all-item-id', methods=['POST', 'GET'])
 def get_all_item_id():
     """
@@ -1002,7 +1002,6 @@ def get_ads_html():
     for file in files:
         if check_allow(file.name):
             data.append(path+file.name)
-
     return make_response(jsonify(data=data), 200)
 
 

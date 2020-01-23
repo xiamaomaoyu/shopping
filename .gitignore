@@ -4,10 +4,10 @@
 *.md  
 # Files for the Dalvik VM
 *.dex
-  
+.DS_Store  
 # Java class files
 *.class
-  
+.sqlite  
 # Generated files
 */bin/
 */gen/

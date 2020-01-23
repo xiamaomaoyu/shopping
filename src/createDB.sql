@@ -22,6 +22,12 @@ CREATE TABLE IF NOT EXISTS "user" (
     receiver_detail INTEGER references receiver_detail(id)
 );
 
+CREATE TABLE IF NOT EXISTS "admin" (
+    admin_name  TEXT,
+    password TEXT
+);
+
+
 
 CREATE TABLE IF NOT EXISTS staff (
     username TEXT PRIMARY KEY ,

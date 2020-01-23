@@ -9,18 +9,19 @@ class Item():
         self.tags = form["tags"]
         self.price_list = get_price_list(self.id)
         self.display_price = min_price(self.price_list)
-        self.discription_list = get_discription_img_list(self.name)
+        self.discription_list = get_discription_img_list(self.id)
 
     def json(self):
         return self.__dict__
 
 
-def get_discription_img_list(name):
-    path = os.path.join( os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"static/img/discriptions/",name)
+def get_discription_img_list(id):
+    path = os.path.join( os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"static/img/")
+    path += str(id) + "/DetailImg/"
     img_list = []
     files = os.scandir(path)
     for file in files:
-        if file.name.endswith("jpg") or file.name.endswith("png"):
+        if file.name.endswith("jpg") or file.name.endswith("png") or file.name.endswith("jpeg"):
             img_list.append(file.name)
 
     return img_list

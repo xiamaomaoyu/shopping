@@ -32,7 +32,7 @@
             <li class="fiveTabs" id="ltab2"><a data-toggle="tab" href="#tab2">待发货</a></li>
             <li class="fiveTabs" id="ltab3"><a data-toggle="tab" href="#tab3">待收货</a></li>
             <li class="fiveTabs" id="ltab4"><a data-toggle="tab" href="#tab4">待评价</a></li>
-            <li class="fiveTabs" id="ltab5"><a data-toggle="tab" href="#tab5">历史订单</a></li>
+            <li class="fiveTabs" id="ltab5"><a data-toggle="tab" href="#tab5">已完成</a></li>
         </ul>
 
         <div class="tab-content">
@@ -147,7 +147,7 @@
                     overallprice += orders.price;
                 }
                 html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
-                    "                                    <p>共3件商品 合计：$" + overallprice;
+                    "                                    <p>合计：$" + overallprice;
                 html += "</p>\n" +
                     "                                    <button class=\"borderBotton\" onclick=goPay(" + order_id + ")" + ">付款";
                 html += "</button>\n" +
@@ -200,7 +200,7 @@
                 }
 
                 html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
-                    "                                    <p>共3件商品 合计：$" + overallprice;
+                    "                                    <p>合计：$" + overallprice;
                 html += "</p>\n" +
                     "                                    <button class=\"borderBotton\" onclick=alertUser(" + order_id + ")" + ">提醒发货";
                 html += "</button>\n" +
@@ -255,7 +255,7 @@
                 }
 
                 html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
-                    "                                    <p>共3件商品 合计：$" + overallprice;
+                    "                                    <p>合计：$" + overallprice;
                 html += "</p>\n" +
                     "                                    <button class=\"borderBotton\" onclick=tracking(" + order_id + ")" + ">查看物流";
                 html += "                                <button class=\"borderBotton\" onclick=getItems(" + order_id + ")" + ">确认收货";
@@ -310,7 +310,7 @@
                 }
 
                 html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
-                    "                                    <p>共3件商品 合计：$" + overallprice;
+                    "                                    <p>合计：$" + overallprice;
                 html += "</p>\n" +
                     "                                    <button class=\"borderBotton\" onclick=makeComment(" + order_id + ")" + ">去评论";
                 html += "</button>\n" +
@@ -364,7 +364,10 @@
                 }
 
                 html += "<div class=\"row orderTitleWrap\" style=\" text-align: right;\">\n" +
-                    "                                    <button class=\"borderBotton\" onclick=tracking(" + order_id + ")" + ">物流信息";
+                    "                                    <p>合计：$" + overallprice;
+                html += "</p>\n" +
+                    "<button class=\"borderBotton\" onclick=tracking(" + order_id + ")" + ">物流信息</div>";
+                html += "<div  class=\"row \" style=\"margin: -5% 5% 1% 5%; color: grey; text-align: left; \">\n" +orders.order_time+"</div>";
 
                 $("#history").append(html);
             }
