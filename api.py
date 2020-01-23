@@ -318,11 +318,13 @@ def add_log(token, message, info):
     :param info: 具体信息
     :return:
     """
+    # 应该先检查是否登录，不然会出现internal server error
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
     user = query_db("SELECT * FROM staff WHERE token = ?", (token,), one=True)
     username = user["username"]
     time = datetime.now().strftime('%Y-%m-%d %H:%M:%S')
-
-    print(str(info))
     query_db("INSERT INTO system_log(username, action, detail, datetime) VALUES (?,?,?,?)",
              (username, str(message), str(info), time))
 
@@ -726,13 +728,14 @@ def update_item():
     item_name = get_request_args('name')
     tags = get_request_args('tags')
     weight = get_request_args('weight')
+    bar = get_request_args('bar')
     product_name = get_request_args('product_name')
 
     main_img = get_request_file('mains', required=False)
     detail_img = get_request_file('details', required=False)
 
-    query_db("UPDATE item SET name=?, tags=?, weight=?,product_name=? WHERE id=?",
-             (item_name, tags, weight, product_name, item_id))
+    query_db("UPDATE item SET name=?, tags=?, weight=?,product_name=?, bar=? WHERE id=?",
+             (item_name, tags, weight, product_name, bar, item_id))
 
     check_path()
     if main_img is not None:
