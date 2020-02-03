@@ -253,35 +253,37 @@ def check_time():
 def comment(order_id):
     return render_template("comment.html",order_id=order_id)
 
+
 @app.errorhandler(401)
 def unauthorised_error(error):
     return redirect(url_for("login"))
 
+
 @socketio.on('user post')
 def handle_user_post(msg, methods=['GET', 'POST']):
-    if check_time() is False and session.get('online') is None:
-        handle_staff_post({
-            'user_message': '客服不在线请稍后联系（自动回复）',
-            'user_image': '',
-            'user_id': msg['user_id'],
-            'auto': 1
-        })
-        return
     socketio.emit('staff', msg)
 
 
 @socketio.on('staff post')
 def handle_staff_post(msg,  methods=['GET', 'POST']):
     # {'user_message': 'hello', 'user_image': '', 'user_id': '123'}
-    if msg['auto'] != 1:
-        session['online'] = True
-    user_id = msg["user_id"]
+    user_id = msg["to"]
+    # 发送给staff
+    handle_user_post(msg)
     socketio.emit(user_id, msg)
 
 
+# 当新的用户加入到这个chat里面的时候
+@socketio.on('user connect')
+def handle_connect(msg, methods=['POST', 'GET']):
+    if msg['to'] == '':
+        msg['to'] = 'staff'
+    socketio.emit('new user', msg)
+
+
 @socketio.on('leave')
-def handle_user_leave(str, methods=['GET', 'POST']):
-    socketio.emit('leave', str["user_id"])
+def handle_user_leave(msg, methods=['GET', 'POST']):
+    socketio.emit('leave user', msg)
 
 
 if __name__ == '__main__':

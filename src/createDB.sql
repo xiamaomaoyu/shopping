@@ -27,8 +27,6 @@ CREATE TABLE IF NOT EXISTS "admin" (
     password TEXT
 );
 
-
-
 CREATE TABLE IF NOT EXISTS staff (
     username TEXT PRIMARY KEY ,
     password TEXT,
@@ -83,6 +81,15 @@ CREATE TABLE IF NOT EXISTS "system_log" (
     datetime TEXT
 );
 
+CREATE TABLE IF NOT EXISTS SMS_log (
+    id INTEGER PRIMARY KEY autoincrement,
+    operator TEXT,
+    phone TEXT,
+    info TEXT,
+    datetime TEXT,
+    status TEXT,
+    msg_id TEXT
+);
 
 INSERT INTO user(phone_number,verification_code, password, nick_name) VALUES ('450539776', '123456','123','HaoMengMeng');
 

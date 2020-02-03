@@ -625,10 +625,8 @@ def get_files_nums(path):
 def store_main_img(path, files):
     for file in files:
         if file and check_allow(file.filename):
-            im = Image.open(file)
-            im = im.resize((800, 800))
             filepath = path + "/main.jpg"
-            im.save(filepath)
+            file.save(filepath)
         break
 
 
@@ -728,13 +726,14 @@ def update_item():
     tags = get_request_args('tags')
     weight = get_request_args('weight')
     bar = get_request_args('bar')
+    status=get_request_args('status')
     product_name = get_request_args('product_name')
 
     main_img = get_request_file('mains', required=False)
     detail_img = get_request_file('details', required=False)
 
-    query_db("UPDATE item SET name=?, tags=?, weight=?,product_name=?, bar=? WHERE id=?",
-             (item_name, tags, weight, product_name, bar, item_id))
+    query_db("UPDATE item SET name=?, tags=?, weight=?,product_name=?, bar=?, status=? WHERE id=?",
+             (item_name, tags, weight, product_name, bar,status, item_id))
 
     check_path()
     if main_img is not None:
@@ -1162,11 +1161,108 @@ def get_log():
         return make_response(jsonify(message='请先登陆'), 400)
 
     log = query_db("SELECT * FROM system_log")
-
+    log.reverse()
     return make_response(jsonify(message='获取log成功', data=log), 200)
 
 
+@api.route('/api/get-all-product-name', methods=['POST', 'GET'])
+def get_all_product_name():
+    """
+    获取所有的品名
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    data = []
+    pns = query_db("SELECT DISTINCT product_name FROM item")
+    for ps in pns:
+        data.append(ps['product_name'])
+
+    return make_response(jsonify(data=data), 200)
+
+
+@api.route('/api/get-all-staff', methods=['POST', 'GET'])
+def get_all_staff():
+    """
+    获取所有的staff的信息
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    staff = query_db("SELECT username, phone FROM staff")
+    return make_response(jsonify(data=staff), 200)
+
+
+@api.route('/api/sms-send-sms', methods=['POST', 'GET'])
+def send_sms():
+    """
+    发送短信给用户
+    phone number 是处理过的
+    info是utf-08
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    phone = get_request_args('phone')
+    info = get_request_args('info')
+    # print(phone, info)
+    res = send_customer(phone, info)
+    res = res['messages'][0]
+
+    user = query_db("SELECT * FROM staff WHERE token=?", (token,), one=True)
+
+    if res['status'] == '0':
+        query_db("INSERT INTO SMS_log(operator, phone, info, datetime, status, msg_id) VALUES (?,?,?,?,?,?)",
+             (user['username'], phone, info, datetime.now().strftime('%Y-%m-%d %H:%M:%S'), '成功', res['message-id']))
+        return make_response(jsonify(message='发送成功'), 200)
+    else:
+        query_db("INSERT INTO SMS_log(operator, phone, info, datetime, status, msg_id) VALUES (?,?,?,?,?,?)",
+                 (user['username'], phone, info, datetime.now().strftime('%Y-%m-%d %H:%M:%S'), '失败', ''))
+
+    return make_response(jsonify(message='发送失败'), 400)
+
+
+@api.route('/api/sms-log', methods=['POST', 'GET'])
+def sms_log():
+    """
+    获取短信发送记录
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    data = query_db("SELECT * FROM SMS_log")
+    return make_response(jsonify(data=data), 200)
+
+
+@api.route('/api/get-ser', methods=['POST', 'GET'])
+def get_user():
+    """
+    获取staff的详细信息
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    user = query_db("SELECT * FROM staff WHERE token=?",(token,), one=True)
+    data = {
+        'id': user['username'],
+        'name': user['username']
+    }
+
+    return make_response(jsonify(user=data), 200)
+
+
 ############################################## 数据分析 ###########################################
+
 
 def math_date(date):
     """

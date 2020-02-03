@@ -49,16 +49,36 @@
 
     <script>
 
-        var image_base64 = "";
         var msg_num = 0;
         var id = "{{ current_user.phone_number }}";
         var socket = io.connect('http://' + document.domain + ':' + location.port);
         var input = $("#user_input");
+        var from = '';
+
+        socket.on('connect_error', function(error){
+            socket.close();
+        });
+
+        socket.on('reconnect_error', function(error){
+            socket.close();
+        });
+
+        socket.emit('user connect', {
+            to: '',
+            message: {
+                type: "text",
+                text: '',
+                date: + new Date(),
+                className: "message"
+            },
+            from: id
+        });
+
+
         socket.on(id, function( msg ) {
-            var info = unescape(msg.user_message);
-            var img_64 = unescape(msg.user_image);
-            var dt = new Date();
-            var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
+            var info = msg.message.text;
+            var time = msg.message.date;
+            from = msg.from;
             var user_chat = $("#chat_info");
 
             notifyMe(info);
@@ -125,11 +145,16 @@
             var dt = new Date();
             var time = dt.getHours() + ":" + dt.getMinutes() + ":" + dt.getSeconds();
 
-
             socket.emit('user post', {
-               user_message: escape(message),
-               user_image: escape(image_base64),
-               user_id: id
+                to: from,
+                message: {
+                    type: "text",
+                    text: message,
+                    date: + new Date(),
+                    className: "message"
+                },
+                from: id,
+                staff: from
             });
 
             if (msg_num === 0) {
@@ -203,7 +228,7 @@
         */
         $(window).unload(function(){
             socket.emit('leave', {
-               user_id: id
+               id: id
             });
         });
 
