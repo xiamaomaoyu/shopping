@@ -651,7 +651,7 @@ def add_item():
     item_price = get_request_args('price')
     tags = get_request_args('tags')
     weight = get_request_args('weight')
-    status = get_request_args('status')
+    item_status = get_request_args('status')
     bar = get_request_args('bar')
     product_name = get_request_args('product_name')
 
@@ -669,8 +669,12 @@ def add_item():
         item = items[len(items) - 1]
         id = int(item['id']) + 1
 
+    # handle weight (for replace multiple g)
+    weight = str(weight).replace('g', '')
+    weight = weight + 'g'
+
     query_db("INSERT INTO item(id, name, tags, weight, product_name, status, bar) VALUES (?,?,?,?,?,?,?)",
-             (id, item_name, tags, weight, product_name, status, bar))
+             (id, item_name, tags, weight, product_name, item_status, bar))
 
     query_db("INSERT INTO item_price(item, price_type, price) VALUES (?,?,?)",
              (id, '单罐', item_price))
@@ -726,14 +730,18 @@ def update_item():
     tags = get_request_args('tags')
     weight = get_request_args('weight')
     bar = get_request_args('bar')
-    status=get_request_args('status')
+    item_status = get_request_args('status')
     product_name = get_request_args('product_name')
 
     main_img = get_request_file('mains', required=False)
     detail_img = get_request_file('details', required=False)
 
+    # handle weight (for replace multiple g)
+    weight = str(weight).replace('g', '')
+    weight = weight + 'g'
+
     query_db("UPDATE item SET name=?, tags=?, weight=?,product_name=?, bar=?, status=? WHERE id=?",
-             (item_name, tags, weight, product_name, bar,status, item_id))
+             (item_name, tags, weight, product_name, bar,item_status, item_id))
 
     check_path()
     if main_img is not None:
