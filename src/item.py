@@ -28,7 +28,7 @@ def get_discription_img_list(id):
         if file.name.endswith("jpg") or file.name.endswith("png") or file.name.endswith("jpeg"):
             img_list.append(file.name)
 
-    return img_list
+    return img_list.sort()
 
 
 def min_price(price_list):

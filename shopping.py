@@ -38,9 +38,11 @@ def load_user(id):
         return redirect(url_for('login'))
     return get_user(id)
 
+
 @app.route('/update_password', methods=["POST", "GET"])
 def updatePassword():
     return render_template("updatePassword.html")
+
 
 @app.route('/login', methods=["POST", "GET"])
 def login():
@@ -87,6 +89,7 @@ def login():
 @app.route('/staff/', methods=["POST", "GET"])
 def staff():
     return render_template('staffChat.html')
+
 
 @app.route('/admin-login', methods=["POST", "GET"])
 def admin_login():
