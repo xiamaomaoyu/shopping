@@ -332,7 +332,7 @@ def add_log(token, message, info):
 @api.route('/api/staff/login', methods=['POST','GET'])
 def login():
     """
-    admin登陆
+    admin登陆, 添加登陆的type
     :return:
     """
     username = get_request_args('username')
@@ -347,7 +347,7 @@ def login():
     token = get_token()
     query_db("UPDATE staff SET token=? WHERE username=? AND password=?",
              (token, username, password))
-    return make_response(jsonify(token=token), 200)
+    return make_response(jsonify(token=token, auth=user['type']), 200)
 
 
 @api.route('/api/order/all', methods=['POST','GET'])
@@ -623,6 +623,12 @@ def get_files_nums(path):
 
 
 def store_main_img(path, files):
+    """
+    store the main image
+    :param path:
+    :param files:
+    :return:
+    """
     for file in files:
         if file and check_allow(file.filename):
             filepath = path + "/main.jpg"
@@ -630,7 +636,27 @@ def store_main_img(path, files):
         break
 
 
+def store_zero_img(path, files):
+    """
+    store the zero image
+    :param path:
+    :param files:
+    :return:
+    """
+    for file in files:
+        if file and check_allow(file.filename):
+            filepath = path + "/zero.jpg"
+            file.save(filepath)
+        break
+
+
 def store_detail_img(path, files):
+    """
+    store the detail image
+    :param path:
+    :param files:
+    :return:
+    """
     for file in files:
         if file and check_allow(file.filename):
             filepath = path + "/%s" % file.filename
@@ -661,6 +687,7 @@ def add_item():
     six = get_request_args('six', required=False)
     main_img = get_request_file('main_img')
     detail_img = get_request_file('detail_img')
+    zero_img = get_request_file('zero_img')
 
     items = query_db("SELECT * FROM item")
     if len(items) == 0:
@@ -707,6 +734,13 @@ def add_item():
     make_path(target)
     store_detail_img(target, detail_img)
 
+    # store zero img
+    target = 'static/img/%s' % id
+    make_path(target)
+    target += '/ZeroImg'
+    make_path(target)
+    store_zero_img(target, zero_img)
+
     info = {"商品名": item_name,
             "商品重量": weight,
             "产品名": product_name}
@@ -735,13 +769,14 @@ def update_item():
 
     main_img = get_request_file('mains', required=False)
     detail_img = get_request_file('details', required=False)
+    zero_img = get_request_file('zero_img', required=False)
 
     # handle weight (for replace multiple g)
     weight = str(weight).replace('g', '')
     weight = weight + 'g'
 
     query_db("UPDATE item SET name=?, tags=?, weight=?,product_name=?, bar=?, status=? WHERE id=?",
-             (item_name, tags, weight, product_name, bar,item_status, item_id))
+             (item_name, tags, weight, product_name, bar, item_status, item_id))
 
     check_path()
     if main_img is not None:
@@ -757,6 +792,13 @@ def update_item():
         target += '/DetailImg'
         make_path(target)
         store_detail_img(target, detail_img)
+
+    if zero_img is not None:
+        target = 'static/img/%s' % id
+        make_path(target)
+        target += '/ZeroImg'
+        make_path(target)
+        store_zero_img(target, zero_img)
 
     info = {"商品名": item_name,
             "商品重量": weight,
@@ -832,6 +874,39 @@ def get_detail_img():
     return make_response(jsonify(img=img_list), 200)
 
 
+@api.route('/api/get-zero-img', methods=['POST', 'GET'])
+def get_zero_img():
+    """
+    获取zero photo
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    item_id = get_request_args('item_id')
+
+    path = "static/img/%s/ZeroImg/" % item_id
+    img_list = []
+    id = -1
+    files = os.scandir(path)
+    for file in files:
+        if file.name.endswith("jpg") or file.name.endswith("png") or file.name.endswith("jpeg"):
+            file_path = path + file.name
+            data = {
+                'uid': id,
+                'url': file_path,
+                'thumbUrl': file_path,
+                'status': 'done',
+                'name': file.name,
+                'path': file_path
+            }
+            img_list.append(data)
+            id -= 1
+
+    return make_response(jsonify(img=img_list), 200)
+
+
 @api.route('/api/get-detail-by-id', methods=['POST', 'GET'])
 def get_main_details():
     """
@@ -866,7 +941,6 @@ def delete_photo():
         os.remove(file_path)
 
     return make_response(jsonify(message='删除成功'), 200)
-
 
 
 @api.route('/api/get-all-item-id', methods=['POST', 'GET'])
@@ -929,13 +1003,19 @@ def add_admin():
     username = get_request_args('username')
     password = get_request_args('password')
     phone = get_request_args('phone')
+    staff_type = get_request_args('types')
+
+    if staff_type == "staff":
+        types = 1
+    else:
+        types = 2
 
     user = query_db("SELECT * FROM staff WHERE username = ?", (username, ), one=True)
     if user is not None:
         return make_response(jsonify(message='改用户名已被注册'), 404)
 
-    query_db("INSERT INTO staff(username, password, phone) VALUES (?, ?, ?)",
-             (username, password, phone))
+    query_db("INSERT INTO staff(username, password, type,  phone) VALUES (?, ?, ?, ?)",
+             (username, password, types, phone))
 
     info = {"账户名": username}
     add_log(token, "添加管理员账户", info)
@@ -1300,4 +1380,90 @@ def get_order_number():
         data[month-1] += 1
 
     return make_response(jsonify(data=data), 200)
+
+
+@api.route('/api/staff-add-cart', methods=['POST', 'GET'])
+def staff_add_cart():
+    """
+    管理员添加购物车
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,), one=True)
+    # user["phone"]
+    item_id = get_request_args('item_id')
+    nums = get_request_args('num')
+
+    query_db("insert into cart_records(phone_number, item, item_price_type, quantity) values (?,?,?,?)",
+             (user["phone"], item_id, "单罐", nums))
+
+    return make_response(jsonify(message="添加成功"), 200)
+
+
+@api.route('/api/staff-get-cart', methods=['POST', 'GET'])
+def staff_get_cart():
+    """
+    获取订单信息
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,), one=True)
+
+    data = query_db("select * from cart_records where phone_number = ?", (user["phone"], ))
+
+    status = {
+        'online': '上线',
+        'offline': '下线'
+    }
+
+    for d in data:
+        item = query_db("select * from item where id = ?", (d["item"], ))
+        d["name"] = item[0]["name"]
+        d["status"] = status[item[0]["status"]]
+        d["id"] = d["item"]
+
+    return make_response(jsonify(data=data), 200)
+
+
+@api.route('/api/staff-delete-cart', methods=['POST', 'GET'])
+def staff_delete_cart():
+    """
+    删除购物车
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,), one=True)
+    item_id = get_request_args('item_id')
+
+    query_db("delete from cart_records where phone_number = ? and item = ?", (user["phone"], item_id))
+
+    return make_response(jsonify(message='success'), 200)
+
+
+@api.route('/api/staff-edit-cart', methods=['POST', 'GET'])
+def staff_edit_cart():
+    """
+    删除购物车
+    :return:
+    """
+    token = get_header(request)
+    if not check_user(token):
+        return make_response(jsonify(message='请先登陆'), 400)
+
+    user = query_db("SELECT * FROM staff WHERE token = ?", (token,), one=True)
+    item_id = get_request_args('item_id')
+    num = get_request_args('num')
+
+    query_db("update cart_records set quantity = ? where phone_number = ? and item = ?", (num, user["phone"], item_id))
+
+    return make_response(jsonify(message='success'), 200)
 

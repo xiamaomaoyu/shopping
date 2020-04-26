@@ -16,15 +16,15 @@ class Item():
 
 
 def get_discription_img_list(id):
-    path = os.path.join( os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"static/img/")
+    path = os.path.join(os.path.dirname(os.path.dirname(os.path.abspath(__file__))),"static/img/")
     path += str(id) + "/DetailImg/"
     img_list = []
     files = os.scandir(path)
     for file in files:
         if file.name.endswith("jpg") or file.name.endswith("png") or file.name.endswith("jpeg"):
             img_list.append(file.name)
-
-    return img_list.sort()
+    img_list.sort()
+    return img_list
 
 
 def min_price(price_list):

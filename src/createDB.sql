@@ -31,14 +31,15 @@ CREATE TABLE IF NOT EXISTS staff (
     username TEXT PRIMARY KEY ,
     password TEXT,
     phone TEXT,
+    type integer,
     token TEXT
 );
 
 
-INSERT INTO staff(username, password, phone, token) VALUES ('admin', 'admin', '0449969879', '');
+INSERT INTO staff(username, password, phone,type, token) VALUES ('admin', 'admin', '0449969879', 1, '');
 
 CREATE TABLE IF NOT EXISTS "cart_records" (
-    phone_number  TEXT references user(phone_number),
+    phone_number  TEXT ,
     item  integer REFERENCES item(id),
     item_price_type TEXT,
     quantity integer
