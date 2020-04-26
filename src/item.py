@@ -7,6 +7,10 @@ class Item():
         self.id = form["id"]
         self.name = form["name"]
         self.tags = form["tags"]
+        self.weight = form["weight"]
+        self.product_name = form["product_name"]
+        self.bar = form["bar"]
+        self.status = form["status"]
         self.price_list = get_price_list(self.id)
         self.display_price = min_price(self.price_list)
         self.discription_list = get_discription_img_list(self.id)
